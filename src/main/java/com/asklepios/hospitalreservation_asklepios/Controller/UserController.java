@@ -5,10 +5,7 @@ import com.asklepios.hospitalreservation_asklepios.Service.IF_UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -60,10 +57,18 @@ public class UserController {
         return "findPw";
     }
     @PostMapping("/findPw")
-    public String findPw(@ModelAttribute UserVO userVO, Model model) {
+    public String findPw(@RequestParam("user_id") String user_id, Model model) {
+        String tempPw = userService.changePw(user_id);
+        model.addAttribute("user_password", tempPw);
         return "resultPw";
     }
 
+    @ResponseBody
+    @PostMapping("/findEmail")
+    public String findEmail(@RequestParam("user_id") String user_id) {
+        // 받아온 id값을 넘겨줌
+        return userService.findEmail(user_id);
+    }
     @GetMapping("/userjoin")
     public String userjoin() {
         return "userJoin/agreement";

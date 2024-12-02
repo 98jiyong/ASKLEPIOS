@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Asklepios</title>
+  <link rel="icon" href="logo_icon.png" type="image/x-icon">
+  <link rel="stylesheet" href="../static/reservationForm.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="https://kit.fontawesome.com/9b855eea51.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container1">
+    <form action="/reserve/submit" method="post">
+      <table>
+        <tr class="small">
+          <td class="td1">
+            <div class="label">
+              병원명(자동기입)
+            </div>
+          </td>
+          <td class="td2">
+            <div>
+              <!-- <label for=""></label> -->
+              <input type="text" name="" id="" value="맹해성이비인후과의원"
+              class="fillAuto bg-gray-50 border border-gray-300 rounded-lg" readonly>
+            </div>
+          </td>
+        </tr>
+        <tr class="small">
+          <td class="td1">
+            <div class="label">
+              병원주소(자동기입)
+            </div>
+          </td>
+          <td class="td2">
+            <input type="text" name="" id="" value="경기 수원시 영통구 인계로 219 삼성1차종합상가 2층207호"
+            class="fillAuto bg-gray-50 border border-gray-300 rounded-lg" readonly>
+          </td>
+        </tr>
+        <tr class="small">
+          <td class="td1">
+            <div class="label">
+              성명(자동기입)
+            </div>
+          </td>
+          <td class="td2">
+            <input type="text" name="" id="" value="정지용"
+            class="fillAuto bg-gray-50 border border-gray-300 rounded-lg" readonly>
+          </td>
+        </tr>
+        <tr class="small">
+          <td class="td1">
+            <div class="label">
+              연락처(자동기입)
+            </div>
+          </td>
+          <td class="td2">
+            <input type="text" name="" id="" value="010-8740-5966"
+            class="fillAuto bg-gray-50 border border-gray-300 rounded-lg" readonly>
+          </td>
+        </tr>
+        <tr class="small">
+          <td class="td1">
+            <div class="label">
+              예약 날짜
+            </div>
+          </td>
+          <td class="td2">
+            <div style="vertical-align: middle;">
+              <div style="float: left;">
+                <input type="date" id="calender" class="fillAuto bg-gray-50 border border-gray-300 rounded-lg" hidden>
+              </div>
+              <div style="display:inline-block; margin-top: 10px; margin-left: 15px;">
+                <div>
+                  <button type="button" value="" class="timebox">09:00
+                  <button type="button" value="" class="timebox">09:30
+                  <button type="button" value="" class="timebox">10:00
+                  <button type="button" value="" class="timebox">10:30
+                </div>
+                <div>
+                  <button type="button" value="" class="timebox">11:00
+                  <button type="button" value="" class="timebox">11:30
+                  <button type="button" value="" class="timebox">13:00
+                  <button type="button" value="" class="timebox">13:30
+                </div>
+                <div>
+                  <button type="button" value="" class="timebox">14:00
+                  <button type="button" value="" class="timebox unselectable" disabled>14:30
+                  <button type="button" value="" class="timebox">15:00
+                  <button type="button" value="" class="timebox">15:30
+                </div>
+                <div>
+                  <button type="button" value="" class="timebox">16:00
+                  <button type="button" value="" class="timebox">16:30
+                  <button type="button" value="" class="timebox">17:00
+                  <button type="button" value="" class="timebox">17:30
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr class="medium">
+          <td class="td1">
+            <div class="label">
+              간단한 메모
+            </div>
+          </td>
+          <td class="td2">
+            <div>
+              <textarea name="notice" cols="100" rows="6" class="border border-gray-200"></textarea>
+            </div>
+          </td>
+        </tr>
+        <tr class="small">
+          <td colspan="2">
+            <div class="flex justify-center">
+              <input type="submit" value="예약하기" class="mx-px place-items-center bg-blue-500 w-64 h-16 rounded-lg text-white text-4xl font-semibold">
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+<div>
+  <!-- <br><br><br><br><br><br><br><br><br>
+  <h1>메모</h1>
+  reservation_code, reservation_user_id, reservation_hospital_code, reservation_date, reservation_time, reservation_memo, reservation_accept<br>
+  여기서 reservation_code는 자동 생성으로 , reservation_accept는 default false로 지정<br>
+  reservation_user_id는 사용자 이름으로 가져오기<br>
+  reservation_hospital_code는 병원 이름으로 가져오기<br>
+  reservation_date & reservation_time은 캘린더를 통해서 가져오기 but Ajax로 먼저 확인해서 처리<br>
+  reservation_memo는 간단한 메모 작성 칸 생성<br> -->
+</div>
+</body>
+</html>
+<script src="../static/reservationForm.js"></script>

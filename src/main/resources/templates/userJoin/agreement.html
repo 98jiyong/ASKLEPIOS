@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Agreement</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <style>
 
@@ -44,7 +45,14 @@
             const allAgreement = document.getElementById('submit');
             allAgreement.submit();
         } else {
-            alert("모두 동의하지 않을 경우 회원가입이 불가능 합니다.");
+            // alert("모두 동의하지 않을 경우 회원가입이 불가능 합니다.");
+            Swal.fire({
+                icon: 'warning',
+                title: '모두 동의하지 않았습니다.',
+                text: '회원가입을 위해 모두 동의해주세요.',
+                confirmButtonColor: '#3B82F6',
+                confirmButtonText: '확인'
+            });
             return false;
         }
     }
@@ -79,7 +87,7 @@
 <body class="mx-auto" style="margin-top: 50px">
     <h1 style="font-size: xx-large; text-align: center">이용약관 및 개인정보처리방침</h1>
     <br>
-    <form action="/agreement" onsubmit="return allChecked(this)" id="submit">
+    <form action="/asklepios/agreement" onsubmit="return allChecked(this)" id="submit">
         <div>
             <input type="checkbox" onclick="selectAll(this)" id="agreements">
             이용약관, 개인정보 수집 및 이용, 개인정보 제3자 제공 동의에 모두 동의 합니다.
@@ -311,7 +319,7 @@ There are many variations of passages of Lorem Ipsum available, but the majority
 
         </div>
         <div style="text-align: center">
-            <button type="submit" class="bg-blue-800 rounded-lg w-48 h-12 my-10 text-white" name="submit" style="font-size: 18px;"><strong>  다음 →</strong></button>
+            <button type="submit" class="bg-blue-800 rounded-lg w-48 h-12 my-10 text-white" style="font-size: 18px;"><strong>  다음 →</strong></button>
         </div>
     </form>
     <br>

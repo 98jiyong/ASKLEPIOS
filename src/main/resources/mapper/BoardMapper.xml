@@ -6,6 +6,12 @@
     <insert id="insertOne" parameterType="com.asklepios.hospitalreservation_asklepios.VO.BoardVO" >
         insert into testboard values(nextval(board_sequence),#{board_user_id},#{board_category},#{board_title},#{board_content},#{board_binary},default,default,default)
     </insert>
+    <select id="selectNotice" resultType="com.asklepios.hospitalreservation_asklepios.VO.BoardVO">
+        select * from testboard where board_category='공지사항'
+    </select>
+    <select id="selectAll" resultType="com.asklepios.hospitalreservation_asklepios.VO.BoardVO">
+        select * from testboard where board_sequence between #{startNo} and #{endNo}
+    </select>
     <select id="selectHealth" resultType="com.asklepios.hospitalreservation_asklepios.VO.BoardVO">
         select * from testboard where board_category='오늘의 건강' and board_sequence between #{startNo} and #{endNo}
     </select>
@@ -21,4 +27,31 @@
     <select id="countBoard" resultType="int">
         select count(*) from testboard where board_category='오늘의 건강'
     </select>
+    <select id="selectOne" resultType="com.asklepios.hospitalreservation_asklepios.VO.BoardVO">
+        select * from testboard where board_sequence=#{board_sequence}
+    </select>
+    <update id="updateBoard" parameterType="com.asklepios.hospitalreservation_asklepios.VO.BoardVO" >
+        update testboard set board_category=#{board_category}, board_title=#{board_title},board_content=#{board_content},board_binary=#{board_binary} where board_sequence=#{board_sequence}
+    </update>
+    <update id="plusViewCount" >
+        update testboard set board_viewcount=#{board_viewcount} where board_sequence=#{board_sequence}
+    </update>
+
+    <select id="checkLike" resultType="int">
+        select count(*) from boardlike where board_user_id=#{board_user_id} and board_sequence=#{board_sequence}
+    </select>
+    <update id="minusLikeCount">
+        update testboard set board_goodcount=board_goodcount-1 where board_sequence=#{board_sequence}
+    </update>
+    <update id="plusLikeCount">
+        update testboard set board_goodcount=board_goodcount+1 where board_sequence=#{board_sequence}
+    </update>
+    <insert id="addLike">
+        insert into boardlike values (nextval(like_sequence),true,#{board_sequence},#{board_user_id})
+    </insert>
+    <delete id="delLike">
+        delete from boardlike where board_sequence=#{board_sequence} and board_user_id=#{board_user_id}
+    </delete>
+
+
 </mapper>

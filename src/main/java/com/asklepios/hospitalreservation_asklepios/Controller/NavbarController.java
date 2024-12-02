@@ -13,7 +13,7 @@ public class NavbarController {
 
     @GetMapping("/reservation")
     public String reservation() {
-        return "reservation";
+        return "reservationPlace";
     }
 
 //    @GetMapping("/board")

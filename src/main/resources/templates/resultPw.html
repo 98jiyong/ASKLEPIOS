@@ -5,12 +5,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../../resources/static/CSS/font.css">
 	<style>
 		body {
+      font-family:Pretendard, sans-serif;
 			width: 1920px;
 			font-size: 30px;
 		}
-		#user_name, label {
+		label {
 			width: 500px;
 		}
     button {
@@ -24,9 +26,6 @@
 			display: inline-block;
 			font-size: 25px;
 			color: rgb(138, 137, 137);
-		}
-		#reg_first, #reg_last {
-			width: 200px;
 		}
 		span {
 			width: 100px;
@@ -44,13 +43,15 @@
 	<div for="info" class="mx-px flex justify-center mt-5 font-medium text-4xl font-bold text-black-500 dark:text-white">임시 비밀번호 발급 완료 !</div>
   <div class="bg-blue-300 mx-px mt-10 text-center rounded-3xl" id="result">
     <div class="text-3xl py-5">
-      <label class="block mt-3 pt-3 font-mono font-semibold">회원님의 이메일로</label>
-      <label class="block mt-3 pt-3 font-mono font-semibold">새로운 비밀번호를 보내드렸어요!</label>
-      <label class="block mt-3 pt-3 font-mono font-semibold">보안을 위해 로그인 후</label>
-      <label class="block mt-3 pt-3 font-mono font-semibold">마이페이지에서 꼭 비밀번호를</label>
-      <label class="block mt-3 pt-3 font-mono font-semibold">변경해주세요 !</label>
+      <label class="block mt-3 mb-7 pt-3 font-semibold">회원님의 임시 비밀번호는</label>
+      <div class="w-96 h-16 bg-white mx-auto pt-3 mb-10 rounded-xl shadow-xl shadow-gray-500/50">
+        <label class="text-4xl" th:text="${user_password} + ' 입니다.'"></label>
+      </div>
+      <label class="block mt-3 pt-3 font-semibold">보안을 위해 로그인 후</label>
+      <label class="block mt-3 pt-3 font-semibold">마이페이지에서 꼭 비밀번호를</label>
+      <label class="block mt-3 pt-3 font-semibold">변경해주세요 !</label>
     </div>
-    <div class="mt-10">
+    <div class="mt-1">
       <a href="login"><button type="button" class="font-semibold rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-700">로그인 페이지로 이동</button></a>
     </div>
   </div>

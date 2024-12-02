@@ -29,7 +29,7 @@ public class IM_UserService implements IF_UserService{
     public String findId(String user_name, String reg_first, String reg_last) {
         int cnt = 0;
         List<UserVO> ulist = usermapper.selectAllName();
-        String reg_num = reg_first.concat(reg_last);
+        String reg_num = reg_first + '-' + reg_last;
 //        System.out.println(reg_num);
 //        System.out.println(register_number);
         // 유저 목록에 사용자가 있는지 확인
@@ -57,6 +57,55 @@ public class IM_UserService implements IF_UserService{
             }
         }else{
             return null;
+        }
+    }
+
+    @Override
+    public String findEmail(String user_id) {
+
+
+
+        return usermapper.selectEmail(user_id);
+    }
+
+    @Override
+    public String changePw(String user_id) {
+        char[] charSet = new char[] {
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+                'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+                'U', 'V', 'W', 'X', 'Y', 'Z' };
+
+        StringBuilder tempPw = new StringBuilder();
+
+        for (int i = 0; i < 10; i++) {
+            int idx = (int) (charSet.length * Math.random());
+            tempPw.append(charSet[idx]);
+        }
+        usermapper.updatePwd(user_id,tempPw.toString()) ;
+        return tempPw.toString();
+    }
+
+    @Override
+    public void addUserCommonInfo(UserVO userVO) {
+        usermapper.insertUserCommonInfo(userVO);
+    }
+
+    @Override
+    public int duplicateID(String user_id) {
+        if(usermapper.duplicateIDCheck(user_id) != null){
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public int duplicateRegisterNumber(String user_register_number) {
+        if(usermapper.duplicateRegisterNumberCheck(user_register_number) != null){
+            return 1;
+        } else {
+            return 0;
         }
     }
 
