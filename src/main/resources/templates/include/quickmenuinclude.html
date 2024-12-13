@@ -1,28 +1,148 @@
-<aside class="quickMenu">
-    <div class="bg-green-500 border border-gray-200 rounded-lg shadow dark:bg-green-800 dark:border-gray-700">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<style>
+    .toTop{
+        font-family: 'Pretendard-Regular','sans-serif';
+        font-weight: bold;
+        font-size: 40px;
+        width: 100px;
+        height: 100px;
+        border-radius: 20px;
+        background: linear-gradient(to bottom, #FFD99B 0%, #20537B 100%);
+        color: white;
+        position: relative;
+        top:520px;
+        display: flex;
+        float: right;
+        text-align: center;
+        cursor: pointer;
+        flex-direction: column;
+    }
+</style>
+<aside class="quickMenu" style="position: sticky; top: 30px;">
+    <div class="bg-blue-500 border border-gray-200 rounded-lg shadow dark:bg-green-800 dark:border-gray-700">
         <div class="profileImage">
             <a href="myPage">
-                <img src="defaultImage.png" alt="기본 프로필">
+                    <img sec:authorize="isAnonymous()" src="Img/defaultGuest.png" alt="기본 프로필">
+<!--                <th:block >-->
+<!--                </th:block>-->
+                <div sec:authorize="isAuthenticated()">
+                  <img sec:authorize="hasRole('ROLE_client')"  src="Img/defaultClient.png" alt="기본 프로필">
+<!--                    <th:block th:if="${user.user_authority == 'client'}">-->
+<!--                        <img src="Img/defaultClient.png" alt="기본 프로필">-->
+<!--                    </th:block>-->
+                  <img sec:authorize="hasRole('ROLE_doctor')"  src="Img/defaultDoctor.png" alt="기본 프로필">
+<!--                    <th:block th:if="${user.user_authority == 'doctor'}">-->
+<!--                        <img src="Img/defaultDoctor.png" alt="기본 프로필">-->
+<!--                    </th:block>-->
+                </div>
             </a>
         </div>
-        <div class="p-5">
-            <hr style="margin-bottom: 10px">
+        <div class="p-5 text-white text-3xl">
+            <th:block th:if="${user == null}">
+                <p style="text-align: center; font-size: 25px">게스트님 환영합니다.</p>
+            </th:block>
+            <th:block th:unless="${user == null}">
+                <p style="text-align: center; font-size: 25px"><span th:text="${user.user_name}"></span>님 환영합니다.</p>
+            </th:block>
+            <hr style="margin-bottom: 10px; margin-top: 10px;">
             <h1>회원 정보</h1>
-            <p style="font-size: 14px">회원 이름 : ${user_id}</p>
-            <p style="font-size: 14px">이메일 : ${user_mail}</p>
-            <hr style="margin-top: 10px; margin-bottom: 10px">
-            <h1><a href="/reservation">예약 현황</a></h1>
-            <p style="font-size: 14px">예약 대기 : ${}</p>
-            <p style="font-size: 14px">예약 승인 : ${}</p>
-            <hr style="margin-top: 10px; margin-bottom: 10px">
-            <a href="/myPage">마이페이지</a>
-            <hr style="margin-top: 10px; margin-bottom: 10px">
-            <a href="/reservation">예약하기</a>
-            <hr style="margin-top: 10px; margin-bottom: 10px">
-            <a href="/vaccinationInfo">백신정보</a>
-            <hr style="margin-top: 10px; margin-bottom: 10px">
-            <a href="/hospitalInfo">병원검색</a>
+            <th:block th:if="${user == null}">
+                <span style="font-size: 20px"><a href="login">로그인 해주세요.</a></span>
+                <hr style="margin-top: 10px; margin-bottom: 10px">
+            </th:block>
+            <th:block th:unless="${user == null}">
+                <p style="font-size: 25px;"><span th:text="${user.user_name}"></span></p>
+                <p style="font-size: 25px;"><span th:text="${user.user_email}"></span></p>
+                <p id="hiddenId" style="font-size: 20px" th:text="${user.user_id}" hidden></p>
+                <p id="hiddenAuth" style="font-size: 20px" th:text="${user.user_authority}" hidden></p>
+                <hr style="margin-top: 10px; margin-bottom: 10px">
+                <a href="myPage" onclick="checkSession()">마이페이지</a>
+                <hr style="margin-top: 10px; margin-bottom: 10px">
+                <a href="reservation" onclick="checkSession()">빠른예약</a>
+                <hr style="margin-top: 10px; margin-bottom: 10px">
+                <th:block th:if="${user.user_authority == 'client'}">
+                    <a href="reservationStatusClient" onclick="checkSession()">예약현황</a>
+                    <div>총 예약 : <span id="reservationCount1"></span> 건</div>
+                    <hr style="margin-top: 10px; margin-bottom: 10px">
+                </th:block>
+                <th:block th:if="${user.user_authority == 'doctor'}">
+                    <a href="reservationStatusDoctor" onclick="checkSession()">예약현황</a>
+                    <div>대기중인 예약 : <span id="reservationCount2"></span> 건</div>
+                    <hr style="margin-top: 10px; margin-bottom: 10px">
+                </th:block>
+            </th:block>
+<!--            <th:block th:if="${user == null}">-->
+<!--                <hr style="margin-top: 10px; margin-bottom: 10px">-->
+<!--            </th:block>-->
+<!--            <th:block th:unless="${user == null}">-->
+<!--                -->
+<!--            </th:block>-->
+<!--            <a href="/vaccinationInfo">백신정보</a>-->
+<!--            <hr style="margin-top: 10px; margin-bottom: 10px">-->
+            <a href="/asklepios/search?keyword=">병원검색</a>
             <hr style="margin-top: 10px; margin-bottom: 10px">
         </div>
     </div>
+    <div style="position: sticky; top: 0px; cursor: pointer;" onclick="animation()">
+        <div class="toTop">
+            <i class="fa-solid fa-angle-up" style="position: relative; top: 8px;"></i>
+            <span style="position: relative; bottom: 8px;">TOP</span>
+<!--            <div style="color: #3b82f6;font-size: 40px;font-weight: bold;position: relative;top: 60px;">TOP</div>-->
+        </div>
+    </div>
 </aside>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script>
+    let userId1 = document.querySelector('#hiddenId').innerText;
+    let userAuth = document.querySelector('#hiddenAuth').innerText;
+    let doctorCode1;
+    if(userAuth === 'doctor'){
+        $.ajax({
+            url: '/asklepios/findDoctorCode',
+            type:'post',
+            data:{
+                user_id : userId1
+            },
+            success:function (data){
+                doctorCode1 = data;
+                if(doctorCode1 != null){
+                    $.ajax({
+                        url: '/asklepios/reservationCount',
+                        type: 'post',
+                        data: {
+                            doctor_code: doctorCode1
+                        },
+                        success: function (data) {
+                            document.querySelector('#reservationCount2').innerText = data;
+                        },
+                        error: function () {
+                            alert("zz");
+                        }
+                    })
+                }
+            },
+            error:function (){
+                alert("zz");
+            }
+        })
+    }
+    if(userAuth === 'client'){
+        $.ajax({
+            url: '/asklepios/totalReservationCount',
+            type: 'post',
+            data: {
+                user_id: userId1
+            },
+            success: function (data) {
+                document.querySelector('#reservationCount1').innerText = data;
+            },
+            error: function () {
+                alert("zz");
+            }
+        })
+    }
+    function animation() {
+        window.scrollTo({top:0, left:0, behavior:'smooth'});
+    }
+</script>

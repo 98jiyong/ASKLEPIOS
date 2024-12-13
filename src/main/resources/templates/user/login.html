@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Asklepios</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="icon" href="Img/logo_icon.png" type="image/x-icon">
+	<style>
+		@font-face {
+			font-family: 'Tenada';
+			src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'Pretendard-Regular';
+			src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+			font-weight: 400;
+			font-style: normal;
+		}
+		header {
+			font-family:'Tenada', 'sans-serif';
+			margin-top: 300px;
+			font-size: 90px;
+		}
+		body {
+			font-family:'Pretendard-Regular', 'sans-serif';
+			width: 1920px;
+			font-size: 30px;
+		}
+		input, label, button {
+			width: 500px;
+		}
+		input:focus::placeholder {
+			color: transparent;
+		}
+		li {
+			display: inline-block;
+			font-size: 25px;
+			color: rgb(138, 137, 137);
+		}
+	</style>
+</head>
+<body>
+<div class="container mx-auto">
+	<header>
+		<a href="home"><span class="mx-auto text-blue-500 font-bold" style="display: block; text-align: center;">ASKLEPIOS</span></a>
+	</header>
+	<form action="loginProc" method="post" onsubmit="return validateForm()">
+		<div class="block justify-center h-full w-full">
+			<div>
+				<label for="id" class="mx-auto block mt-10 mb-2 font-medium text-gray-900 dark:text-white">ID</label>
+				<input type="text" id="id" name="user_id"
+				class="mx-auto block mt-5 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 mx-20 p-5 focus:ring-2 focus:outline-none" placeholder="ID">
+			</div>
+			<div>
+				<label for="pwd" class="mx-auto block mt-5 mb-2 font-medium text-gray-900 dark:text-white">Password</label>
+				<input type="password" id="pwd" name="user_password"
+					class="mx-auto block mt-5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 mx-20 p-5 focus:ring-2 focus:outline-none" 
+					placeholder="Password">
+			</div>
+			<label id="errorMsg" class="mx-auto block mt-5 mb-5" style="color: red; font-size: 20px;" th:text="${error}"></label>
+			<button type="submit" class="mx-auto block py-5 font-semibold rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-600">
+				로그인
+			</button>
+		</div>
+	</form>
+	<ul class="flex justify-center mt-5">
+		<li><a href="/asklepios/findId" class="">아이디 찾기</a></li>
+		<li><a class="">&nbsp;&nbsp;|&nbsp;&nbsp;</a></li>
+		<li><a href="/asklepios/findPw" class="">비밀번호 찾기</a></li>
+		<li><a class="">&nbsp;&nbsp;|&nbsp;&nbsp;</a></li>
+		<li><a href="/asklepios/userjoin" class="">회원가입</a></li>
+	</ul>
+</div>
+</body>
+<script>
+	function validateForm() {
+		// 입력 폼 아이디값 담기
+		let id = document.getElementById("id").value;
+		let pwd = document.getElementById("pwd").value;
+
+		if (id == "") {
+			document.getElementById('errorMsg').innerText = "🚫 아이디를 입력해주세요."
+			document.getElementById('id').focus();
+			return false;
+		}
+		else if(pwd == ""){
+			document.getElementById('errorMsg').innerText = "🚫 비밀번호를 입력해주세요."
+			document.getElementById('pwd').focus();
+			return false;	
+		}
+
+		return true;
+	};
+
+</script>
+</html>

@@ -1,0 +1,24 @@
+aside {
+  width: 300px;
+  margin-top: 10px;
+}
+.asideStyle {
+  /*border: 1px black solid;*/
+  height: 100px;
+}
+.asideForm {
+  width: 100%;
+  height: 100px;
+  border-bottom: 1px solid lightgray;
+}
+.asideButton {
+  width: 100%;
+  height: 100px;
+  background-color: white;
+  font-size: xx-large;
+}
+.asideButton:hover {
+  background-color: #3b82f6;
+  color: white;
+  cursor: pointer;
+}

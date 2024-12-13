@@ -1,90 +1,92 @@
-
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Asklepios</title>
     <script
             src="https://kit.fontawesome.com/68dda164c0.js"
             crossorigin="anonymous"
     ></script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
-<link rel="stylesheet" href="home.css" />
+<link rel="stylesheet" href="CSS/home.css" />
+<link rel="icon" href="Img/logo_icon.png" type="image/x-icon">
 <style>
     #search-header{
-        margin-top: 50px;
-        /*margin-left: 80px;*/
-        font-size: 30px;
-        text-align: center;
-        margin-bottom: 20px;
+      margin-top: 0px;
+      font-size: 50px;
+      color: #3b82f6;
+      border-bottom: 5px solid #3b82f6;
+      text-align: left;
+      font-weight: bold;
     }
     table{
-        margin: auto;
-        /*border: 1px solid;*/
-        width: 600px;
-        height: 800px;
+        width: 100%;
         box-sizing: border-box;
     }
     tr{
         height: 60px;
-        border-bottom: 1px lightgray solid;
-        box-sizing: border-box;
+        margin: 0;
+    }
+    td{
+      border-top: 1px lightgray solid;
+        height: 60px;
     }
     thead{
         height: 1px;
         border-bottom: 1px lightgray solid;
     }
     .rheader{
-        width: 400px;
-        height: 50px;
-        /*border: 1px solid;*/
-        font-size: 25px;
+      width: 100%;
+      height: 50px;
+      font-size: 40px;
+      cursor: pointer;
+      padding-bottom: 5px;
     }
     .resultrow{
-        width: 400px;
-        height: 140px;
-        /*border: 1px solid;*/
-        margin-left: 30px;
-        padding: 5px;
+      width: 100%;
+      height: 200px;
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
     #filter{
-        /*position: fixed;*/
-        width: 500px;
-        /*border: 1px solid;*/
-        margin-left: 250px;
-        height: 40px;
-        text-align: center;
+      width: 100%;
+      text-align: center;
     }
     .filter_button{
-        display: inline-block;
-        border: 1px solid #3B82F6;
-        border-radius: 10px;
-        width: 100px;
-        height: 40px;
-        color: black;
-        font-size: 20px;
-        margin-right: 15px;
+      display: inline-block;
+      border: 1px solid #3B82F6;
+      border-radius: 10px;
+      width: 150px;
+      height: 60px;
+      color: black;
+      font-size: 30px;
+      margin-right: 15px;
+      text-align: center;
+      align-content: center;
+      cursor: pointer;
+    }
+    #hospitals{
+      margin-top: 30px;
     }
     .info{
-        font-size: 20px;
+        font-size: 30px;
         color: #555555;
     }
     #modal{
-        margin-left:150px;
-        margin-top: 50px;
-        position: absolute;
-        width: 600px;
-        height: 800px;
-        /*border: 1px solid;*/
-        border-radius: 30px;
-        display:none;
+      position: sticky;
+      top: 0;
+      margin-left:150px;
+      margin-top: 50px;
+
+      width: 600px;
+      height: 850px;
+      border-radius: 30px;
+      display:none;
     }
     #modalheader{
         margin: 0 0 30px;
-        /*border: 1px solid;*/
         border-top-left-radius: 30px;
         border-top-right-radius: 30px;
         font-size: 30px;
@@ -95,131 +97,275 @@
         height: 50px;
         border: 1px solid #666666;
         border-radius: 10px;
-        font-size: 20px;
+        font-size: 25px;
         text-align: center;
-        margin-top: 10px;
+        margin-top: 15px;
         margin-left: 20px;
     }
     .subject:hover{
-        background: #3B82F6;
+      background: #3B82F6;
+      color: white;
     }
-    #closebutton{
-        float: right;
-        margin-right: 40px;
-        margin-top: 20px;
+    #closebutton,#closebutton2{
+      float: right;
+      margin-right: 40px;
+      margin-top: 20px;
+      cursor: pointer;
     }
+    .searchList{
+      height: 1340px;
+      overflow: auto;
+    }
+    .searchList::-webkit-scrollbar-button:vertical:start:decrement,
+    .searchList::-webkit-scrollbar-button:vertical:start:increment {
+      display: block;
+      height: 15px;
+    }
+    .searchList::-webkit-scrollbar {
+      width: 10px;
+    }
+   .searchList::-webkit-scrollbar-thumb {
+      background-color: #2f3542;
+      border-radius: 10px;
+      background-clip: padding-box;
+      border: 2px solid transparent;
+    }
+    .searchList::-webkit-scrollbar-track {
+      background-color: grey;
+      border-radius: 10px;
+      box-shadow: inset 0 0 5px white;
+    }
+    #modalInfo::-webkit-scrollbar {
+      width: 10px;
+    }
+    #modalInfo::-webkit-scrollbar-button:vertical:start:decrement,
+    #modalInfo::-webkit-scrollbar-button:vertical:start:increment,
+    #modalInfo::-webkit-scrollbar-button:vertical:end:decrement{
+      display: block;
+      height: 35px;
+    }
+    #modalInfo::-webkit-scrollbar-thumb {
+      background-color: #2f3542;
+      border-radius: 10px;
+      background-clip: padding-box;
+      border: 2px solid transparent;
+    }
+    #modalInfo::-webkit-scrollbar-track {
+      background-color: grey;
+      border-radius: 10px;
+      box-shadow: inset 0 0 5px white;
+    }
+    #modalInfo{
+      position: fixed;
+      top: 150px;
+      display: none;
+      margin-left: 100px;
+      width: 850px;
+      height: 800px;
+      overflow: auto;
+      border-radius:30px ;
+    }
+    #infoHeader{
+      margin: 0;
+      width: 100%;
+      height: 70px;
+      text-align: center;
+      font-size: 30px;
+      border-top-left-radius:30px ;
+      border-top-right-radius:30px ;
+    }
+  #infoIntro,#infoNotice{
+    width: 600px;
+    font-size: 25px;
+    text-align: left;
+    margin-left: 80px;
+  }
+  .infoTitle{
+    width: 600px;
+    margin-top: 30px;
+    margin-left: 80px;
+    text-align: left;
+    font-size: 25px;
+    color: #666666;
+  }
+   #doctorTable,#reviewTable{
+     margin-left: 80px;
+     width: 700px;
+     font-size: 25px;
+    }
+   #reservation{
+     margin-top: 30px;
+   }
+   .radio{
+     width: 30px;
+     height: 30px;
+   }
+   #reservation{
+     cursor:pointer;
+   }
+   .modalResultRow{
+     width: 100%;
+     height: 200px;
+     padding: 5px;
+     text-align: center;
+   }
+   .score,.date{
+     text-align: center;
+   }
+   #reviewTable thead{
+     text-align: center;
+   }
+   #avgScore {
+     display: flex;
+     margin-left: 75px;
+     margin-bottom: 10px;
+   }
+   #excel{
+     cursor: pointer;
+     float: right;
+     margin-right: 30px;
+     font-size: 20px;
+   }
 </style>
 <body>
-<div style="position: fixed" th:replace="include/topinclude"></div>
-<aside id="aside1">
+<div style="position: fixed" th:replace="~{include/topinclude}"></div>
+<div class="homeContainer" style="height: 1530px;">
 
-</aside>
-<section>
-    <div id="search-header">검색결과</div>
-    <div id="filter">
+  <aside id="aside1" th:replace="~{asideMenuTemplates/hospitalListAside}">
+
+  </aside>
+  <section id="section">
+    <div id="search-header">병원검색</div>
+    <div>
+      <div id="filter" style="display: flex; justify-content: center;">
         <span class="filter_button">진료과목</span>
-        <span class="filter_button">진료중</span>
+        <span class="filter_button" style="background: white">진료중</span>
         <span class="filter_button">평일</span>
+      </div>
+       <div id="excel"  style="position: absolute; top: 350px; left: 1380px;">
+         <a href="excelDownload"><img width="50" height="50" src="https://img.icons8.com/color/48/ms-excel.png" alt="ms-excel"/> <span>병원목록 다운로드</span></a>
+       </div>
     </div>
+
+
     <div id="modal">
-        <div id="modalheader">
-            진료과목 선택
+      <div id="modalheader">
+        진료과목 선택
+        <div id="closebutton">
+          <img width="48" height="48" src="https://img.icons8.com/pulsar-line/48/close-window.png" alt="close-window"/>
         </div>
-        <div class="subject">내과</div>
-        <div class="subject">이비인후과</div>
-        <div class="subject">정형외과</div>
-        <div class="subject">성형외과</div>
-        <div class="subject">정신건강의학과</div>
-        <div class="subject">피부과</div>
-        <div class="subject">안과</div>
-        <div class="subject">소아청소년과</div>
-        <div class="subject">산부인과</div>
-        <div class="subject">비뇨기과</div>
-        <div class="subject">외과</div>
-        <div id="closebutton"><img width="48" height="48" src="https://img.icons8.com/pulsar-line/48/close-window.png" alt="close-window"/></div>
+      </div>
+      <div class="subject">내과</div>
+      <div class="subject">이비인후과</div>
+      <div class="subject">정형외과</div>
+      <div class="subject">성형외과</div>
+      <div class="subject">정신건강의학과</div>
+      <div class="subject">피부과</div>
+      <div class="subject">안과</div>
+      <div class="subject">소아청소년과</div>
+      <div class="subject">산부인과</div>
+      <div class="subject">비뇨기과</div>
+      <div class="subject">외과</div>
     </div>
-   <div>
-        <table>
-            <thead>
-            <tr></tr>
-            </thead>
-                <tr th:each="hospitalVO:${hlist}">
-                    <td>
-                        <div class="rheader" th:text="${hospitalVO.hospital_name}"></div>
-                        <div class="time">
-                            <span class="info">진료시간: </span>
-                            <span class="info" th:text="${hospitalVO.hospital_time}"> </span>
-                            <span>|</span>
-                            <span class="info" th:text="내과"></span>
-                        </div>
-                        <div class="info" th:text="${hospitalVO.hospital_addr}"></div>
-                        <div class="info" th:text="${hospitalVO.hospital_tel}"></div>
-                    </td>
 
-                </tr>
+    <div class="searchList">
+      <table id="hospitals">
+        <tbody id="tbody">
+        <tr th:each="hospitalVO:${hlist}" class="row">
+          <td>
+            <div class="resultrow">
+              <div class="rheader" th:text="${hospitalVO.hospital_name}"></div>
+              <div class="info">
+                <span class="info" th:text="${hospitalVO.medicals}"></span>
+              </div>
+              <div class="time">
+                <span class="info" th:text="${hospitalVO.hospital_time}"> </span>
+              </div>
+              <div class="info" th:text="${hospitalVO.hospital_tel}"></div>
+              <div class="info" th:text="${hospitalVO.hospital_addr}"></div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="modalInfo">
+      <div id="infoHeader">
+        <span id="hospitalName"></span>
+        <div id="closebutton2"><img width="48" height="48" src="https://img.icons8.com/pulsar-line/48/close-window.png" alt="close-window"/></div>
+        <div>
+          <table>
+            <tbody id="infoTable">
+            <tr class="row">
+              <td>
+                <div class="modalResultRow">
+                  <div class="rheader" id="clickhospitalname" style="width: 100%;" ></div>
+                  <div class="time">
+                    <span class="info" >진료시간: </span>
+                    <span class="info" id="clickhospitaltime"> </span>
+                    <span>|</span>
+                    <span class="info" id="clickhospitalsubject" ></span>
+                  </div>
+                  <div class="info" id="clickhospitaladdr"></div>
+                  <div class="info" id="clickhospitaltel"></div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div>
+            <div class="infoTitle">소개</div>
+            <div id="infoIntro"></div>
+            <div class="infoTitle">공지사항</div>
+            <div id="infoNotice"></div>
+            <div class="infoTitle">리뷰</div>
+            <div id="avgScore"></div>
+            <table id="reviewTable">
+              <thead>
+              <tr>
+                <td width="10%">ID</td>
+                <td width="55%">리뷰내용</td>
+                <td width="20%">날짜</td>
+                <td width="15%">별점</td>
+              </tr>
+              </thead>
+              <tbody id="reviews">
 
-<!--            <tr>-->
-<!--                <td>-->
-<!--                    <div class="resultrow">-->
-<!--                        <div class="rheader"><a href="#">연세바다소아청소년의원</a></div>-->
-<!--                        <div class="time">-->
-<!--                            <span class="info">진료시간: 0900-1800 |</span>-->
-<!--                            <span class="info">내과</span>-->
-<!--                        </div>-->
-<!--                        <div class="info">수원시 영통구</div>-->
-<!--                        <div class="info">010-1234-1234</div>-->
-<!--                    </div>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td>-->
-<!--                    <div class="resultrow">-->
-<!--                        <div class="rheader"><a href="#">연세바다소아청소년의원</a></div>-->
-<!--                        <div class="time">-->
-<!--                            <span class="info">진료시간: 0900-1800 |</span>-->
-<!--                            <span class="info">내과</span>-->
-<!--                        </div>-->
-<!--                        <div class="info">수원시 영통구</div>-->
-<!--                        <div class="info">010-1234-1234</div>-->
-<!--                    </div>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td>-->
-<!--                    <div class="resultrow">-->
-<!--                        <div class="rheader"><a href="#">연세바다소아청소년의원</a></div>-->
-<!--                        <div class="time">-->
-<!--                            <span class="info">진료시간: 0900-1800 |</span>-->
-<!--                            <span class="info">내과</span>-->
-<!--                        </div>-->
-<!--                        <div class="info">수원시 영통구</div>-->
-<!--                        <div class="info">010-1234-1234</div>-->
-<!--                    </div>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td>-->
-<!--                    <div class="resultrow">-->
-<!--                        <div class="rheader"><a href="#">연세바다소아청소년의원</a></div>-->
-<!--                        <div class="time">-->
-<!--                            <span class="info">진료시간: 0900-1800 |</span>-->
-<!--                            <span class="info">내과</span>-->
-<!--                        </div>-->
-<!--                        <div class="info">수원시 영통구</div>-->
-<!--                        <div class="info">010-1234-1234</div>-->
-<!--                    </div>-->
-<!--                </td>-->
-<!--            </tr>-->
-        </table>
-   </div>
-
-</section>
-<aside id="aside2"></aside>
-<footer id="ad">
-    <h1>광고</h1>
-</footer>
-<footer id="footer">
-    <h1>footer</h1>
+              </tbody>
+            </table>
+            <div class="infoTitle">의사정보</div>
+            <table id="doctorTable">
+              <tr>
+                <td>이름</td>
+                <td class="clickhospitaldoctorname"></td>
+              </tr>
+              <tr>
+                <td>진료과목</td>
+                <td class="clickhospitaldoctorsubject"></td>
+              </tr>
+              <tr>
+                <td>약력</td>
+                <td class="clickhospitaldoctorcareer"></td>
+              </tr>
+            </table>
+            <form action="reserve" method="post">
+              <input type="hidden" id="hospitalName2" name="hospitalName">
+              <input  type="hidden" id="doctorCode" name="doctorCode">
+              <input type="hidden" id="hospitalCode" name="hospitalCode">
+              <input type="hidden" id="userID" name="userID" value="${user.user_id}">
+              <input id="reservation" type="submit" style="width: 200px;height: 80px; font-size: 30px; background: #3b82f6;color: white; border-radius: 5px"  value="예약하기">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <aside id="aside2" th:insert="~{include/quickmenuinclude}"></aside>
+</div>
+<!--<footer id="ad" >-->
+<!--    <h1>광고</h1>-->
+<!--</footer>-->
+<footer id="footer" th:replace="~{include/footer}">
 </footer>
 </body>
 </html>
@@ -230,34 +376,75 @@
     subButton.addEventListener("click",subSelect);
         // console.log(day.innerText);
         // console.log(day.firstChild.innerText);
-
-    //html에서 받은 병원리스트
+    let tbody=document.getElementById("tbody");
+    //렌더링 시 받은 병원리스트
     let hospitalList=[];
-    let Mod_hospitalList=[];
     [# th:each='hospitalVO, stat:${hlist}']
     let hospital[[${stat.count}]]=[[${hospitalVO}]];
     hospitalList.push(hospital[[${stat.count}]]);
     [/]
-    // for(let i=0;i<hospitalList.length;i++){
-    //     console.log(JSON.stringify(hospitalList[i]));
-    // }
-    // for(let i=0;i<hospitalList.length;i++){
-    //     if(hospitalList[i].hospital_date==="y"){
-    //         Mod_hospitalList.push(hospitalList[i]);
-    //     }
-    // }
-    // console.log(Mod_hospitalList);
+        console.log(hospitalList);
 
     let JSON_hospitalList={
         "hospitalList":JSON.stringify(hospitalList)
     };
 
+    let resultrow=document.getElementsByClassName("resultrow");
+    console.log(JSON_hospitalList);
+    console.log(hospitalList);
+
     //진료요일 변경
     function changeday() {
+        tbody.innerHTML="";
         if (dayButton.innerText === "평일") {
             dayButton.innerText = "주말";
+            $.ajax({
+                type:"POST",
+                url:"filter?type=date",
+                data:JSON_hospitalList,
+                success:function (data) {
+                    // alert(data);
+                    // console.log(data[0].hospital_name);
+                    let row=document.getElementsByClassName("row");
+                    // alert(data.length+"건 검색");
+                    for(let i=0;i<data.length;i++){
+                        // resultrow[i].innerHTML="";
+                        // console.log(data[i].hospital_name);
+                        tbody.innerHTML+="<tr class='row'><td><div class=resultrow></div></td></tr>";
+                        resultrow[i].innerHTML=
+                        `<div class="rheader" >${data[i].hospital_name}</div>
+                            <div class="info">
+                              <span class="info" >${data[i].medicals}</span>
+                            </div>
+                            <div class="time">
+                              <span class="info">${data[i].hospital_time}</span>
+                            </div>
+                            <div class="info" >${data[i].hospital_tel}</div>
+                            <div class="info" >${data[i].hospital_addr}</div>`
+                    }
+                  addEvent();
+                },
+                error:function(data){
+                    alert("실패");
+                }
+            })
         } else {
             dayButton.innerText = "평일";
+            // tbody.innerHTML="";
+            for(let i=0;i<hospitalList.length;i++){
+                tbody.innerHTML+="<tr class='row'><td><div class='resultrow' ></div></td></tr>";
+                resultrow[i].innerHTML=
+                    `<div class="rheader" >${hospitalList[i].hospital_name}</div>
+                            <div class="info">
+                              <span class="info" >${hospitalList[i].medicals}</span>
+                            </div>
+                            <div class="time">
+                              <span class="info">${hospitalList[i].hospital_time}</span>
+                            </div>
+                            <div class="info" >${hospitalList[i].hospital_tel}</div>
+                            <div class="info" >${hospitalList[i].hospital_addr}</div>`
+            }
+          addEvent();
         }
     }
     //진료과목 클릭시 모달창
@@ -277,13 +464,44 @@
         });
     }
     //진료과목 선택
+    let rows=document.getElementsByClassName("row");
+    let rheaders=document.getElementsByClassName("rheader");
     function selectSubject(selSub){
         let modal=document.getElementById("modal");
         let body=document.querySelector("body");
+        let mod_hospitalList=[];
         body.style.background="white";
         modal.style.display="none";
         if(selSub!=null){
-            alert(selSub);
+          // alert(selSub);
+          tbody.innerHTML="";
+          hospitalList.forEach(hospital=>{
+            if(hospital.medicals!==null){
+              if(hospital.medicals.includes(selSub)){
+                mod_hospitalList.push(hospital);
+              }
+            }else{
+              if(hospital.user_doctor_medical!==null){
+                if(hospital.user_doctor_medical.includes(selSub)){
+                  mod_hospitalList.push(hospital);
+                }
+              }
+            }
+          });
+          for(let i=0;i<mod_hospitalList.length;i++){
+            tbody.innerHTML+="<tr class='row'><td><div class='resultrow'></div></td></tr>";
+            resultrow[i].innerHTML=
+                `<div class="rheader" >${mod_hospitalList[i].hospital_name}</div>
+                  <div class="info">
+                  <span class="info" >${mod_hospitalList[i].medicals}</span>
+                  </div>
+                  <div class="time">
+                      <span class="info">${mod_hospitalList[i].hospital_time}</span>
+                  </div>
+                  <div class="info" >${mod_hospitalList[i].hospital_tel}</div>
+                  <div class="info" >${mod_hospitalList[i].hospital_addr}</div>`
+          }
+          addEvent();
         }
     }
     //닫기버튼
@@ -295,15 +513,243 @@
     let ing=document.getElementsByClassName("filter_button")[1];
     ing.addEventListener("click",changeColor);
     function changeColor(){
+        tbody.innerHTML="";
         if(ing.style.background === "white"){
             ing.style.background="#3B82F6";
+            $.ajax({
+                type: "POST",
+                url: "filter?type=ing",
+                data: JSON_hospitalList,
+                success: function (data) {
+                    // alert("성공");
+                    console.log("test");
+                    console.log(data);
+                    for(let i=0;i<data.length;i++){
+                        tbody.innerHTML+="<tr class='row'><td><div class='resultrow'></div></td></tr>";
+                        resultrow[i].innerHTML=
+                            `<div class="rheader" >${data[i].hospital_name}</div>
+                            <div class="info">
+                              <span class="info" >${data[i].medicals}</span>
+                            </div>
+                            <div class="time">
+                              <span class="info">${data[i].hospital_time}</span>
+                            </div>
+                            <div class="info" >${data[i].hospital_tel}</div>
+                            <div class="info" >${data[i].hospital_addr}</div>`
+                    }
+                    addEvent();
+                },
+                error: function (data) {
+
+                    alert("실패");
+                }
+            })
         }else{
             ing.style.background="white";
+            for(let i=0;i<hospitalList.length;i++){
+                tbody.innerHTML+="<tr class='row'><td><div class=resultrow></div></td></tr>";
+                resultrow[i].innerHTML=
+                    `<div class="rheader" >${hospitalList[i].hospital_name}</div>
+                            <div class="info">
+                              <span class="info" >${hospitalList[i].medicals}</span>
+                            </div>
+                            <div class="time">
+                              <span class="info">${hospitalList[i].hospital_time}</span>
+                            </div>
+                            <div class="info" >${hospitalList[i].hospital_tel}</div>
+                            <div class="info" >${hospitalList[i].hospital_addr}</div>`
+            }
+            addEvent();
         }
+    }
 
+    //병원이름 클릭 이벤트 등록
+    function addEvent(){
+      let hospitalTitle=document.getElementsByClassName("rheader");
+      for(let i=0;i<hospitalTitle.length;i++){
+        hospitalTitle[i].addEventListener("click",()=>{
+          showInfo(hospitalTitle[i].innerText);
+        })
+      }
+    }
+    addEvent();
+    let modalInfo=document.getElementById("modalInfo");
+    let hospitalname=document.getElementById("hospitalName");
+    let closeButton2=document.getElementById("closebutton2");
+    //병원정보모달 닫기
+    closeButton2.addEventListener("click",()=>{
+      modalInfo.style.display="none";
+      document.body.style.backgroundColor="white";
+    })
+    //병원이름 클릭시 병원정보모달
+    let clickHospitalInfo;
+    function showInfo(title){
+      let clickHospital=findHospital(title);
+      clickHospitalInfo=clickHospital;
+
+      if(clickHospital == null){
+        alert(title+"을/를 찾지못했습니다")
+      }else{
+        //병원코드로 리뷰 받아오기
+        $.ajax({
+          type: "POST",
+          url: "getreview",
+          data: {
+            "hospitalCode": clickHospital.hospital_code
+          },
+          success: function (data) {
+            // alert('성공');
+            // console.log(data);
+            let reviewArr=data.reviewList;
+            let avgScore=data.avgScore;
+            let avgStar = '';
+            for(let i=0; i<avgScore; i++){
+              if(i%2 === 0) {
+                if(i === avgScore-1){
+                  if(i%2 === 0){
+                    avgStar += `<img width="48" height="48" src="https://img.icons8.com/fluency/48/star-half-empty.png" alt="star-half-empty"/>`;
+                    console.log(i);
+                  }else{
+                    avgStar += `<img width="48" height="48" src="https://img.icons8.com/fluency/48/star--v1.png" alt="star--v1"/>`;
+                    // console.log(i);
+                  }
+                }else{
+                  avgStar += `<img width="48" height="48" src="https://img.icons8.com/fluency/48/star--v1.png" alt="star--v1"/>`;
+                  console.log(i);
+                }
+              }
+            }
+            let reviews=document.getElementById("reviews");
+            let avg=document.getElementById("avgScore");
+            avg.innerHTML=avgStar;
+            reviews.innerHTML='';
+            for(let i=0;i<reviewArr.length;i++){
+              reviews.innerHTML+=`<tr>
+<td>${reviewArr[i].review_user_id}</td>
+<td>${reviewArr[i].review_content}</td>
+<td class="date">${reviewArr[i].review_date.substr(2,8)}</td>
+<td class="score">${reviewArr[i].review_score}</td>
+</tr>`
+            }
+          },
+          error: function (data) {
+            alert("실패");
+          }
+        })
+        //모달창 병원정보 입력
+        document.getElementById("clickhospitalname").innerText=clickHospital.hospital_name;
+        document.getElementById("clickhospitaltime").innerText=clickHospital.hospital_time;
+        document.getElementById("clickhospitalsubject").innerText=clickHospital.medicals;
+        document.getElementById("clickhospitaladdr").innerText=clickHospital.hospital_addr;
+        document.getElementById("clickhospitaltel").innerText=clickHospital.hospital_tel;
+        document.getElementById("infoIntro").innerText=clickHospital.hospital_intro;
+        document.getElementById("infoNotice").innerText=clickHospital.hospital_notice;
+        document.getElementById("hospitalCode").value=clickHospital.hospital_code;
+        document.getElementById("hospitalName2").value=clickHospital.hospital_name;
+        let doctorTable=document.getElementById("doctorTable");
+        doctorTable.innerHTML="";
+        //클릭한 병원의사 한명일 때
+        if(clickHospital.names==null) {
+          doctorTable.innerHTML+=
+              `<tr>
+                <td>이름</td>
+                <td class="clickhospitaldoctorname"></td>
+                <td rowspan="3">
+                  <img src="profile_image/${clickHospital.user_image}" width="150px" height="200px"
+                </td>
+               </tr>
+               <tr>
+                <td>진료과목</td>
+                <td class="clickhospitaldoctorsubject"></td>
+               </tr>
+               <tr>
+                <td>약력</td>
+                <td class="clickhospitaldoctorcareer"></td>
+               </tr>
+              <tr></tr>`;
+          document.getElementsByClassName("clickhospitaldoctorname")[0].innerText = clickHospital.user_name;
+          document.getElementsByClassName("clickhospitaldoctorsubject")[0].innerText = clickHospital.user_doctor_medical;
+          document.getElementsByClassName("clickhospitaldoctorcareer")[0].innerHTML = clickHospital.user_doctor_career + `<br>` +
+              clickHospital.user_doctor_graduate;
+          document.getElementById("doctorCode").value=clickHospital.user_doctor_code;
+        }else{  //의사가 여러명일 때
+          let nameArr=clickHospital.names.split(",");
+          // alert(nameArr[0]);
+          // alert(nameArr[1]);
+          let medicalArr=clickHospital.medicals.split(",");
+          let careerArr=clickHospital.careers.split(",");
+          let graduateArr=clickHospital.graduates.split(",");
+          let imageArr=clickHospital.images.split(",");
+          let doctorCodeArr=clickHospital.codes.split(",");
+          for(let i=0;i<nameArr.length;i++){
+            doctorTable.innerHTML+=
+                `<tr>
+                <td>이름</td>
+                <td class="clickhospitaldoctorname"></td>
+                <td rowspan="3">
+                  <img src="profile_image/${imageArr[i]}" width="150px" height="200px"
+                </td>
+                <td rowspan="3" style="text-align: center">선택<br><br><input class="radio" type="radio" name="selectDoctor"></td>
+               </tr>
+               <tr>
+                <td>진료과목</td>
+                <td class="clickhospitaldoctorsubject"></td>
+               </tr>
+               <tr>
+                <td>약력</td>
+                <td class="clickhospitaldoctorcareer"></td>
+               </tr>
+                <tr><td><input type="hidden" class="clickhosptialdoctorcode"></td></tr>`;
+            document.getElementsByClassName("clickhospitaldoctorname")[i].innerText=nameArr[i];
+            document.getElementsByClassName("clickhospitaldoctorsubject")[i].innerText=medicalArr[i];
+            document.getElementsByClassName("clickhospitaldoctorcareer")[i].innerHTML=careerArr[i]+`<br>`+
+                graduateArr[i];
+            document.getElementsByClassName("radio")[0].checked=true;
+          }
+          let idx=findIdx();
+          document.getElementById("doctorCode").value=doctorCodeArr[idx];
+        }
+      }
+      document.body.style.backgroundColor="gray";
+      modalInfo.style.backgroundColor="white";
+      modalInfo.style.display="flex";
+      hospitalname.innerText="상세정보";
     }
 
 
+    //병원이름으로 배열에서 병원정보 가져오기
+    function findHospital(title) {
+      let hospitalVO;
+      hospitalList.forEach(hospital => {
+        if (hospital.hospital_name === title) {
+          hospitalVO = hospital;
+        }
+      })
+      return hospitalVO;
+    }
+    //체크된 의사 인덱스 찾기
+    function findIdx(){
+      let radio=document.getElementsByClassName("radio");
+      for(let i=0;i<radio.length;i++){
+        if(radio[i].checked===true){
+          return i;
+        }
+      }
+    }
+    //병원 리스트 엑셀 다운로드받기
+    // let excel=document.getElementById("excel");
+    // excel.addEventListener("click",()=>{
+    //   $.ajax({
+    //     type: "GET",
+    //     url: "excelDownload",
+    //     data: JSON_hospitalList,
+    //     success(data){
+    //       alert("성공")
+    //     },error(data){
+    //       alert("실패")
+    //     }
+    //   })
+    // })
 </script>
 
 

@@ -1,78 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>NoticeBoardAside</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=&callback=initMap"></script>
-    <script type="text/javascript">
-        var map = null;
-
-        function initMap() {
-            map = new naver.maps.Map('map', {
-                center: new naver.maps.LatLng(37.3595704, 127.105399),
-                zoom: 10
-            });
-        }
-    </script>
+  <meta charset="UTF-8">
+  <title>Asklepios</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <style>
-    aside {
-        width: 300px;
-    }
-    .asideStyle {
-        /*border: 1px black solid;*/
-        height: 80px;
-    }
-    .asideForm {
-        width: 100%;
-        height: 80px;
-    }
-    .asideButton {
-        width: 100%;
-        height: 80px;
-        background-color: white;
-        border-width: 0px 0px 1px;
-        font-size: x-large;
-        border-top-right-radius: 20px;
-    }
-    .asideButton:hover {
-        color: black;
-    }
-    .asideButton:focus {
-        background-color: #004204;
-        color: white;
-    }
+  aside {
+    width: 300px;
+  }
+
+  .asideStyle {
+    /*border: 1px black solid;*/
+    height: 100px;
+  }
+
+  .asideForm {
+    width: 100%;
+    height: 100px;
+  }
+
+  .asideButton {
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    border-width: 0px 0px 1px;
+    font-size: xx-large;
+    border-top-right-radius: 20px;
+  }
+
+  .asideButton:hover {
+    color: white;
+    cursor: pointer;
+  }
+
+  .asideButton:focus {
+    background-color: #3B82F6;
+    color: white;
+  }
 </style>
 <body>
-    <aside>
-        <div class="asideStyle">
-            <form action="/1" method="get" class="asideForm">
-                <input type="submit" class="asideButton hover:bg-green-500" value="Health">
-            </form>
-        </div>
+<aside style="margin-top:10px;">
+  <div class="asideStyle">
+    <form action="bboard_health" method="get" class="asideForm">
+      <input type="submit" class="asideButton hover:bg-blue-500 hover:rounded-lg hover:text-white" value="Health">
+    </form>
+  </div>
 
-        <div class="asideStyle">
-            <form action="/2" method="get" class="asideForm">
-                <input type="submit" class="asideButton hover:bg-green-500" value="Campaign">
-            </form>
-        </div>
+  <div class="asideStyle">
+    <form action="bboard_campaign" method="get" class="asideForm">
+      <input type="submit" class="asideButton hover:bg-blue-500 hover:rounded-lg hover:text-white" value="Campaign">
+    </form>
+  </div>
 
-        <div class="asideStyle">
-            <form action="/3" method="get" class="asideForm">
-                <input type="submit" class="asideButton hover:bg-green-500" value="Epidemic">
-            </form>
-        </div>
+  <div class="asideStyle">
+    <form action="bboard_med" method="get" class="asideForm">
+      <input type="submit" class="asideButton hover:bg-blue-500 hover:rounded-lg hover:text-white"
+             value="MedicalEquipment">
+    </form>
+  </div>
 
-        <div class="asideStyle">
-            <form action="/4" method="get" class="asideForm">
-                <input type="submit" class="asideButton hover:bg-green-500" value="Medical Equipment">
-            </form>
-        </div>
-        <br>
-        <br>
-        <div id="map" style="width: 100%; height: 400px;"></div>
-    </aside>
+  <div class="asideStyle">
+    <form action="bboard_free" method="get" class="asideForm">
+      <input type="submit" class="asideButton hover:bg-blue-500 hover:rounded-lg hover:text-white" value="FreeBoard">
+    </form>
+  </div>
+</aside>
 </body>
 </html>

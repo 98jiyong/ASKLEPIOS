@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Asklepios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://kit.fontawesome.com/9b855eea51.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="CSS/home.css"/>
+    <link rel="icon" href="Img/logo_icon.png" type="image/x-icon">
+</head>
+<style>
+    @font-face {
+        font-family: 'Pretendard-Regular';
+        src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    body {
+        width: 1920px;
+        font-family: 'Pretendard-Regular', serif;
+        font-size: 18px;
+        /*border: 1px solid black;*/
+    }
+
+    .mypageContainer {
+        width: 1300px;
+        margin: auto;
+        margin-top: 30px;
+    }
+
+    #modalOpenButton, #modalCloseButton {
+        cursor: pointer;
+    }
+
+    #modalContainer {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    #modalContent {
+        /*position: absolute;*/
+        background-color: #ffffff;
+        width: 700px;
+        /*height: 700px;*/
+        padding: 15px;
+    }
+
+    #modalContainer.hidden {
+        display: none;
+    }
+
+    #modalOpenButtonDoctor, #modalCloseButtonDoctor {
+        cursor: pointer;
+    }
+
+    #modalContainerDoctor {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    #modalContentDoctor {
+        /*position: absolute;*/
+        background-color: #ffffff;
+        width: 700px;
+        /*height: 700px;*/
+        padding: 15px;
+    }
+
+    #modalContainerDoctor.hidden {
+        display: none;
+    }
+
+    .insertValue {
+        width: 80%;
+        height: 80px;
+    }
+
+    table tr td {
+        /*border: 1px solid black;*/
+    }
+
+    #viewReservation {
+        width: 100%;
+        height: 50px;
+    }
+</style>
+<script th:inline="javascript" type="text/javascript">
+    let userId = /*[[${user.user_id}]]*/{};
+    let userAuthority = /*[[${user.user_authority}]]*/{};
+    /*<![CDATA[*/
+    window.onload = function () {
+        const modalOpenButton = document.getElementById('modalOpenButton');
+        const modalCloseButton = document.getElementById('modalCloseButton');
+        const modalOpenButtonDoctor = document.getElementById('modalOpenButtonDoctor');
+        const modalCloseButtonDoctor = document.getElementById('modalCloseButtonDoctor');
+        const modal = document.getElementById('modalContainer');
+        const modalDoctor = document.getElementById('modalContainerDoctor');
+        modalOpenButton.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+        });
+
+        modalCloseButton.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+
+        modalOpenButtonDoctor.addEventListener('click', () => {
+            modalDoctor.classList.remove('hidden');
+        });
+
+        modalCloseButtonDoctor.addEventListener('click', () => {
+            modalDoctor.classList.add('hidden');
+        });
+
+        $('#user_passwordVerify').keyup(function () {
+            let firstInsertedPassword = $('#user_password').val();
+            let secondInsertedPassword = $('#user_passwordVerify').val();
+            let getPasswordVerifyMSG = $('#passwordVerifyMSG');
+            if (firstInsertedPassword !== "" || secondInsertedPassword !== "") {
+                if (firstInsertedPassword === secondInsertedPassword) {
+                    getPasswordVerifyMSG.html('일치');
+                    getPasswordVerifyMSG.css("color", "green");
+                } else {
+                    getPasswordVerifyMSG.html('불일치');
+                    getPasswordVerifyMSG.css("color", "red");
+                }
+            }
+        })
+        // 일반, 의사회원 구분 출력
+
+        console.log(userAuthority);
+        if (userAuthority === "doctor") {
+            console.log(userAuthority);
+            document.getElementById("doctorInfo").style.removeProperty("display");
+            document.getElementById("reservationDoctorInfo").style.removeProperty("display");
+        } else if (userAuthority === "client") {
+            console.log(userAuthority);
+            document.getElementById("reservationClientInfo").style.removeProperty("display");
+        }
+        // 예약 현황 테이블 생성
+        viewReservationStatus();
+        viewReservationStatusDoctor();
+    }
+
+    function viewReservationStatus() {
+        let tbody = document.getElementById("reservationTable");
+        tbody.innerHTML = "";
+        $.ajax({
+            url: "/asklepios/userreservationstatus",
+            type: "get",
+            data: {
+                user_id: userId,
+            },
+            // dataType: "String",
+            success: function (reservationUserStatusVOList) {
+                // console.log(reservationUserStatusVOList[0].hospital_name);
+                const table = document.getElementById("reservationTable");
+                if (reservationUserStatusVOList.length === 0) {
+                    document.getElementById("userStatusTable").style.display = "none";
+                    document.getElementById("reservation").removeAttribute("display");
+                } else {
+                    for (let i = 0; i < reservationUserStatusVOList.length; i++) {
+                        // alert("2");
+                        const newRow = table.insertRow();
+                        newRow.style.textAlign = "center";
+
+                        let newCell1 = newRow.insertCell(0);
+                        let newCell2 = newRow.insertCell(1);
+                        let newCell3 = newRow.insertCell(2);
+                        let newCell4 = newRow.insertCell(3);
+                        let newCell5 = newRow.insertCell(4);
+
+                        newCell1.style.height = "50px";
+                        newCell2.style.height = "50px";
+                        newCell3.style.height = "50px";
+                        newCell4.style.height = "50px";
+                        newCell5.style.height = "50px";
+
+                        newCell1.innerHTML = '<p>' + reservationUserStatusVOList[i].hospital_name + '</p>';
+                        //의사의 이름을 출력
+                        newCell2.innerHTML = '<p>' + reservationUserStatusVOList[i].user_name + '</p>';
+                        newCell3.innerHTML = '<p>' + reservationUserStatusVOList[i].reservation_date + "/" + reservationUserStatusVOList[i].reservation_time + '</p>';
+                        newCell4.innerHTML = '<p>' + reservationUserStatusVOList[i].reservation_memo + '</p>';
+                        newCell5.innerHTML = '<p>' + reservationUserStatusVOList[i].reservation_accept + '</p>';
+
+                        if (reservationUserStatusVOList[i].reservation_accept === "승인") {
+                            newCell5.style.color = "green";
+                        } else {
+                            newCell5.style.color = "red";
+                        }
+                    }
+                }
+            }
+        })
+    }
+
+    function viewReservationStatusDoctor() {
+        let tbody = document.getElementById("reservationTableDoctor");
+        tbody.innerHTML = "";
+        $.ajax({
+            url: "/asklepios/doctorreservationstatus",
+            type: "get",
+            data: {
+                user_id: userId,
+            },
+            // dataType: "String",
+            success: function (reservationDoctorStatusVOList) {
+                // console.log(reservationDoctorStatusVOList[0].hospital_name);
+                const table = document.getElementById("reservationTableDoctor");
+                if (reservationDoctorStatusVOList.length === 0) {
+                    document.getElementById("doctorStatusTable").style.display = "none";
+                    document.getElementById("text").removeAttribute("display");
+                } else {
+                    for (let i = 0; i < reservationDoctorStatusVOList.length; i++) {
+                        // alert("2");
+                        const newRow = table.insertRow();
+                        newRow.style.textAlign = "center";
+
+                        let newCell1 = newRow.insertCell(0);
+                        let newCell2 = newRow.insertCell(1);
+                        let newCell3 = newRow.insertCell(2);
+                        let newCell4 = newRow.insertCell(3);
+                        let newCell5 = newRow.insertCell(4);
+                        let newCell6 = newRow.insertCell(5);
+
+                        newCell1.style.height = "50px";
+                        newCell2.style.height = "50px";
+                        newCell3.style.height = "50px";
+                        newCell4.style.height = "50px";
+                        newCell5.style.height = "50px";
+                        newCell6.style.height = "50px";
+
+                        newCell1.innerHTML = '<p>' + reservationDoctorStatusVOList[i].hospital_name + '</p>';
+                        newCell2.innerHTML = '<p>' + reservationDoctorStatusVOList[i].user_name + '</p>';
+                        newCell3.innerHTML = '<p>' + reservationDoctorStatusVOList[i].reservation_date + "/" + reservationDoctorStatusVOList[i].reservation_time + '</p>';
+                        newCell4.innerHTML = '<p>' + reservationDoctorStatusVOList[i].reservation_memo + '</p>';
+                        newCell5.innerHTML = '<p>' + reservationDoctorStatusVOList[i].reservation_accept + '</p>';
+                        newCell6.innerHTML = '<button onclick="acceptReservation(this.value)" value="' + reservationDoctorStatusVOList[i].reservation_code + '">승인</button>' + " / " + '<button onclick="cancelReservation(this.value)" value="' + reservationDoctorStatusVOList[i].reservation_code + '">취소</button>';
+
+                        if (reservationDoctorStatusVOList[i].reservation_accept === "승인") {
+                            newCell5.style.color = "green";
+                        } else if(reservationDoctorStatusVOList[i].reservation_accept === "대기"){
+                            newCell5.style.color = "#3b82f6";
+                        } else{
+                            newCell5.style.color = "red";
+                        }
+                    }
+                }
+            }
+        })
+    }
+
+    function acceptReservation(reservationCode) {
+        $.ajax({
+            url: "/asklepios/acceptreservation",
+            type: "get",
+            data: {
+                reservation_code: reservationCode
+            },
+            success: function () {
+                viewReservationStatusDoctor();
+            }
+        })
+    }
+
+    function cancelReservation(reservationCode) {
+        $.ajax({
+            url: "/asklepios/cancelreservation",
+            type: "get",
+            data: {
+                reservation_code: reservationCode
+            },
+            success: function () {
+                viewReservationStatusDoctor();
+            }
+        })
+    }
+
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if (data.userSelectedType === 'R') {
+// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if (data.buildingName !== '' && data.apartment === 'Y') {
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if (extraAddr !== '') {
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                    document.getElementById("sample6_extraAddress").readOnly = true;
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                document.getElementById("sample6_postcode").readOnly = true;
+                document.getElementById("sample6_address").readOnly = true;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
+
+    function changeDomain(domain) {
+        if (domain === "write") {
+            document.getElementById('user_email_domain').value = "";
+            document.getElementById('user_email_domain').readOnly = false;
+            document.getElementById('user_email_domain').placeholder = "직접 입력";
+        } else {
+            document.getElementById('user_email_domain').value = domain;
+            document.getElementById('user_email_domain').readOnly = true;
+        }
+
+    }
+
+    function verifyUser() {
+        $.ajax({
+            url: "/asklepios/verify_password_mypage",
+            type: "post",
+            data: {user_id: userId},
+            // dataType: "String",
+            success: function (user_password) {
+                if (document.getElementById("verifyUserPassword").value === user_password) {
+                    document.getElementById("verifyPasswordMSG").style.display = "block";
+                    document.getElementById("wrongPasswordMSG").style.display = "none";
+                    document.getElementById("check").style.display = "none";
+                    document.getElementById("confirm").style.display = "inline-block";
+                } else {
+                    document.getElementById("verifyPasswordMSG").style.display = "none";
+                    document.getElementById("wrongPasswordMSG").style.display = "block";
+                }
+            }
+        })
+    }
+
+    function checkInfo(submit) {
+        if (document.getElementsByTagName("input") !== null) {
+            let firstEngName;
+            let lastEngName;
+            let totalEngName = "";
+            firstEngName = document.getElementById('user_first_name_eng').value;
+            lastEngName = document.getElementById('user_last_name_eng').value;
+            totalEngName = firstEngName + ' ' + lastEngName;
+            document.getElementsByName('user_name_eng')[0].value = totalEngName;
+
+            let totalPhoneNumber = "";
+            totalPhoneNumber = document.getElementById('user_tel_first_number').value + '-' + document.getElementById('user_tel_second_number').value + '-' + document.getElementById('user_tel_third_number').value;
+            document.getElementsByName('user_tel')[0].value = totalPhoneNumber;
+
+            let totalEmailAddress = "";
+            totalEmailAddress = document.getElementById('user_email_address').value + '@' + document.getElementById('user_email_domain').value;
+            document.getElementsByName('user_email')[0].value = totalEmailAddress;
+
+            let totalAddress = "";
+            totalAddress = document.getElementById('sample6_postcode').value
+                    + ',' + document.getElementById('sample6_address').value
+                    + ',' + document.getElementById('sample6_detailAddress').value
+                    + ',' + document.getElementById('sample6_extraAddress').value;
+            document.getElementsByName('user_addr')[0].value = totalAddress;
+
+            return true;
+        } else {
+            alert("비밀번호 확인이 불가합니다. 다시 확인 부탁드립니다.")
+            return false;
+        }
+    }
+
+    function confirmUser() {
+        // 모달창 끄기
+        const modal = document.getElementById('modalContainer');
+        modal.classList.add('hidden');
+
+        // 수정하기 버튼 변경(수정취소, 저장하기)
+        document.getElementById("modalOpenButton").style.display = "none";
+        document.getElementById("cancelModify").style.display = "inline-block";
+        document.getElementById("saveModification").style.display = "inline-block";
+
+        // 수정하기위한 숨겨진 input 태그 보이도록 변경
+        document.getElementById("user_passwordVerifyRow").style.removeProperty("display");
+        // document.getElementById("emailVerification").style.removeProperty("display");
+        document.getElementById("user_passwordVerifyRowMSG").style.removeProperty("display");
+        // document.getElementById("emailVerificationMSG").style.removeProperty("display");
+        document.getElementById("postCode").style.removeProperty("display");
+        document.getElementById("modifyImage").style.removeProperty("display");
+        // 의사정보
+        document.getElementById("user_doctor_medical_selected").style.removeProperty("display");
+        document.getElementById("user_doctor_medical").style.display = "none";
+
+
+        // input 및 select 입력 가능하도록 변경
+        document.getElementById("user_image").disabled = false;
+        document.getElementById("user_authority").disabled = false;
+        document.getElementById("email_domain").disabled = false;
+        document.getElementById("user_password").readOnly = false;
+        document.getElementById("user_name").readOnly = false;
+        document.getElementById("user_first_name_eng").readOnly = false;
+        document.getElementById("user_last_name_eng").readOnly = false;
+        document.getElementById("user_tel_first_number").readOnly = false;
+        document.getElementById("user_tel_second_number").readOnly = false;
+        document.getElementById("user_tel_third_number").readOnly = false;
+        document.getElementById("user_email_address").readOnly = false;
+        document.getElementById("user_email_domain").readOnly = false;
+        document.getElementById("sample6_detailAddress").readOnly = false;
+        // 의사정보
+        document.getElementById("user_doctor_hospital_code").readOnly = false;
+        document.getElementById("user_doctor_medical").readOnly = false;
+        document.getElementById("user_doctor_career").readOnly = false;
+        document.getElementById("user_doctor_graduate").readOnly = false;
+        document.getElementById("modalOpenButtonDoctor").disabled = false;
+    }
+
+    function selectMedical(medical) {
+        document.getElementById("user_doctor_medical").value = medical;
+    }
+
+    // 병원 검색
+    function searchDetailHospital() {
+        let tbody = document.getElementById("selectedHospital");
+        tbody.innerHTML = "";
+        $.ajax({
+            url: "/asklepios/hospitalList",
+            type: "get",
+            data: {hospital_name: document.getElementById("hospital_name").value},
+            dataType: "json",
+            success: function (hospitalJson) {
+                $.each(hospitalJson, function (i) {
+                    const table = document.getElementById("selectedHospital");
+                    const newRow = table.insertRow();
+                    newRow.setAttribute("id", "viewHospital")
+
+                    const newCell1 = newRow.insertCell(0);
+                    const newCell2 = newRow.insertCell(1);
+                    const newCell3 = newRow.insertCell(2);
+                    newCell1.style.height = "50px";
+                    newCell2.style.height = "50px";
+                    newCell3.style.height = "50px";
+                    newCell1.innerHTML = '<button type="button" onclick="selectHospital()">' + hospitalJson[i].hospital_name + '</button>';
+                    newCell2.innerHTML = '<button type="button" onclick="selectHospital()">' + hospitalJson[i].hospital_addr + '</button>';
+                    newCell3.innerHTML = '<button type="button" onclick="selectHospital()" value="' +
+                            hospitalJson[i].hospital_code + '">' + hospitalJson[i].hospital_code + '</button>';
+
+                })
+            }
+        })
+        selectHospital();
+    }
+
+    // let a = document.getElementById('modalOpenButtonDoctor');
+    // a.onclick = selectHospital;
+
+    function selectHospital() {
+        let table = document.getElementById("selectHospital");
+        let rowList = table.rows;
+        for (let i = 1; i < rowList.length; i++) {
+            var row = rowList[i];
+            row.onclick = function () {
+                return function () {
+                    let selected_hospital_code = this.cells[2].innerText;
+                    let codeString = "";
+                    codeString = selected_hospital_code;
+                    document.getElementById('user_doctor_hospital_code').value = codeString;
+                    document.getElementById('user_doctor_hospital_code').readOnly = true;
+                    const modal = document.getElementById('modalContainerDoctor');
+                    modal.classList.add('hidden');
+                }
+            }(row);
+        }
+    }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('preview').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            document.getElementById('preview').src = "";
+        }
+    }
+
+</script>
+<body>
+<div th:replace="~{include/topinclude}"></div>
+<!--데이터 확인 및 수정-->
+<div class="mypageContainer">
+    <form id="modifyProfile" action="/asklepios/updateUserInfo" enctype="multipart/form-data" method="post"
+          onsubmit="checkInfo()">
+        <!--전체 정보-->
+        <div style="vertical-align: top; border-bottom: 5px solid #3b82f6"><h1 style="color: #3B82F6; font-size: 50px; font-weight: bold">내 프로필 보기</h1>
+        </div>
+        <div style="margin-top: 10px">
+            <div style="width: 100%; display: inline-block">
+                <table style="width: 100%">
+                    <tr>
+                        <td style="width: 20%;">
+                            <label class="mx-auto block font-medium text-gray-900 dark:text-white">
+                                사진</label>
+                        </td>
+                        <td class="insertValue">
+                            <img th:src="${filePath}" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%">
+                            <label for="user_id" class="mx-auto font-medium text-gray-900 dark:text-white">아이디</label>
+                        </td>
+                        <td class="insertValue">
+                            <input type="text" id="user_id" name="user_id"
+                                   th:value="${user.user_id}"
+                                   class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   style="display: inline-block; width: 100%" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%">
+                            <label for="user_password"
+                                   class="mx-auto font-medium text-gray-900 dark:text-white">비밀번호</label>
+                        </td>
+                        <td class="insertValue">
+                            <input type="password" id="user_password" name="user_password"
+                                   th:value="${user.user_password}"
+                                   class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   style="width: 100%" placeholder="사용하실 비밀번호를 입력하시오." readonly>
+                        </td>
+                    </tr>
+                    <tr id="user_passwordVerifyRow" style="display: none">
+                        <td style="width: 20%">
+                            <label for="user_passwordVerify"
+                                   class="mx-auto font-medium text-gray-900 dark:text-white">비밀번호
+                                확인</label>
+                        </td>
+                        <td class="insertValue">
+                            <input type="password" id="user_passwordVerify"
+                                   class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   style="width: 100%" placeholder="사용하실 비밀번호를 입력하시오.">
+                        </td>
+                    </tr>
+                    <tr id="user_passwordVerifyRowMSG" style="display: none">
+                        <td style="height: auto"></td>
+                        <td style="height: auto">
+                            <p id="passwordVerifyMSG">비밀번호를 다시한번 입력해주세요.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%">
+                            <label for="user_name" class="mx-auto font-medium text-gray-900 dark:text-white">사용자
+                                이름</label>
+                        </td>
+                        <td class="insertValue">
+                            <input type="text" id="user_name" name="user_name"
+                                   th:value="${user.user_name}"
+                                   class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   style="width: 100%" placeholder="사용자 이름을 입력하시오." readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%">
+                            <label for="user_first_name_eng"
+                                   class="mx-auto font-medium text-gray-900 dark:text-white">사용자
+                                이름(영문)</label>
+                        </td>
+                        <td class="insertValue">
+                            <input type="text" id="user_first_name_eng" title="EnglishName_First"
+                                   th:value="${user.user_name_eng_first}"
+                                   class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   placeholder="First Name" style="width: 49.5%" readonly>
+                            <input type="text" id="user_last_name_eng" title="EnglishName_Last"
+                                   th:value="${user.user_name_eng_last}"
+                                   class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   placeholder="Last Name" style="width: 49.5%" readonly>
+                            <input type="hidden" id="user_name_eng" name="user_name_eng" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%">
+                            <label for="user_tel_first_number"
+                                   class="mx-auto block font-medium text-gray-900 dark:text-white">전화번호</label>
+                        </td>
+                        <td class="insertValue">
+                            <input type="text" id="user_tel_first_number" name="user_tel_first_number"
+                                   th:value="${user.user_tel_first}"
+                                   class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   placeholder="010" style="width: 25.5%" readonly>
+                            <span> - </span>
+                            <input type="text" id="user_tel_second_number" name="user_tel_second_number"
+                                   th:value="${user.user_tel_second}"
+                                   class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   placeholder="0000" style="width: 35.5%" readonly>
+                            <span> - </span>
+                            <input type="text" id="user_tel_third_number" name="user_tel_third_number"
+                                   th:value="${user.user_tel_third}"
+                                   class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   placeholder="0000" style="width: 35.5%" readonly>
+                            <input type="hidden" name="user_tel" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%">
+                            <label for="user_email_address"
+                                   class="mx-auto block font-medium text-gray-900 dark:text-white">이메일</label>
+                        </td>
+                        <td class="insertValue">
+                            <input type="text" id="user_email_address"
+                                   th:value="${user.user_email_first}"
+                                   class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   placeholder="address" style="width: 30.5%" readonly>
+                            <span>@</span>
+                            <input type="text" id="user_email_domain"
+                                   th:value="${user.user_email_last}"
+                                   class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   placeholder="domain" style="width: 31%" readonly>
+                            <select id="email_domain" onchange="changeDomain(this.value)"
+                                    class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                    style="width: 35.5%; height: 70px" disabled>
+                                <option value="write">=== 선택 ===</option>
+                                <option value="naver.com">naver.com</option>
+                                <option value="gmail.com">gmail.com</option>
+                                <option value="kakao.com">kakao.com</option>
+                                <option value="daum.net">daum.net</option>
+                                <option value="hanmail.net">hanmail.net</option>
+                            </select>
+                            <input type="hidden" name="user_email" value="">
+                        </td>
+                    </tr>
+                    <tr style="display: none" id="emailVerification">
+                        <td style="width: 20%">
+                            <label class="mx-auto block font-medium text-gray-900 dark:text-white">이메일 인증</label>
+                        </td>
+                        <td class="insertValue">
+                            <input type="text" id="authentication_number"
+                                   class="mx-auto block bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   placeholder="전송받은 인증번호를 입력해 주세요." style="display: inline-block; width: 49.5%"
+                                   oninput="userID(this)">
+                            <button type="button" id="sendAuthentication"
+                                    class="mx-auto block bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                    onclick="sendAuthenticationNumber()"
+                                    style="width: 49.5%; display: inline-block; height: 70px; border-radius: 10px;">인증번호 전송
+                            </button>
+                            <button type="button" id="checkAuthentication"
+                                    class="mx-auto block bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                    onclick="checkAuthenticationNumber()"
+                                    style="width: 49.5%; display: none; height: 70px; border-radius: 10px;">인증번호 확인
+                            </button>
+                        </td>
+                    </tr>
+                    <tr style="display: none" id="emailVerificationMSG">
+                        <td></td>
+                        <td style="height: auto">
+                            <p id="authenticationVerifyMSG">인증번호를 입력해 주세요.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%">
+                            <label class="mx-auto block font-medium text-gray-900 dark:text-white">주소</label>
+                        </td>
+                        <td class="insertValue">
+                            <input type="text" id="sample6_postcode"
+                                   th:value="${user.user_addr_first}"
+                                   class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   placeholder="우편번호" style="width: 49.5%" readonly>
+                            <input type="button"
+                                   id="postCode"
+                                   class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   onclick="sample6_execDaumPostcode()" value="우편번호 찾기" style="width: 49.5%; display: none">
+                            <input type="text" id="sample6_address"
+                                   th:value="${user.user_addr_second}"
+                                   class="mx-auto block bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   style="width: 100%"
+                                   placeholder="주소" readonly>
+                            <input type="text" id="sample6_detailAddress"
+                                   th:value="${user.user_addr_third}"
+                                   class="mx-auto block bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   style="width: 100%"
+                                   placeholder="상세주소" readonly>
+                            <input type="text" id="sample6_extraAddress"
+                                   th:value="${user.user_addr_fourth}"
+                                   class="mx-auto block bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   style="width: 100%"
+                                   placeholder="참고항목" readonly>
+                            <input type="hidden" name="user_addr" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%">
+                            <label for="user_authority" class="mx-auto block font-medium text-gray-900 dark:text-white">사용자
+                                구분</label>
+                        </td>
+                        <td class="insertValue">
+                            <input type="text" name="user_authority" id="user_authority" th:value="${user.user_authority}"
+                                    class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                    style="width: 100%" disabled>
+
+<!--                                <option value="doctor">의사</option>-->
+<!--                                <option value="client">일반</option>-->
+<!--                                <option value="admin">관리자</option>-->
+                            </input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%">
+                            <label for="user_info_agreement"
+                                   class="mx-auto block font-medium text-gray-900 dark:text-white">이용약관
+                                및 <br>제3자 정보 제공 동의</label>
+                        </td>
+                        <td class="insertValue">
+                            <input type="text" id="user_info_agreement" name="user_info_agreement"
+                                   class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   style="text-align: center; font-weight: bold; color: #1e40af; width: 100%" value="agree"
+                                   readonly>
+                        </td>
+                    </tr>
+                    <tr id="modifyImage" style="display: none">
+                        <td style="width: 20%">
+                            <label for="user_image" class="mx-auto block font-medium text-gray-900 dark:text-white">사용자
+                                이미지<br>(300*400)</label>
+                        </td>
+                        <td class="insertValue">
+                            <input type="file" name="file" id="user_image" style="width: 100%"
+                                   onchange="readURL(this);"
+                                   class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                   placeholder="선택된 이미지 없음" disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%;">
+                            <label class="mx-auto block font-medium text-gray-900 dark:text-white">
+                                사진 미리보기</label>
+                        </td>
+                        <td class="insertValue">
+                            <img id="preview"/>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <!--의사 정보-->
+        <div id="doctorInfo" style="display: none; margin-top: 50px">
+            <div style="width: 19.5%; display: inline-block; vertical-align: top; margin-top: 20px"><h1
+                    style="font-size: 40px">의사 정보</h1>
+            </div>
+            <hr>
+            <div style="margin-top: 20px">
+                <div style="width: 100%; display: inline-block">
+
+                    <table style="width: 100%">
+                        <!--                <tr>-->
+                        <!--                    <td style="width: 20%" >-->
+                        <!--                        <label for="user_doctor_id"-->
+                        <!--                               class="mx-auto block font-medium text-gray-900 dark:text-white">아이디</label>-->
+                        <!--                    </td>-->
+                        <!--                    <td class="insertValue">-->
+                        <!--                        <input type="text" id="user_doctor_id" name="user_doctor_id"-->
+                        <!--                               style="width: 100%"-->
+                        <!--                               class="mx-auto block bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"-->
+                        <!--                               placeholder="사용하실 아이디를 입력하시오." th:value="${user_id}" readonly>-->
+                        <!--                    </td>-->
+                        <!--                </tr>-->
+                        <tr>
+                            <td style="width: 20%">
+                                <label for="user_doctor_hospital_code"
+                                       class="mx-auto block font-medium text-gray-900 dark:text-white">병원 코드</label>
+                            </td>
+                            <td class="insertValue">
+                                <input type="text" id="user_doctor_hospital_code" name="user_doctor_hospital_code"
+                                       th:value="${doctorVO.getUser_doctor_hospital_code()}"
+                                       class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                       style="width: 49.5%;" placeholder="병원 코드를 입력 혹은 검색하세요." readonly>
+                                <button type="button" id="modalOpenButtonDoctor" onclick="selectHospital()"
+                                        class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                        style="width: 50%; display: inline-block; height: 70px; border-radius: 10px;"
+                                        disabled>병원 검색
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20%">
+                                <label for="user_doctor_medical"
+                                       class="mx-auto block font-medium text-gray-900 dark:text-white">진료 과목</label>
+                            </td>
+                            <td class="insertValue">
+                                <select name="user_doctor_medical_selected" id="user_doctor_medical_selected"
+                                        onchange="selectMedical(this.value)"
+                                        class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                        style="width: 100%; display: none">
+                                    <option value="select">=== 선택 ===</option>
+                                    <option value="내과" name="user_doctor_medical_variable" id="내과">내과
+                                    </option>
+                                    <option value="이빈후과" name="user_doctor_medical_variable" id="이빈후과">이빈후과
+                                    </option>
+                                    <option value="정형외과" name="user_doctor_medical_variable" id="정형외과">정형외과</option>
+                                    <option value="성형외과" name="user_doctor_medical_variable" id="성형외과">성형외과
+                                    </option>
+                                    <option value="정신건강의학과" name="user_doctor_medical_variable" id="정신건강의학과 ">정신건강의학과
+                                    </option>
+                                    <option value="피부과" name="user_doctor_medical_variable" id="피부과">피부과</option>
+                                    <option value="안과" name="user_doctor_medical_variable" id="안과">안과</option>
+                                    <option value="소아청소년과" name="user_doctor_medical_variable" id="소아청소년과">소아청소년과
+                                    </option>
+                                    <option value="산부인과" name="user_doctor_medical_variable"
+                                            id="산부인과 ">산부인과
+                                    </option>
+                                    <option value="비뇨의학과" name="user_doctor_medical_variable" id="비뇨의학과">비뇨의학과</option>
+                                    <option value="외과" name="user_doctor_medical_variable" id="외과">외과</option>
+                                </select>
+                                <input type="text" id="user_doctor_medical" style="width: 100%;"
+                                       name="user_doctor_medical"
+                                       class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                       th:value="${doctorVO.getUser_doctor_medical()}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20%">
+                                <label for="user_doctor_career"
+                                       class="mx-auto block font-medium text-gray-900 dark:text-white">경력</label>
+                            </td>
+                            <td class="insertValue">
+                                <input type="text" id="user_doctor_career" name="user_doctor_career"
+                                       th:value="${doctorVO.getUser_doctor_career()}"
+                                       style="width: 100%"
+                                       class="mx-auto block bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                       placeholder="선택 진료과목에 대한 연차를 입력해주세요." readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20%">
+                                <label for="user_doctor_graduate"
+                                       class="mx-auto block font-medium text-gray-900 dark:text-white">학력</label>
+                            </td>
+                            <td class="insertValue">
+                                <input type="text" id="user_doctor_graduate" name="user_doctor_graduate"
+                                       th:value="${doctorVO.getUser_doctor_graduate()}"
+                                       style="width: 100%"
+                                       class="mx-auto block bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                                       placeholder="(학교/최종학위) 양식으로 입력해주세요." readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height: auto"></td>
+                            <td style="height: auto">
+                                <p>작성 예시 : 학교/최종학위, 학교/최종학위, ...</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--수정하기 버튼-->
+    <div class="mx-auto" style="width: 40%; text-align: center">
+        <button id="modalOpenButton"
+                class="bg-blue-500 hover:bg-blue-600 rounded-lg w-64 h-20 text-4xl my-10 text-white">수정하기
+        </button>
+        <a href="/asklepios/myPage?user_id=gkgjfj">
+            <button id="cancelModify" class="bg-blue-500 hover:bg-blue-600 rounded-lg w-64 h-20 text-4xl my-10 text-white" style="display: none">수정취소
+            </button>
+        </a>
+        <button form="modifyProfile" id="saveModification" type="submit"
+                class="bg-blue-500 hover:bg-blue-600 rounded-lg w-64 h-20 text-4xl my-10 text-white"
+                style=" display: none">저장하기
+        </button>
+    </div>
+    <!--데이터 수정을 위한 본인 확인 모달-->
+    <div id="modalContainer" class="hidden">
+        <div id="modalContent">
+            <div style="display: flex; justify-content: space-between">
+                <h4 style="display: inline-block; margin-bottom: 10px">비밀번호 확인</h4>
+                <button type="button" id="modalCloseButton" class="btn-close" aria-label="Close"
+                        style="text-align: right; display: inline-block">X
+                </button>
+            </div>
+            <div>
+                <hr>
+                <br>
+                <div class="mx-auto">
+                    <input type="password" id="verifyUserPassword" name="user_password"
+                           class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                           style="width: 79%" placeholder="비밀번호를 입력하시오.">
+                    <button type="button" id="check" style="display: inline-block; width: 20%"
+                            class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                            onclick="verifyUser()">확인
+                    </button>
+                    <button type="button" id="confirm" style="display: none; width: 20%"
+                            class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                            onclick="confirmUser()">완료
+                    </button>
+                    <p style="color: green; display: none" id="verifyPasswordMSG">비밀번호 확인 완료</p>
+                    <p style="color: green; display: none" id="wrongPasswordMSG">비밀번호가 옳지 않습니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--병원 검색 모달-->
+    <div id="modalContainerDoctor" class="hidden">
+        <div id="modalContentDoctor" style="text-align: right">
+            <div style="display: flex; justify-content: space-between">
+                <h4 style="display: inline-block; margin-bottom: 10px">병원 검색</h4>
+                <button type="button" id="modalCloseButtonDoctor" class="btn-close" aria-label="Close"
+                        style="text-align: right; display: inline-block">X
+                </button>
+            </div>
+            <div class="mx-auto">
+                <hr>
+                <br>
+                <input type="text" id="hospital_name" name="hospital_name"
+                       class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                       style="width: 79%" placeholder="병원 이름을 입력하시오.">
+                <button type="button" style="display: inline-block; width: 20%"
+                        class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500   p-5 focus:ring-2 focus:outline-none"
+                        onclick="searchDetailHospital()">검색
+                </button>
+            </div>
+            <br><br>
+            <table id="selectHospital" style="width: 100%; margin: auto; border: 1px black solid; text-align: center;">
+                <thead style="background-color: #1e40af; color: white; border: 1px solid white">
+                <tr>
+                    <td style="border: 2px gray solid; height: 50px">병원 이름</td>
+                    <td style="border: 2px gray solid; height: 50px">병원 주소</td>
+                    <td style="border: 2px gray solid; height: 50px">병원 코드</td>
+                </tr>
+                </thead>
+                <tbody id="selectedHospital" style="height: 50px">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer id="footer" th:replace="~{include/footer}">
+</footer>
+</body>
+</html>

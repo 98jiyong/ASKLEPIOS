@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Asklepios</title>
+</head>
+<link rel="stylesheet" href="CSS/home.css"/>
+<link rel="stylesheet" href="CSS/reservationAside.css"/>
+<link rel="icon" href="Img/logo_icon.png" type="image/x-icon">
+<style>
+  @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  body {
+    width: 1920px;
+    font-family: 'Pretendard-Regular', 'sans-serif';
+    font-size: 20px;
+    /*border: 1px solid black;*/
+  }
+  .asideReservationInfo {
+    background-color: #3B82F6;
+    color: white;
+    border-bottom-right-radius: 20px;
+  }
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://kit.fontawesome.com/68dda164c0.js" crossorigin="anonymous"></script>
+<script th:inline="javascript" type="text/javascript">
+  let userId = /*[[${user.user_id}]]*/{};
+  let userAuthority = /*[[${user.user_authority}]]*/{};
+  /*<![CDATA[*/
+  window.onload = function () {
+    viewReservationStatusDoctor();
+  }
+
+
+  function viewReservationStatusDoctor() {
+    let tbody = document.getElementById("reservationTableDoctor");
+    tbody.innerHTML = "";
+    $.ajax({
+      url: "/asklepios/doctorreservationstatus",
+      type: "get",
+      data: {
+        user_id: userId,
+      },
+      // dataType: "String",
+      success: function (reservationDoctorStatusVOList) {
+        // console.log(reservationDoctorStatusVOList[0].hospital_name);
+        reservationDoctorStatusVOList.sort((a, b) => {
+          const dateA = new Date(a.reservation_date + " " + a.reservation_time);
+          const dateB = new Date(b.reservation_date + " " + b.reservation_time);
+          return dateA - dateB; // 오름차순
+        });
+        const table = document.getElementById("reservationTableDoctor");
+        if (reservationDoctorStatusVOList.length === 0) {
+          document.getElementById("doctorStatusTable").style.display = "none";
+          document.getElementById("text").removeAttribute("display");
+        } else {
+          for (let i = 0; i < reservationDoctorStatusVOList.length; i++) {
+            // alert("2");
+            const newRow = table.insertRow();
+            newRow.style.textAlign = "center";
+
+            let newCell1 = newRow.insertCell(0);
+            let newCell2 = newRow.insertCell(1);
+            let newCell3 = newRow.insertCell(2);
+            let newCell4 = newRow.insertCell(3);
+            let newCell5 = newRow.insertCell(4);
+            let newCell6 = newRow.insertCell(5);
+
+            newCell1.style.height = "50px";
+            newCell2.style.height = "50px";
+            newCell3.style.height = "50px";
+            newCell4.style.height = "50px";
+            newCell5.style.height = "50px";
+            newCell6.style.height = "50px";
+
+            newCell1.innerHTML = '<p>' + reservationDoctorStatusVOList[i].hospital_name + '</p>';
+            newCell2.innerHTML = '<p>' + reservationDoctorStatusVOList[i].user_name + '</p>';
+            newCell3.innerHTML = '<p>' + reservationDoctorStatusVOList[i].reservation_date + "/" + reservationDoctorStatusVOList[i].reservation_time + '</p>';
+            newCell4.innerHTML = '<p>' + reservationDoctorStatusVOList[i].reservation_memo + '</p>';
+            newCell5.innerHTML = '<p>' + reservationDoctorStatusVOList[i].reservation_accept + '</p>';
+            newCell6.innerHTML = '<button onclick="acceptReservation(this.value)" value="' + reservationDoctorStatusVOList[i].reservation_code + '">승인</button>' + " / " + '<button onclick="cancelReservation(this.value)" value="' + reservationDoctorStatusVOList[i].reservation_code + '">취소</button>';
+
+            if (reservationDoctorStatusVOList[i].reservation_accept === "승인") {
+              newCell5.style.color = "green";
+            } else if (reservationDoctorStatusVOList[i].reservation_accept === "대기") {
+              newCell5.style.color = "#3b82f6";
+            } else {
+              newCell5.style.color = "red";
+            }
+          }
+        }
+      }
+    })
+  }
+
+  function acceptReservation(reservationCode) {
+    $.ajax({
+      url: "/asklepios/acceptreservation",
+      type: "get",
+      data: {
+        reservation_code: reservationCode
+      },
+      success: function () {
+        viewReservationStatusDoctor();
+      }
+    })
+  }
+
+  function cancelReservation(reservationCode) {
+    $.ajax({
+      url: "/asklepios/cancelreservation",
+      type: "get",
+      data: {
+        reservation_code: reservationCode
+      },
+      success: function () {
+        viewReservationStatusDoctor();
+      }
+    })
+  }
+
+</script>
+<body>
+<div th:replace="~{include/topinclude}"></div>
+<div id="homeContainer" style="display: flex; height: 1200px;">
+  <aside id="aside1">
+    <div style="display: inline-block;" th:replace="~{asideMenuTemplates/reservationAside}"></div>
+  </aside>
+  <div id="reservationDoctorInfo" style="margin-top: 30px; margin-left: 30px; width: 1200px;">
+    <div style="border-bottom: 5px solid #3b82f6;">
+      <h1 style="font-size: 50px; font-weight: bold; color: #3b82f6;">예약현황</h1>
+    </div>
+    <div style="margin-top: 20px">
+      <div style="width: 100%; display: inline-block">
+        <table style="width: 100%" id="doctorStatusTable">
+          <thead>
+          <tr style="text-align: center; background-color: #3b82f6; height: 50px">
+            <td style="width: 20%">
+              <p class="mx-auto block font-medium text-white text-2xl dark:text-white">
+                병원
+              </p>
+            </td>
+            <td style="width: 10%">
+              <p class="mx-auto block font-medium text-white text-2xl dark:text-white">
+                신청인
+              </p>
+            </td>
+            <td style="width: 15%">
+              <p class="mx-auto block font-medium text-white text-2xl dark:text-white">
+                날짜
+              </p>
+            </td>
+            <td style="width: 34.5%">
+              <p class="mx-auto block font-medium text-white text-2xl dark:text-white">
+                메모
+              </p>
+            </td>
+            <td style="width: 10%">
+              <p class="mx-auto block font-medium text-white text-2xl dark:text-white">
+                상태
+              </p>
+            </td>
+            <td style="width: 10%">
+              <p class="mx-auto block font-medium text-white text-2xl dark:text-white">
+                승인 / 취소
+              </p>
+            </td>
+          </tr>
+          </thead>
+          <tbody id="reservationTableDoctor">
+          </tbody>
+        </table>
+        <button id="text" class="bg-blue-800 rounded-lg w-48 h-12 my-10 text-white"
+                style="font-size: 24px; display: none;" disabled>예약 대기중인 환자가 없습니다.
+        </button>
+      </div>
+    </div>
+  </div>
+<aside style="margin-right: 50px; margin-top: 10px; margin-left: 40px;" id="aside2" th:insert="~{include/quickmenuinclude}"></aside>
+</div>
+<footer id="footer" th:replace="~{include/footer}">
+</footer>
+</body>
+</html>

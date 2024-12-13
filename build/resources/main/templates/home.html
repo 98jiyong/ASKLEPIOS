@@ -1,32 +1,380 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Asklepios</title>
     <script
 			src="https://kit.fontawesome.com/68dda164c0.js"
 			crossorigin="anonymous"
     ></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="CSS/home.css" />
+  <link rel="icon" href="Img/logo_icon.png" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <style>
+    .tenada {
+      font-family: 'Tenada', 'sans-serif';
+    }
+    #intro {
+      width: 1200px;
+      height: 600px;
+      background: #3b82f6;
+      box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.5)
+    }
+    .introTitle {
+      font-family: 'Pretendard-Regular', 'sans-serif';
+      font-size: 50px;
+      font-weight: bold;
+      color: white;
+      position: relative;
+      top: 50px;
+      left: 60px;
+    }
+    .introSubject {
+      font-family: 'Pretendard-Regular', 'sans-serif';
+      font-size: 35px;
+      color: white;
+      position: relative;
+      top: -880px;
+      left: 60px;
+    }
+    .introLogo {
+      font-family: 'Tenada', 'sans-serif';
+      font-size: 70px;
+      font-weight: bold;
+      color: white;
+      position: relative;
+      top: -770px;
+      left: 60px;
+      }
+    #introMap {
+      width: 400px;
+      position: relative;
+      top: -95px;
+      left: 700px;
+      z-index: 1;
+    }
+    #introReservation{
+      width: 460px;
+      position: relative;
+      top: -485px;
+      left: 670px;
+      z-index: 2;
+    }
+    #popularHospital{
+      width: 1150px;
+      height: 500px;
+      background: white;
+      margin-top: 150px;
+      margin-left: 50px;
+      padding-top: 60px;
+      box-shadow: -1px 2px 15px 5px rgba(0, 0, 0, 0.2);
+    }
+    .popularTitle{
+      font-family: 'Pretendard-Regular', 'sans-serif';
+      font-size: 50px;
+      font-weight: bold;
+      color: #3b82f6;
+      position: relative;
+      top: -385px;
+      left: 620px;
+      width: 500px;
+    }
+    .popularSubject {
+      font-family: 'Pretendard-Regular', 'sans-serif';
+      font-size: 35px;
+      color: #3b82f6;
+      position: relative;
+      top: -370px;
+      left: 620px;
+      width: 500px;
+    }
+    .popularEnd{
+      font-family: 'Pretendard-Regular', 'sans-serif';
+      font-size: 35px;
+      color: #3b82f6;
+      position: relative;
+      top: -330px;
+      left: 620px;
+      width: 500px;
+    }
+    #rank{
+      position: relative;
+      left: 60px;
+    }
+    #first {
+      font-family: 'Pretendard-Regular', 'sans-serif';
+      position: relative;
+      width: 500px;
+      height: 60px;
+      background: #2F568A;
+      margin-bottom: 20px;
+      padding-left: 20px;
+      font-size: 30px;
+      color: white;
+      align-content: center;
+      border-top-right-radius: 100px;
+      border-bottom-right-radius: 100px;
+    }
+    #second {
+      font-family: 'Pretendard-Regular', 'sans-serif';
+      position: relative;
+      width: 450px;
+      height: 60px;
+      background: #4075BC;
+      margin-bottom: 20px;
+      padding-left: 20px;
+      font-size: 30px;
+      color: white;
+      align-content: center;
+      border-top-right-radius: 100px;
+      border-bottom-right-radius: 100px;
+    }
+    #third{
+      font-family: 'Pretendard-Regular', 'sans-serif';
+      position: relative;
+      width: 400px;
+      height: 60px;
+      background: #5B88C5;
+      margin-bottom: 20px;
+      padding-left: 20px;
+      font-size: 30px;
+      color: white;
+      align-content: center;
+      border-top-right-radius: 100px;
+      border-bottom-right-radius: 100px;
+    }
+    #forth{
+      font-family: 'Pretendard-Regular', 'sans-serif';
+      position: relative;
+      width: 350px;
+      height: 60px;
+      background: #769CCF;
+      margin-bottom: 20px;
+      padding-left: 20px;
+      font-size: 30px;
+      color: white;
+      align-content: center;
+      border-top-right-radius: 100px;
+      border-bottom-right-radius: 100px;
+    }
+    #fifth {
+      font-family: 'Pretendard-Regular', 'sans-serif';
+      position: relative;
+      width: 300px;
+      height: 60px;
+      background: #91B0D8;
+      padding-left: 20px;
+      font-size: 30px;
+      color: white;
+      align-content: center;
+      border-top-right-radius: 100px;
+      border-bottom-right-radius: 100px;
+    }
+    #review{
+      width: 1150px;
+      height: 500px;
+      background: #3b82f6;
+      margin-top: 150px;
+      margin-right: 50px;
+      box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.5)
+    }
+    #reviewImage {
+      width: 500px;
+      position: relative;
+      top: -320px;
+      left: 580px;
+    }
+    .reviewTitle{
+      width: 550px;
+      font-family: 'Pretendard-Regular', 'sans-serif';
+      font-size: 50px;
+      font-weight: bold;
+      color: white;
+      position: relative;
+      left: 60px;
+      top: 50px;
+    }
+    .reviewSubject{
+      width: 550px;
+      font-family: 'Pretendard-Regular', 'sans-serif';
+      font-size: 35px;
+      color: white;
+      position: relative;
+      left: 60px;
+      top: 100px;
+    }
+    #membership{
+      width: 1200px;
+      height: 700px;
+      background: white;
+      margin-top: 150px;
+      box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.5)
+    }
+    #membershipImage{
+      position: relative;
+      top: 40px;
+      left: 115px;
+    }
+    .membershipTitle{
+      font-family: 'Pretendard-Regular', 'sans-serif';
+      font-size: 50px;
+      font-weight: bold;
+      color: #3b82f6;
+      position: relative;
+      top: 30px;
+      text-align: center;
+    }
+    .membershipSubject{
+      font-family: 'Pretendard-Regular', 'sans-serif';
+      font-size: 35px;
+      color: #3b82f6;
+      position: relative;
+      top: 70px;
+      text-align: center;
+      padding: 5px;
+    }
+    .animate-on-left {
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .animate-on-right {
+      opacity: 0;
+      transform: translateX(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .animate-on-top {
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .animate-on-bottom {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .animate-on-left.show, .animate-on-right.show, .animate-on-top.show, .animate-on-bottom.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
-<link rel="stylesheet" href="home.css" />
-
 <body>
-<div th:replace="include/topinclude"></div>
-<aside id="aside1">
+<div th:replace="~{include/topinclude}"></div>
+<div class="homeContainer" style="height: 2900px;">
+  <aside id="aside1">
+  </aside>
+  <section>
+    <div id="intro" class=" animate-on-top">
+      <div class="introTitle">예약이 힘드신가요?</div>
+      <div class="introTitle">기다리는 시간이 지치시죠?</div>
+      <div id="introMap"><img src="Img/map.png" alt="" style="border-radius: 20px; box-shadow: 10px 0 5px 0 rgba(0, 0, 0, 0.2);"></div>
+      <div id="introReservation"><img src="Img/reservation.png" alt="" style="border-radius: 20px; box-shadow: 10px 0 5px 0 rgba(0, 0, 0, 0.2); "></div>
+      <div class="introSubject"><span style="font-size:45px; font-weight: bold;" class="tenada">ASKLEPIOS</span> 에서 손쉽게 예약하고</div>
+      <div class="introSubject">대기 없이 진료를 받아보세요 !</div>
+      <div class="introLogo">ASKLEPIOS</div>
+    </div>
+    <div id="popularHospital" class="animate-on-left">
+      <div id="rank">
+        <div id="first" class="animate-on-left">1. ?</div>
+        <div id="second" class="animate-on-left">2. ?</div>
+        <div id="third" class="animate-on-left">3. ?</div>
+        <div id="forth" class="animate-on-left">4. ?</div>
+        <div id="fifth" class="animate-on-left">5. ?</div>
+      </div>
+      <div>
+        <div class="popularTitle">어느 병원이 인기있나요?</div>
+        <div class="popularSubject"><span style="font-size:50px; font-weight: bold;" class="tenada">ASKLEPIOS</span> 에서는</div>
+        <div class="popularSubject">예약 순위를 실시간으로 제공합니다.</div>
 
-</aside>
-<section>
-
-</section>
-<aside id="aside2" th:insert="include/quickmenuinclude"></aside>
-<footer id="ad">
-	<h1>광고</h1>
+        <div class="popularEnd">로그인하면 가장 많이 예약된 병원을 한눈에 확인할 수 있습니다.</div>
+        <div class="popularEnd">지금 바로 확인하세요!"</div>
+        <img src="Img/bluearrow.gif" alt="" style="position: relative; width: 200px; z-index: 3; top: -580px; left: 440px; transform: scale(0.7); filter: saturate(20);">
+      </div>
+    </div>
+    <div id="review" class="animate-on-right">
+      <div class="animate-on-right">
+        <div class="reviewTitle">사람들이 먼저 다녀간 병원</div>
+        <div class="reviewTitle">믿고 선택하세요 !</div>
+        <div class="reviewSubject"><span style="font-size:45px; font-weight: bold;" class="tenada">ASKLEPIOS</span> 에서</div>
+        <div class="reviewSubject">고객들의 솔직한 리뷰를 확인하고</div>
+        <div class="reviewSubject">가장 만족스러운 병원을 선택해보세요.</div>
+      </div>
+      <div id="reviewImage" class="animate-on-right">
+        <img src="Img/review.png" alt="" style="border-radius: 20px; box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);width: 450px;position: relative;top: 40px;left: 60px;">
+        <img src="Img/circle.gif" alt="" style="position: relative;width: 150px;z-index: 3;top: -125px;left: 65px;transform: scale3d(1.5, 1.5, 1.5);">
+      </div>
+    </div>
+    <div id="membership" class="animate-on-bottom">
+      <div class="animate-on-bottom">
+        <div class="membershipTitle">나의 예약 상태를 실시간으로 확인하세요 !</div>
+      </div>
+      <div id="membershipImage" class="animate-on-bottom"><img src="Img/reservationInfo.png" alt="" style="border-radius: 20px; box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5); "></div>
+      <div class="animate-on-bottom">
+        <div class="membershipSubject"><span style="font-size:45px; font-weight: bold;" class="tenada">ASKLEPIOS</span>에서는 예약 현황을 한눈에 확인할 수 있습니다.</div>
+        <div class="membershipSubject">의사는 승인 여부를 실시간으로 확인하고, 진료 준비를 더 편리하게 하세요 !</div>
+        <div class="membershipSubject">의사와 환자 모두에게 간편한 예약 관리 시스템을 경험해보세요 !</div>
+      </div>
+    </div>
+  </section>
+  <aside style="margin-right: 50px; margin-top: 20px;" id="aside2" th:insert="~{include/quickmenuinclude}"></aside>
+</div>
+<!--동준 => 광고 집어넣을거면 여기에 추가-->
+<!--<footer id="ad">-->
+<!--  <h1>광고</h1>-->
+<!--</footer>-->
+<footer id="footer" th:replace="~{include/footer}">
 </footer>
-<footer id="footer">
-	<h1>footer</h1>
-</footer>
-
 </body>
 </html>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript">
+  window.onload = function () {
+    $.ajax({
+      url: '/asklepios/popularHospital',
+      type: 'post',
+      success: function (data) {
+        let ids = ["first", "second", "third", "forth", "fifth"];
+        data.forEach((value, index) => {
+          let element = document.getElementById(ids[index]);
+          if (element) {
+            element.textContent = index + 1 + ". " + value;
+          }
+        });
+      },
+      error: function () {
+        alert("error");
+      }
+    })
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    let observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target); // 애니메이션 완료 후 더 이상 관찰하지 않음
+        }
+      });
+    }, {
+      threshold: 1 // 요소가 60% 화면에 보이면 트리거
+    });
+
+    // 애니메이션 대상 선택
+    document.querySelectorAll('.animate-on-left').forEach(el => {
+      observer.observe(el);
+    });
+    document.querySelectorAll('.animate-on-right').forEach(el => {
+      observer.observe(el);
+    });
+    document.querySelectorAll('.animate-on-top').forEach(el => {
+      observer.observe(el);
+    });
+    document.querySelectorAll('.animate-on-bottom').forEach(el => {
+      observer.observe(el);
+    });
+  });
+
+</script>

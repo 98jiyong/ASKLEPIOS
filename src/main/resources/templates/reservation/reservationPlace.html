@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Asklepios</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="text/javascript"
+          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2621e7976b749ad3df34ac9d8ecf4d9b&libraries=services,clusterer,drawing"></script>
+  <script src="https://kit.fontawesome.com/9b855eea51.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <link rel="icon" href="Img/logo_icon.png" type="image/x-icon">
+  <link rel="stylesheet" href="CSS/home.css"/>
+  <link rel="stylesheet" href="CSS/reservationAside.css"/>
+  <link rel="stylesheet" href="CSS/reservationPlace.css"/>
+</head>
+<body>
+<div th:replace="~{include/topinclude}"></div>
+<div style="display:flex; width: 1920px; height: 1200px;">
+  <div style="display: inline-block;" th:replace="~{asideMenuTemplates/reservationAside}"></div>
+  <!--  <th:block th:replace="./include/topinclude.html"></th:block>-->
+  <div id="menu_wrap" class="container">
+    <div class="title">
+      병원예약
+    </div>
+    <form onsubmit="addressSearch(); return false;">
+      <div class="searchPlace justify-center items-center">
+        <!-- 검색창 -->
+        <input type="text" id="searchPlace" placeholder="주소 또는 병원명 입력"
+               class="w-2/3 h-20 px-3 bg-gray-50 border border-gray-300 rounded-lg text-4xl
+        focus:ring-blue-500 focus:border-blue-500 focus:ring-1 focus:outline-none">
+        <button type="button" class="crosshair" onclick="getLocation();">
+          <i class="fa-solid fa-location-crosshairs" title="현재 위치"></i>
+        </button>
+        <button type="submit" class="magnify"><i class="fa-solid fa-magnifying-glass c-blue" title="검색"></i>
+        </button>
+      </div>
+    </form>
+    <div class="shopSchList">
+      <!-- 병원 리스트 -->
+      <div class="list">
+        <!--onsubmit="return sendPage()"-->
+        <form>
+          <ul id="hospitalList" class="hospitalList"></ul>
+        </form>
+        <div id="pagination" class="pagination"></div>
+      </div>
+      <!-- 지도 -->
+      <div>
+        <div class="map" id="map"></div>
+      </div>
+    </div>
+  </div>
+  <aside id="aside2" th:insert="~{include/quickmenuinclude}"></aside>
+</div>
+<footer id="footer" th:replace="~{include/footer}">
+</footer>
+
+<!--modal-->
+<div id="modalInfo">
+  <div id="infoHeader">
+    <hr>
+    <span id="hospitalName" style="font-size: 40px; margin-left: 85px;"></span>
+    <div id="closebutton2"><img width="48" height="48" src="https://img.icons8.com/pulsar-line/48/close-window.png" alt="close-window"/></div>
+    <div>
+      <table style="justify-content: center; display: flex; margin-top: 30px;">
+        <tbody id="infoTable">
+        <tr class="row">
+          <td>
+            <div class="resultrow">
+<!--              <div class="time">-->
+<!--                <span class="info" >진료시간: </span>-->
+<!--                <span class="info" id="clickhospitaltime"> </span>-->
+<!--              </div>-->
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div>
+        <div class="infoTitle">병원명</div>
+        <div class="rheader" id="clickhospitalname"></div>
+        <div class="infoTitle">주소</div>
+        <div class="info1" id="clickhospitaladdr"></div>
+        <div class="infoTitle">연락처</div>
+        <div class="info1" id="clickhospitaltel"></div>
+        <div class="infoTitle">진료시간</div>
+        <div class="info1" id="clickhospitaltime"></div>
+        <div class="infoTitle">공지사항</div>
+        <div id="infoIntro"></div>
+        <div class="infoTitle">소개글</div>
+        <div id="infoNotice"></div>
+        <div class="infoTitle">의사정보</div>
+        <table id="doctorTable">
+          <tr>
+            <td>이름</td>
+            <td class="clickhospitaldoctorname"></td>
+          </tr>
+          <tr>
+            <td>진료과목</td>
+            <td class="clickhospitaldoctorsubject"></td>
+          </tr>
+          <tr>
+            <td>약력</td>
+            <td class="clickhospitaldoctorcareer"></td>
+          </tr>
+        </table>
+        <form action="reserve" method="post" onsubmit="return sendPage()">
+          <input type="hidden" id="hospitalName2" name="hospitalName">
+          <input  type="hidden" id="doctorCode" name="doctorCode">
+          <input type="hidden" id="hospitalCode" name="hospitalCode">
+          <input type="hidden" id="userID" name="userID" value="test">
+          <input id="reservation" class="bg-blue-500 hover:bg-blue-600 text-white" type="submit" style="width: 200px;height: 80px; font-size: 35px; border-radius: 5px; cursor: pointer;"  value="예약하기">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="JS/reservationPlace.js"></script>
+
+

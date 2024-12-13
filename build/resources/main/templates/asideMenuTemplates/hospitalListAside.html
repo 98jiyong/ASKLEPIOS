@@ -1,120 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>NoticeBoardAside</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=&callback=initMap"></script>
-    <script type="text/javascript">
-        var map = null;
-
-        function initMap() {
-            map = new naver.maps.Map('map', {
-                center: new naver.maps.LatLng(37.3595704, 127.105399),
-                zoom: 10
-            });
-        }
-    </script>
+  <meta charset="UTF-8">
+  <title>Asklepios</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <style>
-    aside {
-        width: 300px;
-    }
-    .asideStyle {
-        /*border: 1px black solid;*/
-        height: 80px;
-    }
-    .asideForm {
-        width: 100%;
-        height: 80px;
-    }
-    .asideButton {
-        width: 100%;
-        height: 80px;
-        background-color: white;
-        border-width: 0px 0px 1px;
-        font-size: x-large;
-        border-top-right-radius: 20px;
-    }
-    .asideButton:hover {
-        color: black;
-    }
-    .asideButton:focus {
-        background-color: #004204;
-        color: white;
-    }
+  aside {
+    width: 300px;
+  }
+
+  .asideStyle {
+    /*border: 1px black solid;*/
+    height: 100px;
+  }
+
+  .asideForm {
+    width: 100%;
+    height: 100px;
+  }
+
+  .asideButton {
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    border-width: 0px 0px 1px;
+    font-size: xx-large;
+    border-top-right-radius: 20px;
+  }
+
+  .asideButton:hover {
+    color: white;
+    cursor: pointer;
+  }
+
+  .asideButton:focus {
+    background-color: #3B82F6;
+    color: white;
+  }
 </style>
 <body>
-<aside>
-    <div class="asideStyle">
-        <form action="/1" method="get" class="asideForm">
-            <input type="submit" class="asideButton hover:bg-green-500" value="내과">
-        </form>
-    </div>
+<aside style="margin-top: 10px;">
+  <div class="asideStyle">
+    <form action="search" method="get" class="asideForm">
+      <input type="submit" class="asideButton hover:bg-blue-500 hover:rounded-lg " value="내과" name="keyword">
+    </form>
+  </div>
 
-    <div class="asideStyle">
-        <form action="/2" method="get" class="asideForm">
-            <input type="submit" class="asideButton hover:bg-green-500" value="이빈후과">
-        </form>
-    </div>
+  <div class="asideStyle">
+    <form action="search" method="get" class="asideForm">
+      <input type="submit" class="asideButton hover:bg-blue-500 hover:rounded-lg " value="이비인후과" name="keyword">
+    </form>
+  </div>
 
-    <div class="asideStyle">
-        <form action="/3" method="get" class="asideForm">
-            <input type="submit" class="asideButton hover:bg-green-500" value="정형외과">
-        </form>
-    </div>
+  <div class="asideStyle">
+    <form action="search" method="get" class="asideForm">
+      <input type="submit" class="asideButton hover:bg-blue-500 hover:rounded-lg " value="정형외과" name="keyword">
+    </form>
+  </div>
 
-    <div class="asideStyle">
-        <form action="/4" method="get" class="asideForm">
-            <input type="submit" class="asideButton hover:bg-green-500" value="성형외과">
-        </form>
-    </div>
+  <div class="asideStyle">
+    <form action="search" method="get" class="asideForm">
+      <input type="submit" class="asideButton hover:bg-blue-500 hover:rounded-lg " value="성형외과" name="keyword">
+    </form>
+  </div>
 
-    <div class="asideStyle">
-        <form action="/4" method="get" class="asideForm">
-            <input type="submit" class="asideButton hover:bg-green-500" value="정신건강의학과">
-        </form>
-    </div>
+  <div class="asideStyle">
+    <form action="search" method="get" class="asideForm">
+      <input type="submit" class="asideButton hover:bg-blue-500 hover:rounded-lg " value="정신건강의학과" name="keyword">
+    </form>
+  </div>
 
-    <div class="asideStyle">
-        <form action="/4" method="get" class="asideForm">
-            <input type="submit" class="asideButton hover:bg-green-500" value="피부과">
-        </form>
-    </div>
+  <div class="asideStyle">
+    <form action="search" method="get" class="asideForm">
+      <input type="submit" class="asideButton hover:bg-blue-500 hover:rounded-lg " value="피부과" name="keyword">
+    </form>
+  </div>
 
-    <div class="asideStyle">
-        <form action="/4" method="get" class="asideForm">
-            <input type="submit" class="asideButton hover:bg-green-500" value="안과">
-        </form>
-    </div>
+  <div class="asideStyle">
+    <form action="search" method="get" class="asideForm">
+      <input type="submit" class="asideButton hover:bg-blue-500 hover:rounded-lg " value="안과" name="keyword">
+    </form>
+  </div>
 
-    <div class="asideStyle">
-        <form action="/4" method="get" class="asideForm">
-            <input type="submit" class="asideButton hover:bg-green-500" value="소아청소년과">
-        </form>
-    </div>
+  <div class="asideStyle">
+    <form action="search" method="get" class="asideForm">
+      <input type="submit" class="asideButton hover:bg-blue-500 hover:rounded-lg " value="소아청소년과" name="keyword">
+    </form>
+  </div>
 
-    <div class="asideStyle">
-        <form action="/4" method="get" class="asideForm">
-            <input type="submit" class="asideButton hover:bg-green-500" value="산부인과">
-        </form>
-    </div>
+  <div class="asideStyle">
+    <form action="search" method="get" class="asideForm">
+      <input type="submit" class="asideButton hover:bg-blue-500 hover:rounded-lg " value="산부인과" name="keyword">
+    </form>
+  </div>
 
-    <div class="asideStyle">
-        <form action="/4" method="get" class="asideForm">
-            <input type="submit" class="asideButton hover:bg-green-500" value="비뇨의학과">
-        </form>
-    </div>
+  <div class="asideStyle">
+    <form action="search" method="get" class="asideForm">
+      <input type="submit" class="asideButton hover:bg-blue-500 hover:rounded-lg " value="비뇨의학과" name="keyword">
+    </form>
+  </div>
 
-    <div class="asideStyle">
-        <form action="/4" method="get" class="asideForm">
-            <input type="submit" class="asideButton hover:bg-green-500" value="외과">
-        </form>
-    </div>
-    <br>
-    <br>
-    <div id="map" style="width: 100%; height: 400px;"></div>
+  <div class="asideStyle">
+    <form action="search" method="get" class="asideForm">
+      <input type="submit" class="asideButton hover:bg-blue-500 hover:rounded-lg " value="외과" name="keyword">
+    </form>
+  </div>
 </aside>
 </body>
 </html>

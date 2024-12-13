@@ -1,73 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>NoticeBoardAside</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=&callback=initMap"></script>
-  <script type="text/javascript">
-    var map = null;
+<!--  <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=&callback=initMap"></script>-->
+<!--  <script type="text/javascript">-->
+<!--    var map = null;-->
 
-    function initMap() {
-      map = new naver.maps.Map('map', {
-        center: new naver.maps.LatLng(37.3595704, 127.105399),
-        zoom: 10
-      });
-    }
-  </script>
-</head>
-<style>
-  aside {
-    width: 400px;
-  }
-  .asideStyle {
-    /*border: 1px black solid;*/
-    height: 100px;
-  }
-  .asideForm {
-    width: 100%;
-    height: 100px;
-  }
-  .asideButton {
-    width: 100%;
-    height: 100px;
-    background-color: white;
-    border-width: 0px 0px 1px;
-    font-size: x-large;
-    border-top-right-radius: 20px;
-  }
-  .asideButton:hover {
-    color: black;
-  }
-  .asideButton:focus {
-    background-color: #004204;
-    color: white;
-  }
-</style>
+<!--    function initMap() {-->
+<!--      map = new naver.maps.Map('map', {-->
+<!--        center: new naver.maps.LatLng(37.3595704, 127.105399),-->
+<!--        zoom: 10-->
+<!--      });-->
+<!--    }-->
+<!--  </script>-->
 <body>
 <aside>
-  <div class="asideStyle">
-    <form action="/1" method="get" class="asideForm">
-      <input type="submit" class="asideButton hover:bg-green-500" value="Search Hospital">
-    </form>
-  </div>
-
-  <div class="asideStyle">
-    <form action="/2" method="get" class="asideForm">
-      <input type="submit" class="asideButton hover:bg-green-500" value="Reservation">
-    </form>
-  </div>
-
-  <div class="asideStyle">
-    <form action="/3" method="get" class="asideForm">
-      <input type="submit" class="asideButton hover:bg-green-500" value="Reservation Info">
-    </form>
-  </div>
-
-  <br>
-  <br>
-  <div id="map" style="width: 100%; height: 400px;"></div>
+  <th:block th:unless="${user == null}">
+    <a href="/asklepios/registration">
+      <div class="asideStyle">
+        <input type="button" class="asideForm asideButton asideRegistration rounded-lg hover:rounded-lg" value="병원등록">
+      </div>
+    </a>
+    <a href="/asklepios/reservation">
+      <div class="asideStyle">
+        <input type="button" class="asideForm asideButton asideSearchHospital rounded-lg hover:rounded-lg" value="병원예약">
+      </div>
+    </a>
+    <div class="asideStyle">
+      <a href="/asklepios/reservation">
+        <input type="button" class="asideForm asideButton asideReservation rounded-lg hover:rounded-lg" value="진료예약" onclick="reservationFirst()">
+      </a>
+    </div>
+    <th:block th:if="${user.user_authority == 'client'}">
+      <a href="/asklepios/reservationStatusClient">
+        <div class="asideStyle">
+          <input type="button" class="asideForm asideButton asideReservationInfo rounded-lg hover:rounded-lg" value="예약현황">
+        </div>
+      </a>
+    </th:block>
+    <th:block th:if="${user.user_authority == 'doctor'}">
+      <a href="/asklepios/reservationStatusDoctor">
+        <div class="asideStyle">
+          <input type="submit" class="asideForm asideButton asideReservationInfo rounded-lg hover:rounded-lg" value="예약현황">
+        </div>
+      </a>
+    </th:block>
+  </th:block>
 </aside>
 </body>
-</html>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script>
+  function reservationFirst(){
+    alert("예약하기를 통해 진행해주세요.");
+  }
+</script>

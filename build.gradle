@@ -35,6 +35,11 @@ dependencies {
     implementation 'org.springframework.session:spring-session-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.apache.poi:poi-ooxml:5.2.2'
+    implementation 'org.apache.poi:poi:5.2.2'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    testImplementation 'org.springframework.security:spring-security-test'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
@@ -46,6 +51,19 @@ dependencies {
     // 조준곤 file upload
     implementation 'commons-io:commons-io:2.18.0'
     implementation 'commons-fileupload:commons-fileupload:1.4'
+    // 조준곤 List to JSON 변환 메소드 빌드
+    // https://mvnrepository.com/artifact/org.json/json
+    implementation group: 'org.json', name: 'json', version: '20240303'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    // 메일 빌드
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
+    //엑셀 다운로드 org.apache.poi 빌드
+    implementation 'org.apache.poi:poi:5.2.3'
+    implementation 'org.apache.poi:poi-ooxml:5.2.3'
+
 }
 
 tasks.named('test') {

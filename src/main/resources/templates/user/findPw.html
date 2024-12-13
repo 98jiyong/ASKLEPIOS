@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Asklepios</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="icon" href="Img/logo_icon.png" type="image/x-icon">
+	<style>
+		@font-face {
+			font-family: 'Tenada';
+			src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'Pretendard-Regular';
+			src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+			font-weight: 400;
+			font-style: normal;
+		}
+		header{
+			font-family:'Tenada', 'sans-serif';
+			margin-top: 300px;
+
+			text-align: center;
+		}
+		body {
+			font-family:'Pretendard-Regular', 'sans-serif';
+			width: 1920px;
+			font-size: 30px;
+		}
+		#user_id, label, button {
+			width: 500px;
+		}
+		input:focus::placeholder {
+			color: transparent;
+		}
+		li {
+			display: inline-block;
+			font-size: 25px;
+			color: rgb(138, 137, 137);
+		}
+		#reg_first, #reg_last {
+			width: 200px;
+		}
+		#user_email {
+			width: 350px;
+			margin-right: 50px;
+		}
+		#email_code {
+			width: 350px;
+			margin-right: 50px;
+		}
+		#timer {
+			position: absolute;
+
+			width: 100px;
+		}
+		#send_code, #confirm_code {
+			width: 100px;
+		}
+		span {
+			width: 100px;
+			font-size: 40px;
+		}
+	</style>
+</head>
+<body>
+<div class="container mx-auto">
+	<header>
+		<a href="home"><span class="mx-auto text-blue-500 font-bold" style="font-size: 90px;">ASKLEPIOS</span></a>
+	</header>
+	<div for="info" class="mx-px flex justify-center font-medium text-4xl font-bold text-black-500 dark:text-white">회원 정보를 입력하세요.</div>
+	<form action="findPw" method="post" onsubmit="return validateForm()">
+		<div class="block justify-center mb-10">
+			<div>
+				<label for="user_id" class="mx-auto block mt-10 font-medium text-gray-900 dark:text-white">아이디</label>
+				<div class="mx-auto flex justify-center items-center">
+          <input type="text" id="user_id" name="user_id"
+          class="mx-auto block mt-5 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 focus:ring-2 focus:outline-none"
+          placeholder="아이디">
+          </input>
+				</div>
+			</div>
+      <div>
+        <label for="user_email" class="mx-auto block mt-5 font-medium text-gray-900 dark:text-white">이메일</label>
+        <div class="mx-auto flex justify-center items-center">
+          <input type="text" id="user_email" name="user_email"
+          class="mx-px block mt-5 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 focus:ring-2 focus:outline-none"
+          placeholder="example@example.com">
+          </input>
+					<input type="button" id="send_code"  onclick ="send()"
+								class="mt-5 py-3 font-semibold rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-700"
+								value="전송">
+				</div>
+				<div>
+					<label id="sendMsg" class="mx-auto block mt-3" style="color: red; font-size: 22px;">&nbsp;</label>
+				</div>
+      </div>
+			<div>
+				<label for="email_code" class="mx-auto block font-medium text-gray-900 dark:text-white">인증번호</label>
+				<div class="mx-auto flex justify-center items-center">
+					<input type="text" id="email_code" name="email_code"
+								class="mx-px mt-5 block bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 focus:ring-2 focus:outline-none"
+					placeholder="인증코드 6자리">
+					<label for="confirm_code" id="timer" class="mx-px mt-5 ms-24 font-semibold" style="color:#3B82F6; font-size:25px"></label>
+					<input type="button" id="confirm_code" onclick="check()"
+								class="mt-5 py-3 font-semibold rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-700" value="확인">
+				</div>
+			</div>
+			<label id="errorMsg" class="mx-auto block py-3" style="color: red; font-size: 22px;">&nbsp;</label>
+			<button type="submit" class="mx-auto block py-5 font-semibold rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-700">
+				임시 비밀번호 발급
+			</button>
+      <!-- 비밀번호 찾기를 누르면 메일로 임시번호를  -->
+		</div>
+	</form>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script>
+	let send_email_code = "";
+	let sendFlag = false;
+	let checkFlag = false;
+	function send(){
+		let user_id = document.querySelector('#user_id').value;
+		let user_email = document.querySelector('#user_email').value;
+		if(user_id === ''){
+			document.getElementById('sendMsg').innerText = "🚫 모든 입력값은 필수 입니다.(아이디 미기입)";
+			document.getElementById('user_id').focus();
+			document.getElementById('sendMsg').style.color = "red";
+		}
+		else if(user_email === ""){
+			document.getElementById('sendMsg').innerText = "🚫 모든 입력값은 필수 입니다.(이메일 미기입)";
+			document.getElementById('user_email').focus();
+			document.getElementById('sendMsg').style.color = "red";
+		}
+		else{
+			$.ajax({
+				url: '/asklepios/findEmail',
+				type: 'post',
+				data: {user_id: user_id},
+				success:function(data){
+					console.log(data)
+					if (data === user_email){
+						document.getElementById('sendMsg').innerText = "☑️ 인증번호가 발송되었습니다.";
+						document.getElementById('sendMsg').style.color = "#3B82F6";
+						sendFlag = true;
+						$.ajax({
+							url: '/asklepios/mailSend',
+							type: 'post',
+							data: {user_email: user_email},
+							success:function(data){
+								send_email_code = data;
+								console.log(data);
+							},
+							error: function (){
+							}
+						});
+					}else{
+						document.getElementById('sendMsg').innerText = "🚫 이메일을 확인해주세요.";
+						document.getElementById('sendMsg').style.color = "red";
+						document.getElementById('timer').innerText = "";
+						sendFlag = false;
+					}
+					if(sendFlag){
+						let timer = null;
+						let isRunning = false;
+
+						$(function(){
+							var display = $('#timer');
+							var leftSec = 600;
+							// 남은 시간
+							// 이미 타이머가 작동중이면 중지
+							if (isRunning){
+								clearInterval(timer);
+								display.html("");
+								startTimer(leftSec, display);
+							}else{
+								startTimer(leftSec, display);
+
+							}
+						});
+					}
+				},
+				error: function (){
+					alert("왜 안될까?");
+				}
+			});
+		}
+	}
+
+	// 이메일인증으로 코드를 받으면 그 코드랑 입력한 코드가 일치하는지 확인하는 기능_20241126수행
+	function check(){
+		let user_email_code = document.getElementById("email_code").value;
+		if(user_email_code === '') {
+			document.getElementById('errorMsg').innerText = "🚫 인증번호를 입력해주세요.";
+			document.getElementById('errorMsg').style.color = "red";
+		}else{
+			if(user_email_code === send_email_code){
+				document.getElementById('errorMsg').innerText = "☑️ 인증되었습니다.";
+				document.getElementById('errorMsg').style.color = "#3B82F6";
+				checkFlag = true;
+			}else{
+				document.getElementById('errorMsg').innerText = "🚫 인증번호가 일치하지 않습니다.";
+				document.getElementById('errorMsg').style.color = "red";
+				checkFlag = false;
+			}
+		}
+	}
+
+	function validateForm(){
+		let user_id = document.querySelector('#user_id').value;
+		let user_email = document.querySelector('#user_email').value;
+		let user_email_code = document.querySelector('#email_code').value;
+
+		if (user_id === '') {
+			Swal.fire({
+				icon: 'warning',
+				title: '입력 오류',
+				text: '아이디를 입력하세요.',
+				confirmButtonColor: '#3B82F6',
+				confirmButtonText: '확인'
+			});
+			return false;
+		}
+
+		if (user_email === '') {
+			Swal.fire({
+				icon: 'warning',
+				title: '입력 오류',
+				text: '이메일을 입력하세요.',
+				confirmButtonColor: '#3B82F6',
+				confirmButtonText: '확인'
+			});
+			return false;
+		}
+
+		if (sendFlag === false) {
+			Swal.fire({
+				icon: 'warning',
+				title: '인증 오류',
+				text: '인증번호를 전송하고 인증을 진행하세요.',
+				confirmButtonColor: '#3B82F6',
+				confirmButtonText: '확인'
+			});
+			return false;
+		}
+
+		if (checkFlag === false) {
+			Swal.fire({
+				icon: 'warning',
+				title: '인증 오류',
+				text: '인증번호를 확인하세요.',
+				confirmButtonColor: '#3B82F6',
+				confirmButtonText: '확인'
+			});
+			return false;
+		}
+
+		if (user_email_code ==='') {
+			Swal.fire({
+				icon: 'warning',
+				title: '입력오류',
+				text: '인증번호를 입력해주세요.',
+				confirmButtonColor: '#3B82F6',
+				confirmButtonText: '확인'
+			});
+			return false;
+		}
+
+		if (user_email_code !== send_email_code) {
+			Swal.fire({
+				icon: 'warning',
+				title: '인증번호 불일치',
+				text: '인증번호가 일치하지 않습니다.',
+				confirmButtonColor: '#3B82F6',
+				confirmButtonText: '확인'
+			});
+			return false;
+		}
+		return true;
+	}
+
+	function startTimer(count, display) {
+		var minutes, seconds;
+		timer = setInterval(function () {
+			minutes = parseInt(count / 60, 10);
+			seconds = parseInt(count % 60, 10);
+
+			minutes = minutes < 10 ? "0" + minutes : minutes;
+			seconds = seconds < 10 ? "0" + seconds : seconds;
+
+			display.html(minutes + ":" + seconds);
+
+			// 타이머 끝
+			if (--count < 0) {
+				clearInterval(timer);
+				alert("시간초과");
+				display.html("시간초과");
+				$("button").attr("disabled", true);
+				isRunning = false;
+			}
+		}, 1000);
+		isRunning = true;
+	}
+</script>
+</html>

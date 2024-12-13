@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Asklepios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src = "js/jquery-3.6.0.min.js"></script>
+    <link rel="icon" href="Img/logo_icon.png" type="image/x-icon">
+</head>
+<style>
+    @font-face {
+        font-family: 'Pretendard-Regular';
+        src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+    }
+    body {
+        width: 1920px;
+        font-family: 'Pretendard-Regular',serif;
+        border: 1px black solid;
+    }
+    .insertValue {
+        width: 80%;
+        height: 80px;
+    }
+    .tableSet {
+        display: flex;
+        justify-content: center;
+    }
+    table {
+        width: 40%;
+    }
+    table tr td input {
+        width: 100%;
+        height: 70px;
+        border-radius: 10px;
+    }
+    table tr td {
+        height: 100px;
+    }
+    .sheet {
+        background-color: gray;
+        border-radius: 50%;
+        width:120px;
+        height: 120px;
+        align-content: center;
+        text-align: center;
+        font-size: 18px;
+    }
+    #modalOpenButton, #modalCloseButton {
+        cursor: pointer;
+    }
+    #modalContainer {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.5);
+    }
+    #modalContent {
+        /*position: absolute;*/
+        background-color: #ffffff;
+        width: 700px;
+        /*height: 700px;*/
+        padding: 15px;
+    }
+    #modalContainer.hidden {
+        display: none;
+    }
+    #selectedHospital tr:hover {
+        background-color: lightgray;
+        cursor:pointer;
+    }
+    #viewHospital td {
+        height: 50px;
+        border: 1px solid gray;
+    }
+</style>
+<script th:inline="javascript">
+    window.onload = function() {
+        const modalOpenButton = document.getElementById('modalOpenButton');
+        const modalCloseButton = document.getElementById('modalCloseButton');
+        const modal = document.getElementById('modalContainer');
+        modalOpenButton.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+        });
+
+        modalCloseButton.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+    }
+
+    function searchDetailHospital() {
+        $.ajax({
+            url: "/asklepios/hospitalList",
+            type: "get",
+            data: { hospital_name : document.getElementById("hospital_name").value},
+            dataType: "json",
+            success: function (hospitalJson) {
+                $('#tbody').html('');
+                $.each(hospitalJson, function (i) {
+                    const table = document.getElementById("selectedHospital");
+                    const newRow = table.insertRow();
+                    newRow.setAttribute("id", "viewHospital")
+
+                    const newCell1 = newRow.insertCell(0);
+                    const newCell2 = newRow.insertCell(1);
+                    const newCell3 = newRow.insertCell(2);
+
+                    // newCell1.innerText = hospitalJson[i].hospital_name;
+                    // newCell2.innerText = hospitalJson[i].hospital_addr;
+                    // newCell3.innerText = hospitalJson[i].hospital_code;
+                    newCell1.innerHTML = '<button type="button" onclick="selectHospital()">'+hospitalJson[i].hospital_name+'</button>';
+                    newCell2.innerHTML = '<button type="button" onclick="selectHospital()">'+hospitalJson[i].hospital_addr+'</button>';
+                    newCell3.innerHTML = '<button type="button" onclick="selectHospital()" value="' +
+                        hospitalJson[i].hospital_code + '">'+hospitalJson[i].hospital_code+'</button>';
+
+                })
+            }
+        })
+        selectHospital();
+    }
+    let a = document.getElementById('modalOpenButton');
+    a.onclick = selectHospital();
+    function selectHospital() {
+        let table = document.getElementById("selectHospital");
+        let rowList = table.rows;
+        for(let i = 1; i < rowList.length; i++) {
+            var row = rowList[i];
+            row.onclick = function () {
+                return function () {
+                    let selected_hospital_code = this.cells[2].innerText;
+                    let codeString = "";
+                    codeString = selected_hospital_code;
+                    document.getElementById('user_doctor_hospital_code').value = codeString;
+                    document.getElementById('user_doctor_hospital_code').readOnly = true;
+                    const modal = document.getElementById('modalContainer');
+                    modal.classList.add('hidden');
+                }
+            }(row);
+        }
+    }
+
+    function checkInfo(submit) {
+        let doctorMedical = false;
+        let doctorCareer = false;
+        let doctorGraduate = false;
+        if(document.getElementById('user_doctor_medical').value !== "") {
+            doctorMedical = true;
+        }
+        if(document.getElementById('user_doctor_career').innerText !== "") {
+            doctorCareer = true;
+        }
+        if(document.getElementById('user_doctor_graduate').innerText !== "") {
+            doctorGraduate = true;
+        }
+        if(doctorMedical === doctorCareer === doctorGraduate === true) {
+            return true;
+        } else {
+            alert("가입 정보가 정확하게 입력되지 않았습니다. 다시 확인해주세요.")
+            return false;
+        }
+    }
+
+</script>
+<body>
+    <h1 style="font-size: xx-large; text-align: center">추가 정보 입력</h1>
+    <form action="/asklepios/doctorinfo" method="post" onsubmit="return checkInfo()" id="submit">
+        <div class="tableSet">
+            <table>
+                <tr>
+                    <td style="width: 20%">
+                        <label for="user_doctor_id" class="mx-auto block font-medium text-gray-900 dark:text-white">아이디<span
+                                style="color: red">(*)</span></label>
+                    </td>
+                    <td>
+                        <input type="text" id="user_doctor_id" name="user_doctor_id"
+                               class="mx-auto block bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 mx-20 p-5 focus:ring-2 focus:outline-none"
+                               placeholder="사용하실 아이디를 입력하시오." th:value="${user_id}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20%">
+                        <label for="user_doctor_hospital_code" class="mx-auto block font-medium text-gray-900 dark:text-white">병원 코드</label>
+                    </td>
+                    <td class="insertValue">
+                        <input type="text" id="user_doctor_hospital_code" name="user_doctor_hospital_code"
+                               class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 mx-20 p-5 focus:ring-2 focus:outline-none" style="width: 49.5%; height: 70px;" placeholder="병원 코드를 입력 혹은 검색하세요.">
+                        <button type="button" id="modalOpenButton" class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 mx-20 p-5 focus:ring-2 focus:outline-none" style="width: 49.5%; display: inline-block; height: 70px; border-radius: 10px;">병원 검색</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height: auto"></td>
+                    <td style="height: auto">
+                        <p>등록된 병원이 없다면, 병원을 신규 등록 요청 하십시오.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20%">
+                        <label for="user_doctor_medical" class="mx-auto block font-medium text-gray-900 dark:text-white">진료 과목<span style="color: red">(*)</span></label>
+                    </td>
+                    <td>
+                        <select name="user_doctor_medical" id="user_doctor_medical" class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 mx-20 p-5 focus:ring-2 focus:outline-none" style="width: 100%">
+                            <option value="select">=== 선택 ===</option>
+                            <option value="내과">내과</option>
+                            <option value="이빈후과">이비인후과</option>
+                            <option value="정형외과">정형외과</option>
+                            <option value="성형외과">성형외과</option>
+                            <option value="정신건강의학과">정신건강의학과</option>
+                            <option value="피부과">피부과</option>
+                            <option value="안과">안과</option>
+                            <option value="소아청소년과">소아청소년과</option>
+                            <option value="산부인과">산부인과</option>
+                            <option value="비뇨의학과">비뇨의학과</option>
+                            <option value="외과">외과</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20%">
+                        <label for="user_doctor_career" class="mx-auto block font-medium text-gray-900 dark:text-white">경력<span style="color: red">(*)</span></label>
+                    </td>
+                    <td class="insertValue">
+                        <input type="text" id="user_doctor_career" name="user_doctor_career" class="mx-auto block bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 mx-20 p-5 focus:ring-2 focus:outline-none" placeholder="선택 진료과목에 대한 연차를 입력해주세요.">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20%">
+                        <label for="user_doctor_graduate" class="mx-auto block font-medium text-gray-900 dark:text-white">학력<span style="color: red">(*)</span></label>
+                    </td>
+                    <td class="insertValue">
+                        <input type="text" id="user_doctor_graduate" name="user_doctor_graduate" class="mx-auto block bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 mx-20 p-5 focus:ring-2 focus:outline-none" placeholder="(학교/최종학위) 양식으로 입력해주세요.">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height: auto"></td>
+                    <td style="height: auto">
+                        <p>작성 예시 : 학교/최종학위, 학교/최종학위, ...</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="text-align: center">
+            <button type="submit" class="bg-blue-800 rounded-lg w-48 h-12 my-10 text-white"  style="font-size: 18px;"><strong> 완료 </strong></button>
+        </div>
+    </form>
+    <br>
+    <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 100px">
+        <div style="text-align: center;">
+            <div class="sheet" style="background-color: #1e40af; color: white">
+                <p><strong>약관 동의</strong></p>
+            </div>
+        </div>
+        <div style="width: 50px; border: 1px solid #1e40af"></div>
+        <div style="text-align: center">
+            <div class="sheet" style="background-color: #1e40af; color: white">
+                <p><strong>회원 가입</strong></p>
+            </div>
+        </div>
+        <div style="width: 50px; border: 1px solid #1e40af"></div>
+        <div style="text-align: center">
+            <div class="sheet" style="background-color: #1e40af; color: white">
+                <p><strong>추가 작성</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalContainer" class="hidden">
+        <div id="modalContent" style="text-align: right">
+            <button type="button" id="modalCloseButton" class="btn-close" aria-label="Close">X</button>
+            <br><br><hr><br>
+            <div class="mx-auto">
+                <input type="text" id="hospital_name" name="hospital_name" class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 mx-20 p-5 focus:ring-2 focus:outline-none" style="width: 79%" placeholder="병원 이름을 입력하시오.">
+                <button type="button" style="display: inline-block; width: 20%" class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 mx-20 p-5 focus:ring-2 focus:outline-none" onclick="searchDetailHospital()">검색</button>
+            </div>
+            <br><br>
+            <table id="selectHospital" style="width: 100%; margin: auto; border: 1px black solid; text-align: center;">
+                <thead style="background-color: #1e40af; color: white; border: 1px solid white">
+                    <tr>
+                        <td style="border: 2px gray solid; height: 50px">병원 이름</td>
+                        <td style="border: 2px gray solid; height: 50px">병원 주소</td>
+                        <td style="border: 2px gray solid; height: 50px">병원 코드</td>
+                    </tr>
+                </thead>
+                <tbody id="selectedHospital" style="height: 50px">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

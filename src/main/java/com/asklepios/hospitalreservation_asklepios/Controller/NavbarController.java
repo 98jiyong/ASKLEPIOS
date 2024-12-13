@@ -11,10 +11,7 @@ public class NavbarController {
         return "hospitalList";
     }
 
-    @GetMapping("/reservation")
-    public String reservation() {
-        return "reservationPlace";
-    }
+
 
 //    @GetMapping("/board")
 //    public String noticeBoard() {

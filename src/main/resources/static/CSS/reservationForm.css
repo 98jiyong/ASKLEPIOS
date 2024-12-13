@@ -1,0 +1,90 @@
+body {
+  font-family:'Pretendard-Regular', sans-serif;
+  width: 1920px;
+}
+.container1 {
+  margin-top: 30px;
+  margin-left: 30px;
+  width: 1200px;
+  height: 1000px;
+  box-sizing: border-box;
+  /*border: 5px solid black;*/
+  display: flex;
+}
+table, tr, td {
+  /*border: 1px solid black;*/
+}
+.td1 {
+  width: 300px;
+}
+.td2 {
+  width: 900px;
+}
+.title {
+  font-size: 50px;
+  font-weight: bold;
+  color: #3B82F6;
+  border-bottom: 5px solid #3B82F6;
+}
+table {
+  width: 1200px;
+  height:100%;
+}
+.small {
+  height: 100px;
+}
+.medium {
+  height: 200px;
+}
+.label {
+  font-size: 30px;
+}
+.fillAuto {
+  padding-left: 20px;
+  font-size: 30px;
+  width: 900px;
+  height: 80px;
+}
+.timeContainer {
+  width: 576px;
+}
+.timebox {
+  cursor: pointer;
+  font-size: 20px;
+  margin: 5px;
+  width: 134px;
+  height: 64px;
+  border: 1px solid rgb(214, 211, 209);
+  border-radius: 10px;
+  background-color: white;
+  color: black;
+}
+.unselectable {
+  opacity: 40%;
+}
+.timebox.selected {
+  background-color: #569ff7;
+  color: white;
+  border: 1px solid #569ff7;
+}
+.timeNotice {
+  width: 450px;
+  height: 200px;
+  text-align: center;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+.memo {
+  margin-top: 20px;
+  padding-top: 10px;
+  padding-left: 10px;
+  width: 900px;
+  height: 200px;
+  font-size: 25px;
+  border-radius: 10px;
+}
+.asideReservation {
+  background-color: #3B82F6;
+  color: white;
+}

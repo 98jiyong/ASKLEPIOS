@@ -1,58 +1,73 @@
-
-<header>
-  <div id="logo">
-    <a  href="home"><img src="logo_new1.png" width="300px" height="100%"></a>
-  </div>
-
-  <div id="header">Hospital Reservation</div>
-</header>
-<div id="search">
-  <form action="search?keyword" method="get">
-    <input id="search-input" type="search" placeholder="병원을 검색하세요" name="keyword">
-    <input id="search-button" type="submit" value="검색">
-  </form>
-</div>
-<div id="login">
-  <span><a href="login">로그인<i class="fa-solid fa-right-to-bracket"></i></a>   |</span>
-  <span><a href="/asklepios/userjoin">회원가입<i class="fa-solid fa-user-plus"></i></a></span>
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div class="topContainer">
+  <header>
+    <div id="header">
+      <div>
+        <a href="home" style="margin-top: 5px; margin-right: 25px;"><span class="text-blue-500 font-bold" style="font-size: 60px;">ASKLEPIOS</span></a>
+      </div>
+      <div id="searchHospital">
+        <form action="search?keyword" method="get">
+          <div class="searchInput">
+            <input id="search-input" class="focus:ring-blue-500 focus:border-blue-500 p-3 focus:ring-1 focus:outline-none" type="search" placeholder="병원을 검색하세요" name="keyword">
+            <input id="search-button" class="bg-blue-500 hover:bg-blue-600" type="submit" value="검색">
+          </div>
+        </form>
+      </div>
+      <div id="loginSession">
+        <div sec:authorize="isAnonymous()">
+          <span style="padding-right: 20px;"><a href="login">로그인<i class="fa-solid fa-right-to-bracket"></i></a></span>
+          <span><a href="/asklepios/userjoin">회원가입<i class="fa-solid fa-user-plus"></i></a></span>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+          <form th:action="@{logout}" method="post" style="display: inline; padding-right: 20px;">
+            <button type="submit">로그아웃&nbsp;<i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+          </form>
+          <span><a href="myPage">마이페이지&nbsp;<i class="fa-solid fa-user"></i></a></span>
+        <div>
+      </div>
+    </div>
+  </header>
 </div>
 <div class="con">
   <nav class="top-bar__menu-box-1">
     <ul>
       <li>
-        <a href="#">병원목록</a>
+        <a href="search?keyword=">병원검색</a>
         <ul>
-          <li><a href="#">내과</a></li>
-          <li><a href="#">이비인후과</a></li>
-          <li><a href="#">정형외과</a></li>
-          <li><a href="#">성형외과</a></li>
-          <li><a href="#">정신건강의학과</a></li>
-          <li><a href="#">피부과</a></li>
-          <li><a href="#">안과</a></li>
-          <li><a href="#">소아청소년과</a></li>
-          <li><a href="#">산부인과</a></li>
-          <li><a href="#">비뇨기과</a></li>
-          <li><a href="#">외과</a></li>
+          <li><a href="search?keyword=내과">내과</a></li>
+          <li><a href="search?keyword=이비인후과">이비인후과</a></li>
+          <li><a href="search?keyword=정형외과">정형외과</a></li>
+          <li><a href="search?keyword=성형외과">성형외과</a></li>
+          <li><a href="search?keyword=정신건강의학과">정신건강의학과</a></li>
+          <li><a href="search?keyword=피부과">피부과</a></li>
+          <li><a href="search?keyword=안과">안과</a></li>
+          <li><a href="search?keyword=소아청소년과">소아청소년과</a></li>
+          <li><a href="search?keyword=산부인과">산부인과</a></li>
+          <li><a href="search?keyword=비뇨기과">비뇨기과</a></li>
+          <li><a href="search?keyword=외과">외과</a></li>
         </ul>
       </li>
       <li>
-        <a href="#">예약신청</a>
-        <ul>
-          <li><a href="#">text1</a></li>
-          <li><a href="#">text2</a></li>
-          <li><a href="#">text3</a></li>
-          <li><a href="#">text4</a></li>
-        </ul>
+        <a href="registration">병원등록</a>
       </li>
       <li>
-        <a href="#">백신정보</a>
-        <ul>
-          <li><a href="#">text1</a></li>
-          <li><a href="#">text2</a></li>
-          <li><a href="#">text3</a></li>
-          <li><a href="#">text4</a></li>
-        </ul>
+        <a href="reservation">예약하기</a>
+          <ul>
+            <li><a href="reservation">병원예약</a></li>
+            <li><a href="reservation" onclick="reservationFirst()">진료예약</a></li>
+          </ul>
       </li>
+<!--      <li>-->
+<!--        <a href="#">백신정보</a>-->
+<!--        <ul>-->
+<!--          <li><a href="#">text1</a></li>-->
+<!--          <li><a href="#">text2</a></li>-->
+<!--          <li><a href="#">text3</a></li>-->
+<!--          <li><a href="#">text4</a></li>-->
+<!--        </ul>-->
+<!--      </li>-->
       <li>
         <a href="bboard_all">게시판</a>
         <ul>
@@ -65,5 +80,10 @@
       </li>
     </ul>
   </nav>
-
 </div>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script>
+  function reservationFirst(){
+    alert("예약하기를 통해 진행해주세요.");
+  }
+</script>

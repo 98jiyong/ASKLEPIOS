@@ -2,12 +2,15 @@ package com.asklepios.hospitalreservation_asklepios.Controller;
 
 import com.asklepios.hospitalreservation_asklepios.Service.IF_UserService;
 import com.asklepios.hospitalreservation_asklepios.Service.IM_UserService;
+import com.asklepios.hospitalreservation_asklepios.Util.Profile_ImageUtil;
+import com.asklepios.hospitalreservation_asklepios.VO.DoctorVO;
 import com.asklepios.hospitalreservation_asklepios.VO.UserVO;
 import jakarta.activation.DataSource;
 
 import jakarta.activation.FileDataSource;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -26,6 +29,8 @@ public class JoinController {
     @Autowired
     IF_UserService userService;
 
+    @Autowired
+    Profile_ImageUtil profileImageUtil;
 
     @GetMapping("/agreement")
     public String agreement(Model model) throws Exception {
@@ -48,11 +53,29 @@ public class JoinController {
         return userService.duplicateRegisterNumber(user_register_number);
     }
 
-    @PostMapping("/commoninfo")
-    public String commoninfo(@ModelAttribute UserVO userVO, MultipartFile[] user_image) throws Exception {
-        System.out.println(userVO.toString());
+    @PostMapping(value="/commoninfo")
+    public String commoninfo(@ModelAttribute UserVO userVO, @RequestParam(value = "file", required = false) MultipartFile file, Model model) throws Exception {
+        String newFileName = profileImageUtil.storeFile(file);
+        System.out.println(newFileName);
+        userVO.setUser_image(newFileName);
+        String doctor_id = userVO.getUser_id();
+        model.addAttribute("user_id", doctor_id);
         userService.addUserCommonInfo(userVO);
-        return "userJoin/insertAdditionalInfo";
+//        System.out.println(userVO.getUser_authority());
+//        System.out.println(userVO.toString());
+        if(userVO.getUser_authority().equals("doctor")) {
+            return "userJoin/insertDoctorUserInfo";
+        } else {
+            return "userJoin/successJoin";
+        }
+
+    }
+
+    @PostMapping("/doctorinfo")
+    public String doctorinfo(@ModelAttribute DoctorVO doctorVO) throws Exception {
+        doctorVO.setUser_doctor_code(UUID.randomUUID().toString());
+        userService.addUserDoctorInfo(doctorVO);
+        return "userJoin/successJoin";
     }
 
 }

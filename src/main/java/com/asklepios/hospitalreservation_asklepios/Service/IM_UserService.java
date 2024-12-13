@@ -1,9 +1,12 @@
 package com.asklepios.hospitalreservation_asklepios.Service;
 
 import com.asklepios.hospitalreservation_asklepios.Repository.IF_UserMapper;
+import com.asklepios.hospitalreservation_asklepios.VO.DoctorVO;
+import com.asklepios.hospitalreservation_asklepios.VO.MemberVO;
 import com.asklepios.hospitalreservation_asklepios.VO.UserVO;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,15 +17,17 @@ public class IM_UserService implements IF_UserService{
     IF_UserMapper usermapper;
 
     @Override
-    public boolean login(UserVO userVO) {
+    public UserVO login(UserVO userVO) {
         String pwd = usermapper.selectPwd(userVO);
+        UserVO uservo;
         if(userVO.getUser_password().equals(pwd)){
+            uservo = usermapper.selectUser(userVO);
 //            System.out.println("일치");
-            return true;
         }else{
+            uservo = null;
 //            System.out.println("불일치");
-            return false;
         }
+        return uservo;
     }
 
     @Override
@@ -108,5 +113,62 @@ public class IM_UserService implements IF_UserService{
             return 0;
         }
     }
+
+    @Override
+    public void addUserDoctorInfo(DoctorVO doctorVO) {
+        usermapper.insertUserDoctorInfo(doctorVO);
+    }
+
+    @Override
+    public String checkedPassword(String user_id) {
+        return usermapper.selectPwdUsingID(user_id);
+    }
+
+    @Override
+    public UserVO printOneInfo(String user_id) {
+        return usermapper.selectUserByID(user_id);
+    }
+
+    @Override
+    public void modifyUserCommonInfo(UserVO userVO) {
+        usermapper.updateUserCommonInfo(userVO);
+    }
+
+    @Override
+    public DoctorVO printOneDoctorInfo(String user_doctor_id) {
+        return usermapper.selectDoctorByID(user_doctor_id);
+    }
+
+    @Override
+    public void modifyUserDoctorInfo(DoctorVO doctorVO) {
+        usermapper.updateUserDoctorInfo(doctorVO);
+    }
+
+    @Override
+    public String findDoctorCode(String userId) {
+        return usermapper.selectDoctorCode(userId);
+    }
+
+    @Override
+    public int countReservation(String doctorCode) {
+        return usermapper.selectReservationCount(doctorCode);
+    }
+
+    @Override
+    public int countTotalReservation(String userId) {
+        return usermapper.selectTotalReservationCount(userId);
+    }
+
+    @Override
+    public MemberVO  findUser(String user_id) {
+        return usermapper.selectMember(user_id);
+    }
+
+    @Override
+    public MemberVO findMember(){
+        String username= SecurityContextHolder.getContext().getAuthentication().getName();
+        return usermapper.selectMember(username);
+    }
+
 
 }

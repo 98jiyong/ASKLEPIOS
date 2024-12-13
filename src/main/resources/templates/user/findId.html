@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Asklepios</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="icon" href="Img/logo_icon.png" type="image/x-icon">
+	<style>
+		@font-face {
+			font-family: 'Tenada';
+			src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'Pretendard-Regular';
+			src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+			font-weight: 400;
+			font-style: normal;
+		}
+		header{
+			font-family:'Tenada', 'sans-serif';
+			margin-top: 300px;
+			text-align: center;
+		}
+		body {
+			font-family:'Pretendard-Regular', sans-serif;
+			width: 1920px;
+			font-size: 30px;
+		}
+		#user_name, label, button {
+			width: 500px;
+		}
+		input:focus::placeholder {
+			color: transparent;
+		}
+		li {
+			display: inline-block;
+			font-size: 25px;
+			color: rgb(138, 137, 137);
+		}
+		#reg_first, #reg_last {
+			width: 200px;
+		}
+		span {
+			width: 100px;
+			font-size: 40px;
+		}
+	</style>
+</head>
+<body>
+<div class="container mx-auto">
+	<header>
+		<a href="home"><span class="mx-auto text-blue-500 font-bold" style="font-size: 90px;">ASKLEPIOS</span></a>
+	</header>
+	<div for="info" class="mx-px flex justify-center mt-5 font-medium text-4xl font-bold text-black-500 dark:text-white">회원 정보를 입력하세요.</div>
+	<form action="findId" method="post" onsubmit="return validateForm()">
+		<div class="block justify-center">
+			<div>
+				<label for="user_name" class="mx-auto block mt-10 mb-2 font-medium text-gray-900 dark:text-white">성명</label>
+				<input type="text" id="user_name" name="user_name"
+				class="mx-auto block mt-5 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 focus:ring-2 focus:outline-none"
+				placeholder="이름">
+				</input>
+			</div>
+			<div>
+				<label for="reg_first" class="mx-auto block mt-5 font-medium text-gray-900 dark:text-white">주민등록번호</label>
+				<div class="mx-auto flex justify-center items-center">
+					<input type="text" id="reg_first" name="reg_first" maxlength="6"
+						class="mx-px flex justify-center mt-5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 focus:ring-2 focus:outline-none">
+					</input>
+					<span class="mx-px flex justify-center">ㅡ</span>
+					<input type="password" id="reg_last" name="reg_last" maxlength="7"
+						class="mx-px flex justify-center mt-5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 focus:ring-2 focus:outline-none">
+					</input>
+				</div>
+			</div>
+			<label id="errorMsg" class="mx-auto block mt-5 mb-5" style="color: red; font-size: 20px;" th:text="${error}"></label>
+			<button type="submit" class="mx-auto block py-5 font-semibold rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-500">
+				아이디 찾기
+			</button>
+		</div>
+	</form>
+</div>
+</body>
+<script>
+	function validateForm() {
+		// 입력 폼 아이디값 담기
+		let user_name = document.getElementById("user_name").value;
+		let reg_f = document.getElementById("reg_first").value;
+		let reg_l = document.getElementById("reg_last").value;
+		if (user_name == "") {
+			document.getElementById('errorMsg').innerText = "🚫 모든 입력값은 필수 입니다.(성명 미기입)"
+			document.getElementById('user_name').focus();
+			return false;
+		}
+		else if(reg_f == ""){
+			document.getElementById('errorMsg').innerText = "🚫 모든 입력값은 필수 입니다.(주민등록번호 미기입)"
+			document.getElementById('reg_first').focus();
+			return false;	
+		}
+		else if(reg_l == ""){
+			document.getElementById('errorMsg').innerText = "🚫 모든 입력값은 필수 입니다.(주민등록번호 미기입)"
+			document.getElementById('reg_last').focus();
+			return false;	
+		}
+		return true;
+	};
+
+</script>
+</html>

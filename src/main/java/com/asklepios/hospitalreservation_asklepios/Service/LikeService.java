@@ -30,4 +30,8 @@ public class LikeService {
         }
         return flag;
     }
+
+    public int countHeart(LikeVO likeVO){
+        return boardMapper.selectHeart(likeVO);
+    }
 }

@@ -1,0 +1,225 @@
+body {
+  font-family:'Pretendard-Regular', 'sans-serif';
+  width: 1920px;
+}
+#menu_wrap.container {
+  max-width: 1200px !important; /* 강제 적용 */
+}
+.container {
+  width: 1200px;
+  max-width: 1200px;
+  box-sizing: border-box;
+  margin-top: 30px;
+  margin-left: 30px;
+  }
+.title {
+  font-size: 50px;
+  font-weight: bold;
+  color: #3B82F6;
+}
+.searchPlace {
+  width: 1200px;
+  height: 150px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  display: flex;
+  border-top: 5px solid #3B82F6;
+  border-bottom: 1px solid #3B82F6;
+}
+.shopSchList {
+  width: 1200px;
+  box-sizing: border-box;
+}
+.list {
+  width: 530px;
+  height: 800px;
+  border: 1px solid #bfdbfe;
+  margin-right: 20px;
+  float: left;
+  position: relative;
+}
+.hospitalList {
+  height: 750px;
+}
+.map {
+  width: 650px;
+  height: 800px;
+}
+.magnify {
+  z-index: 1;
+  position: absolute;
+  margin-left: 720px;
+}
+.crosshair {
+  z-index: 1;
+  position: absolute;
+  margin-left: 520px;
+  font-size: 50px;
+  color: #3B82F6;
+}
+.c-blue {
+  color: #3B82F6;
+  font-size: 45px;
+}
+.c-blue:hover{
+  font-size: 55px;
+  transition: font-size .1s ease;
+  -moz-transition: font-size .1s ease;
+}
+.plz {
+  border-radius: 20px;
+}
+.item.selected {
+  background-color: #bfdbfe;
+}
+.asideSearchHospital {
+  background-color: #3B82F6;
+  color: white;
+}
+#modal{
+  position: sticky;
+  top: 0;
+  margin-top: 50px;
+  width: 600px;
+  height: 850px;
+  border-radius: 30px;
+  display:none;
+}
+#modalheader{
+  margin: 0 0 30px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  font-size: 30px;
+  text-align: center;
+}
+.subject{
+  width: 550px;
+  height: 50px;
+  border: 1px solid #666666;
+  border-radius: 10px;
+  font-size: 25px;
+  text-align: center;
+  margin-top: 15px;
+  margin-left: 20px;
+}
+.subject:hover{
+  background: #84b6ff;
+}
+#closebutton,#closebutton2{
+  float: right;
+  margin-right: 20px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+#modalInfo::-webkit-scrollbar {
+  width: 10px;
+}
+#modalInfo::-webkit-scrollbar-thumb {
+  background-color: #2f3542;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+#modalInfo::-webkit-scrollbar-track {
+  background-color: grey;
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px white;
+}
+#modalInfo::-webkit-scrollbar-button:vertical:start:decrement,
+#modalInfo::-webkit-scrollbar-button:vertical:start:increment,
+#modalInfo::-webkit-scrollbar-button:vertical:end:decrement{
+  display: block;
+  height: 35px;
+}
+#modalInfo{
+  position: fixed;
+  top: 150px;
+  left: 590px;
+  display: none;
+  margin-left: 100px;
+  width: 850px;
+  height: 800px;
+  /*border: 1px solid;*/
+  overflow: auto;
+  border-radius:30px ;
+  z-index: 5;
+}
+.info1 {
+  font-size: 30px;
+  width: 750px;
+  text-align: left;
+  margin-left: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.rheader{
+  font-size: 35px;
+  width: 750px;
+  text-align: left;
+  margin-left: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#infoHeader{
+  margin: 0;
+  border-bottom: 1px solid;
+  width: 100%;
+  height: 70px;
+  text-align: center;
+  font-size: 30px;
+  border-top-left-radius:30px ;
+  border-top-right-radius:30px ;
+}
+#infoIntro,#infoNotice{
+  width: 750px;
+  font-size: 25px;
+  text-align: left;
+  margin-left: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.infoTitle{
+  width: 750px;
+  margin-left: 30px;
+  text-align: left;
+  font-size: 25px;
+  color: #666666;
+  /*border: 1px solid;*/
+}
+#doctorTable,#reviewTable{
+  margin-left: 80px;
+  width: 600px;
+  /*border: 1px solid;*/
+  font-size: 25px;
+}
+#reservation{
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.radio{
+  width: 30px;
+  height: 30px;
+}
+
+
+#hospitalList div {width: 100%; height:125px; border-bottom:1px solid white; position:relative; box-sizing: border-box;}
+#hospitalList li {list-style: none;  width: 70%; height:125px;}
+#hospitalList .button {width: 25%; display: flex; height: 125px;}
+#hospitalList .item {display:flex; overflow: hidden; cursor: pointer;}
+#hospitalList .item span {display: flex; font-size: 20px; font-weight: normal; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+#hospitalList .item h2 { text-overflow: ellipsis; overflow: hidden; white-space: nowrap; font-size: 25px; font-weight: bold;}
+#hospitalList .item .info { padding:0 0 0 100px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; font-size: 25px; font-weight: bold;}
+#hospitalList .info .gray {color:#8a8a8a;}
+#hospitalList .info .jibun {padding-left:26px; background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat; background-position: left;}
+#hospitalList .info .tel {position:relative; bottom: 7px; color:rgb(30,64,175);}
+#hospitalList .item .markerbg {position:absolute; width:60px; height:60px; margin:30px 5px 0 10px;}
+
+.pagination {height:50px; display: flex; justify-content: center; align-items: center;}
+.pagination a {cursor: pointer; padding:0 12px 0 12px; margin: 0 5px 0 5px; font-size: 25px; text-decoration: none; color: rgb(120 113 108);}
+.pagination .on {cursor: default; color: #FFF; background-color: #3B82F6; border-radius: 100%;}
+
+.customoverlay {position:relative;bottom:85px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
+.customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+.customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
+.customoverlay .title {display:block;text-decoration:none;color:#000;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:30px;font-weight:bold;}
+.customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}

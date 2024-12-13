@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asklepios.hospitalreservation_asklepios.Repository.IF_RegistrationMapper">
+
+    <select id="selectHospitalName" parameterType="String" resultType="String">
+        SELECT hospital_name FROM hospital WHERE hospital_addr LIKE CONCAT('%',#{hospitalAddress},'%')
+    </select>
+
+    <insert id="insertHospital" parameterType="com.asklepios.hospitalreservation_asklepios.VO.HospitalVO">
+        INSERT INTO hospital VALUES (CONCAT('HOSP', LPAD((select nextval(asklepios.registration_code_seq)), 3, '0')),
+                                     #{hospital_name}, #{hospital_addr}, #{hospital_tel}, #{hospital_date}, #{hospital_time}, #{hospital_intro}, #{hospital_notice})
+    </insert>
+
+</mapper>

@@ -3,8 +3,23 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.asklepios.hospitalreservation_asklepios.Repository.IF_SearchMapper">
-  <select id="selectHospital" parameterType="String" resultType="com.asklepios.hospitalreservation_asklepios.VO.HospitalVO">
-    select * from hospital where hospital_name like concat('%',#{name},'%')
+  <select id="selectHospital" parameterType="String" resultType="com.asklepios.hospitalreservation_asklepios.VO.Hospital_doctorVO">
+    select *,group_concat(user_doctor_medical) as medicals from hospital_doctor where hospital_name like concat('%',#{name},'%')
   </select>
-
+  <select id="selectInfo" resultType="com.asklepios.hospitalreservation_asklepios.VO.Hospital_doctorVO">
+    select *,group_concat(user_doctor_medical) as medicals, group_concat(user_name) as names,
+             group_concat(user_doctor_career) as careers, group_concat(user_doctor_graduate) as graduates,
+             group_concat(user_image) as images, group_concat(user_doctor_code) as codes
+    from  hospital_doctor
+    where hospital_name like concat('%',#{name},'%')
+                                     or hospital_addr like concat('%',#{name},'%')
+                                     or user_doctor_medical like concat('%',#{name},'%')
+    group by hospital_code
+  </select>
+    <select id="selectReview" resultType="com.asklepios.hospitalreservation_asklepios.VO.ReviewVO">
+        select * from review where review_hospital_code=#{hospital_code}
+    </select>
+    <select id="avgScore" resultType="int">
+        select truncate(avg(review_score),1) from review where review_hospital_code=#{hospitalCode};
+    </select>
 </mapper>

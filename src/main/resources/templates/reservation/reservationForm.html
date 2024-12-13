@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Asklepios</title>
+  <link rel="icon" href="Img/logo_icon.png" type="image/x-icon">
+  <link rel="stylesheet" href="CSS/home.css"/>
+  <link rel="stylesheet" href="CSS/reservationAside.css"/>
+  <link rel="stylesheet" href="CSS/reservationForm.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="https://kit.fontawesome.com/9b855eea51.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div th:replace="~{include/topinclude}"></div>
+<div style="display:flex; width: 1920px; height: 1200px;">
+  <div style="display: inline-block;" th:replace="~{asideMenuTemplates/reservationAside}"></div>
+  <div class="container1">
+    <!--    onsubmit="return validateForm()"-->
+    <form action="reserve/submit" method="post" onsubmit="return validateForm()">
+      <div class="title">진료예약</div>
+      <table>
+        <tr class="small">
+          <td class="td1">
+            <div class="label">
+              병원명<span style="color: red">(*)</span>
+            </div>
+          </td>
+          <td class="td2">
+            <div>
+              <!-- <label for=""></label> -->
+              <input type="text" th:value="${hospital_name}" name="hospital_name"
+                     class="fillAuto bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:ring-2 focus:outline-none"
+                     readonly>
+              <input type="text" th:value="${hospital_code}" name="reservation_hospital_code" hidden>
+            </div>
+          </td>
+        </tr>
+        <tr class="small">
+          <td class="td1">
+            <div class="label">
+              담당 의사<span style="color: red">(*)</span>
+            </div>
+          </td>
+          <td class="td2">
+            <input type="text" th:value="${doctor_name}" name="doctor_name"
+                   class="fillAuto bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:ring-2 focus:outline-none"
+                   readonly>
+            <input type="text" th:value="${doctor_code}" name="reservation_user_doctor_code" hidden>
+          </td>
+        </tr>
+        <tr class="small">
+          <td class="td1">
+            <div class="label">
+              성명<span style="color: red">(*)</span>
+            </div>
+          </td>
+          <td class="td2">
+            <input type="text" th:value="${user_name}" name="user_name"
+                   class="fillAuto bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:ring-1 focus:outline-none"
+                   readonly>
+            <input type="text" th:value="${user_id}" name="reservation_user_id" hidden>
+          </td>
+        </tr>
+        <tr class="small">
+          <td class="td1">
+            <div class="label">
+              연락처<span style="color: red">(*)</span>
+            </div>
+          </td>
+          <td class="td2">
+            <input type="text" th:value="${user_tel}" name="user_tel"
+                   class="fillAuto bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:ring-1 focus:outline-none"
+                   readonly>
+
+          </td>
+        </tr>
+        <tr class="small">
+          <td class="td1">
+            <div class="label">
+              예약 날짜<span style="color: red">(*)</span>
+            </div>
+          </td>
+          <td class="td2">
+            <div style="vertical-align: middle;">
+              <div style="float: left;">
+                <input type="date" id="calender" name="reservation_date"
+                       class="fillAuto bg-gray-50 border border-gray-300 rounded-lg" hidden>
+                <input type="text" id="time" name="reservation_time"
+                       class="fillAuto bg-gray-50 border border-gray-300 rounded-lg" hidden>
+              </div>
+              <div class="timeContainer" style="display:inline-block; margin-top: 10px; margin-left: 15px;">
+                <div class="timeNotice mx-auto mt-8 bg-white rounded-lg shadow-2xl ">
+                  <div class="text-3xl m-2">예약 날짜를 선택하면</div>
+                  <div class="text-3xl m-2">예약 가능한 시간을</div>
+                  <div class="text-3xl m-2">확인할 수 있습니다.</div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr class="medium">
+          <td class="td1">
+            <div class="label">
+              메모
+            </div>
+          </td>
+          <td class="td2">
+            <div>
+              <textarea name="reservation_memo" cols="100" rows="7" placeholder="아픈 부위 / 의심 증상 / 진료 목적 등을 간단하게 작성해 주세요." style="resize: none"
+                        class="memo bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 focus:ring-1 focus:outline-none"></textarea>
+            </div>
+          </td>
+        </tr>
+        <tr class="small">
+          <td colspan="2">
+            <div class="flex justify-center">
+              <input type="submit" value="예약하기" style="cursor: pointer;"
+                     class="mx-px mt-10 place-items-center bg-blue-500 w-64 h-20 rounded-lg text-white text-4xl font-semibold hover:bg-blue-600">
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <aside id="aside2" th:insert="~{include/quickmenuinclude}" style="display: flex; flex-direction: column;"></aside>
+</div>
+<footer id="footer" th:replace="~{include/footer}">
+</footer>
+</body>
+</html>
+<script src="JS/reservationForm.js"></script>
+
+

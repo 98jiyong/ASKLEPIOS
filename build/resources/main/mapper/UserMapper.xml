@@ -4,38 +4,122 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.asklepios.hospitalreservation_asklepios.Repository.IF_UserMapper">
     <select id="selectPwd" parameterType="com.asklepios.hospitalreservation_asklepios.VO.UserVO" resultType="String">
-        SELECT user_password FROM users WHERE user_id = #{user_id}
+        SELECT user_password
+        FROM users
+        WHERE user_id = #{user_id}
     </select>
 
     <select id="selectRegnum" parameterType="String" resultType="String">
-        SELECT user_register_number FROM users WHERE user_name = #{user_name}
+        SELECT user_register_number
+        FROM users
+        WHERE user_name = #{user_name}
+    </select>
+
+    <select id="selectUser" parameterType="com.asklepios.hospitalreservation_asklepios.VO.UserVO" resultType="com.asklepios.hospitalreservation_asklepios.VO.UserVO">
+        SELECT * FROM users WHERE user_id = #{user_id}
     </select>
 
     <select id="selectId" parameterType="String" resultType="String">
-        SELECT user_id FROM users WHERE user_register_number = #{user_register_number}
+        SELECT user_id
+        FROM users
+        WHERE user_register_number = #{user_register_number}
+    </select>
+
+    <select id="selectDoctorCode" resultType="String" parameterType="String">
+        SELECT user_doctor_code FROM user_doctor WHERE user_doctor_id = #{userId}
+    </select>
+
+    <select id="selectReservationCount" resultType="int" parameterType="String">
+        SELECT count(*) FROM reservation WHERE reservation_user_doctor_code = #{doctorCode} AND reservation_accept = '대기'
+    </select>
+
+    <select id="selectTotalReservationCount" resultType="int" parameterType="String">
+        SELECT count(*) FROM reservation WHERE reservation_user_id = #{userId}
     </select>
 
     <select id="selectAllName" resultType="com.asklepios.hospitalreservation_asklepios.VO.UserVO">
-        SELECT user_name FROM users
+        SELECT user_name
+        FROM users
     </select>
 
     <select id="selectEmail" parameterType="String" resultType="String">
-        SELECT user_email FROM users WHERE user_id = #{user_id}
+        SELECT user_email
+        FROM users
+        WHERE user_id = #{user_id}
     </select>
 
     <update id="updatePwd" parameterType="String">
-        UPDATE users SET user_password = #{pwd} WHERE user_id=#{user_id}
+        UPDATE users
+        SET user_password = #{pwd}
+        WHERE user_id = #{user_id}
     </update>
 
     <insert id="insertUserCommonInfo" parameterType="com.asklepios.hospitalreservation_asklepios.VO.UserVO">
-        INSERT INTO users VALUES (#{user_id},#{user_password},#{user_name},#{user_name_eng},#{user_register_number},#{user_tel},#{user_addr},#{user_email},#{user_authority},#{user_info_agreement},#{user_image})
+        INSERT INTO users
+        VALUES (#{user_id}, #{user_password}, #{user_name}, #{user_name_eng}, #{user_register_number}, #{user_tel},
+                #{user_addr}, #{user_email}, #{user_authority}, #{user_info_agreement}, #{user_image})
     </insert>
 
     <select id="duplicateIDCheck" parameterType="String" resultType="String">
-        SELECT user_id from users where user_id = #{user_id}
+        SELECT user_id
+        from users
+        where user_id = #{user_id}
     </select>
 
     <select id="duplicateRegisterNumberCheck" parameterType="String" resultType="String">
-        SELECT user_register_number from users where user_register_number = #{user_register_number}
+        SELECT user_register_number
+        from users
+        where user_register_number = #{user_register_number}
     </select>
+
+    <insert id="insertUserDoctorInfo" parameterType="com.asklepios.hospitalreservation_asklepios.VO.DoctorVO">
+        INSERT INTO user_doctor
+        VALUES (#{user_doctor_code}, #{user_doctor_id}, #{user_doctor_hospital_code}, #{user_doctor_medical},
+                #{user_doctor_career}, #{user_doctor_graduate})
+    </insert>
+
+    <select id="selectPwdUsingID" parameterType="String" resultType="String">
+        SELECT user_password
+        FROM users
+        WHERE user_id = #{user_id}
+    </select>
+
+    <select id="selectUserByID" parameterType="String" resultType="com.asklepios.hospitalreservation_asklepios.VO.UserVO">
+        SELECT * FROM users WHERE user_id = #{user_id}
+    </select>
+
+    <select id="selectMember" parameterType="String"
+            resultType="com.asklepios.hospitalreservation_asklepios.VO.MemberVO">
+        SELECT * FROM users WHERE user_id = #{user_id}
+    </select>
+
+    <select id="selectDoctorByID" parameterType="String"
+            resultType="com.asklepios.hospitalreservation_asklepios.VO.DoctorVO">
+        SELECT *
+        FROM user_doctor
+        WHERE user_doctor_id = #{user_doctor_id}
+    </select>
+
+    <update id="updateUserCommonInfo" parameterType="com.asklepios.hospitalreservation_asklepios.VO.UserVO">
+        UPDATE users
+        SET user_password       = #{user_password},
+            user_name           = #{user_name},
+            user_name_eng       = #{user_name_eng},
+            user_tel            = #{user_tel},
+            user_addr           = #{user_addr},
+            user_authority      = #{user_authority},
+            user_info_agreement = #{user_info_agreement},
+            user_image          = #{user_image}
+        WHERE user_id = #{user_id}
+    </update>
+
+    <update id="updateUserDoctorInfo" parameterType="com.asklepios.hospitalreservation_asklepios.VO.DoctorVO">
+        UPDATE user_doctor
+        SET user_doctor_hospital_code = #{user_doctor_hospital_code},
+            user_doctor_medical       = #{user_doctor_medical},
+            user_doctor_career        = #{user_doctor_career},
+            user_doctor_graduate      = #{user_doctor_graduate}
+        WHERE user_doctor_id = #{user_doctor_id}
+    </update>
+
 </mapper>

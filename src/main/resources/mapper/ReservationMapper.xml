@@ -4,8 +4,112 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.asklepios.hospitalreservation_asklepios.Repository.IF_ReservationMapper">
 
-    <select id="selectAllHospitalName" resultType="com.asklepios.hospitalreservation_asklepios.VO.HospitalVO">
-        SELECT hospital_name FROM hospital
+    <select id="getAllHospitalName" resultType="com.asklepios.hospitalreservation_asklepios.VO.HospitalVO">
+        SELECT hospital_name, hospital_addr FROM hospital
     </select>
 
+    <select id="selectHospital" parameterType="map" resultType="com.asklepios.hospitalreservation_asklepios.VO.HospitalVO">
+        SELECT * FROM hospital WHERE hospital_name LIKE CONCAT('%', #{hospitalName}, '%') AND hospital_addr LIKE CONCAT('%', #{hospitalAddr}, '%')
+    </select>
+
+    <select id="getHospitalAddress" parameterType="String" resultType="String">
+        SELECT hospital_addr
+        FROM hospital
+        WHERE hospital_name LIKE CONCAT('%', #{hospitalName}, '%')
+    </select>
+
+    <select id="getHospitalCode" parameterType="String" resultType="String">
+        SELECT hospital_code
+        FROM hospital
+        WHERE hospital_name LIKE CONCAT('%', #{hospitalName}, '%')
+    </select>
+
+    <select id="selectDoctor" parameterType="String" resultType="com.asklepios.hospitalreservation_asklepios.VO.Hospital_doctorVO">
+        SELECT * FROM hospital_doctor WHERE hospital_code = #{hospitalCode}
+    </select>
+
+    <select id="getDoctorName" parameterType="String" resultType="String">
+        SELECT user_name
+        FROM users
+        WHERE user_id = (SELECT user_doctor_id FROM user_doctor WHERE user_doctor_code = #{doctorCode})
+    </select>
+
+    <select id="getDoctorCode" parameterType="String" resultType="String">
+        SELECT user_name
+        FROM users
+        WHERE user_id = #{user_doctor_id}
+    </select>
+
+    <select id="getUserId" parameterType="String" resultType="String">
+        SELECT user_id
+        FROM users
+        WHERE user_name = #{userName}
+    </select>
+
+    <select id="getAllReservationTime" parameterType="String" resultType="String">
+        SELECT reservation_time
+        FROM reservation
+        WHERE reservation_hospital_code = #{hospitalCode}
+          AND reservation_user_doctor_code = #{doctorCode}
+          AND reservation_date = #{reservationDate}
+    </select>
+
+    <select id="getNextReservationCode" resultType="String">
+
+    </select>
+
+    <insert id="insertReservation" parameterType="com.asklepios.hospitalreservation_asklepios.VO.ReservationVO">
+        INSERT INTO reservation
+        values (CONCAT('RES', LPAD((select nextval(asklepios.reservation_code_seq)), 3, '0')),
+                #{reservation_hospital_code},
+                #{reservation_user_doctor_code}, #{reservation_user_id}, #{reservation_date}, #{reservation_time},
+                #{reservation_memo}, DEFAULT)
+    </insert>
+
+    <select id="selectUserReservationStatus" parameterType="String"
+            resultType="com.asklepios.hospitalreservation_asklepios.VO.ReservationStatusVO">
+        SELECT r.reservation_code,
+               h.hospital_name,
+               sdn.user_name,
+               r.reservation_date,
+               r.reservation_time,
+               r.reservation_memo,
+               r.reservation_accept
+        FROM reservation AS r
+                 LEFT JOIN hospital AS h ON r.reservation_hospital_code = h.hospital_code
+                 LEFT JOIN (SELECT user_doctor_code, user_name
+                            FROM users u,
+                                 user_doctor ud
+                            WHERE u.user_id = ud.user_doctor_id) AS sdn
+                           ON r.reservation_user_doctor_code = sdn.user_doctor_code
+        WHERE reservation_user_id = #{user_id}
+    </select>
+
+    <select id="selectDoctorReservationStatus" parameterType="String"
+            resultType="com.asklepios.hospitalreservation_asklepios.VO.ReservationStatusVO">
+        SELECT r.reservation_code,
+               h.hospital_name,
+               u.user_name,
+               r.reservation_date,
+               r.reservation_time,
+               r.reservation_memo,
+               r.reservation_accept
+        FROM reservation AS r
+                 LEFT JOIN hospital AS h ON r.reservation_hospital_code = h.hospital_code
+                 LEFT JOIN users AS u ON r.reservation_user_id = u.user_id
+        WHERE
+            reservation_user_doctor_code = (SELECT user_doctor_code FROM user_doctor WHERE user_doctor_id = #{user_id})
+    </select>
+
+    <update id="updateAccept" parameterType="String">
+        UPDATE reservation SET reservation_accept = '승인' WHERE reservation_code = #{reservation_code}
+    </update>
+
+    <update id="updateCancel" parameterType="String">
+        UPDATE reservation SET reservation_accept = '취소' WHERE reservation_code = #{reservation_code}
+    </update>
+
+    <select id="getPopularHospital" resultType="String">
+        select ho.hospital_name from reservation as rs inner join hospital as ho on rs.reservation_hospital_code = ho.hospital_code group by reservation_hospital_code order by count(*) desc limit 5;
+    </select>
 </mapper>
