@@ -6,7 +6,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src ="js/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <link rel="icon" href="Img/logo_icon.png" type="image/x-icon">
 </head>
@@ -21,7 +20,6 @@
         width: 1920px;
         font-family: 'Pretendard-Regular',serif;
         margin-top: 50px;
-        /*border: 1px black solid;*/
     }
     .insertValue {
         width: 80%;
@@ -41,15 +39,6 @@
     }
     table tr td {
         height: 100px;
-    }
-    .sheet {
-        background-color: gray;
-        border-radius: 50%;
-        width:120px;
-        height: 120px;
-        align-content: center;
-        text-align: center;
-        font-size: 18px;
     }
     .insertValue {
         width: 80%;
@@ -333,7 +322,7 @@
 </script>
 <body class="mx-auto" style="margin-top: 50px">
 <h1 style="font-size: xx-large; text-align: center;">회원 정보 입력</h1>
-<form action="/asklepios/commoninfo" method="post" enctype="multipart/form-data"  onsubmit="return checkInfo()" id="submit">
+<form action="commoninfo" method="post" enctype="multipart/form-data"  onsubmit="return checkInfo()" id="submit">
     <div class="tableSet">
         <table>
             <tr>
@@ -471,9 +460,9 @@
                 </td>
                 <td>
                     <select name="user_authority" id="user_authority" class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 mx-20 p-5 focus:ring-2 focus:outline-none" style="width: 100%">
-                        <option value="doctor">의사</option>
                         <option value="client">일반</option>
-                        <option value="admin">관리자</option>
+                        <option value="doctor">의사</option>
+<!--                        <option value="admin">관리자</option>-->
                     </select>
                 </td>
             </tr>

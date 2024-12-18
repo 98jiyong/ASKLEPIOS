@@ -157,11 +157,11 @@
     }
     #modalInfo{
       position: fixed;
-      top: 150px;
+      top: 240px;
+      left: 680px;
       display: none;
-      margin-left: 100px;
       width: 850px;
-      height: 800px;
+      height: 850px;
       overflow: auto;
       border-radius:30px ;
     }
@@ -189,9 +189,10 @@
     color: #666666;
   }
    #doctorTable,#reviewTable{
-     margin-left: 80px;
-     width: 700px;
+     /*margin-left: 80px;*/
+     width: 800px;
      font-size: 25px;
+     margin: auto;
     }
    #reservation{
      margin-top: 30px;
@@ -348,12 +349,12 @@
                 <td class="clickhospitaldoctorcareer"></td>
               </tr>
             </table>
-            <form action="reserve" method="post">
+            <form action="reserve" method="post" onsubmit="return sendPage()">
               <input type="hidden" id="hospitalName2" name="hospitalName">
               <input  type="hidden" id="doctorCode" name="doctorCode">
               <input type="hidden" id="hospitalCode" name="hospitalCode">
               <input type="hidden" id="userID" name="userID" value="${user.user_id}">
-              <input id="reservation" type="submit" style="width: 200px;height: 80px; font-size: 30px; background: #3b82f6;color: white; border-radius: 5px"  value="예약하기">
+              <input id="reservation" type="submit" style="width: 200px;height: 80px; font-size: 30px; background: #3b82f6;color: white; border-radius: 5px; margin-bottom:20px;"  value="예약하기">
             </form>
           </div>
         </div>
@@ -370,6 +371,14 @@
 </body>
 </html>
 <script th:inline="javascript">
+  function sendPage(){
+    let flag = confirm("예약하시겠습니까?");
+    if(flag){
+      return flag;
+    }else{
+      return flag;
+    }
+  }
     let subButton=document.getElementsByClassName("filter_button")[0];
     let dayButton=document.getElementsByClassName("filter_button")[2];
     dayButton.addEventListener("click",changeday);
@@ -599,8 +608,13 @@
           },
           success: function (data) {
             // alert('성공');
-            // console.log(data);
+            console.log(data);
             let reviewArr=data.reviewList;
+            reviewArr.sort((a, b) => {
+              let dateA = new Date(a.review_date);
+              let dateB = new Date(b.review_date);
+              return dateA - dateB; // 오름차순
+            });
             let avgScore=data.avgScore;
             let avgStar = '';
             for(let i=0; i<avgScore; i++){

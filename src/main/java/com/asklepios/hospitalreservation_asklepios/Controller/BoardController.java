@@ -123,10 +123,17 @@ public class BoardController {
 
 //    System.out.println(file.toString());
     String []newFileName=fileDataUtil.fileUpload(file);
-    boardVO.setBoard_binary(newFileName);
+    String boardFilename="";
+    for(int i=0;i<newFileName.length;i++){
+      boardFilename+=(newFileName[i]);
+      if(i!=newFileName.length-1){
+        boardFilename+=",";
+      }
+    }
+    boardVO.setBoard_binary(boardFilename);
+    System.out.println(boardVO.getBoard_binary());
     boardService.addBoard(boardVO);
     return "redirect:/bboard_all";
-
   }
   @GetMapping("/detail")
   public String detail(Model model, @ModelAttribute PageVO pagevo,

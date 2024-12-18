@@ -28,11 +28,14 @@ public class SecurityConfig  {
 
   private final CustomAccessDeniedHandler accessDeniedHandler;
   private final CustomAuthenticationEntryPoint authenticationEntryPoint;
+  private final CustomLoginFailureHandler loginFailureHandler;
 
   public SecurityConfig(CustomAccessDeniedHandler accessDeniedHandler,
-                        CustomAuthenticationEntryPoint authenticationEntryPoint) {
+                        CustomAuthenticationEntryPoint authenticationEntryPoint,
+                        CustomLoginFailureHandler loginFailureHandler) {
     this.accessDeniedHandler = accessDeniedHandler;
     this.authenticationEntryPoint = authenticationEntryPoint;
+    this.loginFailureHandler = loginFailureHandler;
   }
 
 
@@ -43,19 +46,20 @@ public class SecurityConfig  {
 
             .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
             .requestMatchers("Img/**", "CSS/**","JS/**", "profile_image/**",
-                "/", "/home","/login",
-                "/agreement","commoninfo","/userjoin","/getreview","/filter",
-                "bboard_all","bboard_campaign","bboard_med",
-                "bboard_health","bboard_free","/detail",
-                "search").permitAll() // 요청은 허용
-            .requestMatchers("/myPage","/excelDownload",
-                    "/reservation","/reservationForm","/reserve").hasAnyRole("doctor","client")
+                "/", "/home","/login","/findId","/resultId","/findPw","findEmail","/resultPw","mailSend","mailCheck",
+                "/agreement","/commoninfo","/doctorinfo","/userjoin","/getreview","/filter","/insertedID","/hospitalList",
+                "/bboard_all","/bboard_campaign","/bboard_med","/doctorreservationstatus","/acceptreservation","/cancelreservation","/verify_password_mypage",
+                "/bboard_health","/bboard_free","/detail", "/updateUserInfo",
+                "/search").permitAll() // 요청은 허용
+                .requestMatchers("/reservation","/reservationForm","/reserve").hasRole("client")
             .requestMatchers("/registration").hasRole("doctor")
+            .requestMatchers("/myPage","/excelDownload").hasAnyRole("doctor","client")
             .anyRequest().authenticated()
         )
         .exceptionHandling(exception -> exception
-            .accessDeniedHandler(accessDeniedHandler)
-        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler(accessDeniedHandler)
+                .authenticationEntryPoint(authenticationEntryPoint)
+
         )
 
         .formLogin((formLogin) ->
@@ -65,7 +69,7 @@ public class SecurityConfig  {
                     .loginProcessingUrl("/loginProc")
                     .usernameParameter("user_id")   // 입력한 ID
                     .passwordParameter("user_password")   //입력한 PW
-                    .failureUrl("/login")   //로그인 실패시
+                    .failureHandler(loginFailureHandler)
         )
 
         .logout((logout)->logout

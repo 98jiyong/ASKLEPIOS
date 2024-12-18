@@ -20,7 +20,7 @@ public class UserController {
         return "user/login";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/loginProc")
     public String login(@ModelAttribute UserVO userVO, Model model, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -69,7 +69,7 @@ public class UserController {
     }
     @GetMapping("/findPw")
     public String findPw() {
-        return "findPw";
+        return "user/findPw";
     }
     @PostMapping("/findPw")
     public String findPw(@RequestParam("user_id") String user_id, Model model) {

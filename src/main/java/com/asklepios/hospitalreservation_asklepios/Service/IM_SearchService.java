@@ -53,8 +53,8 @@ public class IM_SearchService implements IF_SearchService{
     public List<Hospital_doctorVO> filterIng(List<Hospital_doctorVO> hospitalList) {
         List<Hospital_doctorVO> modHospitalList=hospitalList;
         LocalTime localTime=LocalTime.now();
-        int nowHour= localTime.getHour();
-        int nowMinute=localTime.getMinute();
+        int nowHour= LocalTime.now().getHour();
+        int nowMinute=LocalTime.now().getMinute();
 //        System.out.println(nowHour+":"+nowMinute);
 //        System.out.println(localTime);
 //        System.out.println(localTime.getHour());

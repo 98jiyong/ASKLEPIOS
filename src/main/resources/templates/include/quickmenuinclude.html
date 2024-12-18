@@ -59,9 +59,9 @@
                 <hr style="margin-top: 10px; margin-bottom: 10px">
                 <a href="myPage" onclick="checkSession()">마이페이지</a>
                 <hr style="margin-top: 10px; margin-bottom: 10px">
-                <a href="reservation" onclick="checkSession()">빠른예약</a>
-                <hr style="margin-top: 10px; margin-bottom: 10px">
                 <th:block th:if="${user.user_authority == 'client'}">
+                    <a href="reservation" onclick="checkSession()">빠른예약</a>
+                    <hr style="margin-top: 10px; margin-bottom: 10px">
                     <a href="reservationStatusClient" onclick="checkSession()">예약현황</a>
                     <div>총 예약 : <span id="reservationCount1"></span> 건</div>
                     <hr style="margin-top: 10px; margin-bottom: 10px">
@@ -84,11 +84,22 @@
             <hr style="margin-top: 10px; margin-bottom: 10px">
         </div>
     </div>
-    <div style="position: sticky; top: 0px; cursor: pointer;" onclick="animation()">
-        <div class="toTop">
-            <i class="fa-solid fa-angle-up" style="position: relative; top: 8px;"></i>
-            <span style="position: relative; bottom: 8px;">TOP</span>
-<!--            <div style="color: #3b82f6;font-size: 40px;font-weight: bold;position: relative;top: 60px;">TOP</div>-->
+    <div sec:authorize="isAnonymous()">
+        <div style="position: sticky; top: 0px; cursor: pointer;" onclick="animation()">
+            <div class="toTop" style="top:760px;">
+                <i class="fa-solid fa-angle-up" style="position: relative; top: 8px;"></i>
+                <span style="position: relative; bottom: 8px;">TOP</span>
+    <!--            <div style="color: #3b82f6;font-size: 40px;font-weight: bold;position: relative;top: 60px;">TOP</div>-->
+            </div>
+        </div>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        <div style="position: sticky; top: 0px; cursor: pointer;" onclick="animation()">
+            <div class="toTop">
+                <i class="fa-solid fa-angle-up" style="position: relative; top: 8px;"></i>
+                <span style="position: relative; bottom: 8px;">TOP</span>
+                <!--            <div style="color: #3b82f6;font-size: 40px;font-weight: bold;position: relative;top: 60px;">TOP</div>-->
+            </div>
         </div>
     </div>
 </aside>

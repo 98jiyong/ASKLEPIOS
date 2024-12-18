@@ -5,7 +5,6 @@
     <title>Asklepios</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src = "js/jquery-3.6.0.min.js"></script>
     <link rel="icon" href="Img/logo_icon.png" type="image/x-icon">
 </head>
 <style>
@@ -18,7 +17,6 @@
     body {
         width: 1920px;
         font-family: 'Pretendard-Regular',serif;
-        border: 1px black solid;
     }
     .insertValue {
         width: 80%;
@@ -93,6 +91,8 @@
         modalCloseButton.addEventListener('click', () => {
             modal.classList.add('hidden');
         });
+        let a = document.getElementById('modalOpenButton');
+        a.onclick = selectHospital();
     }
 
     function searchDetailHospital() {
@@ -125,8 +125,7 @@
         })
         selectHospital();
     }
-    let a = document.getElementById('modalOpenButton');
-    a.onclick = selectHospital();
+
     function selectHospital() {
         let table = document.getElementById("selectHospital");
         let rowList = table.rows;
@@ -246,25 +245,25 @@
             </table>
         </div>
         <div style="text-align: center">
-            <button type="submit" class="bg-blue-800 rounded-lg w-48 h-12 my-10 text-white"  style="font-size: 18px;"><strong> 완료 </strong></button>
+            <button type="submit" class="bg-blue-500 rounded-lg w-48 h-16 mt-10 text-white text-xl" ><strong> 완료 </strong></button>
         </div>
     </form>
     <br>
     <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 100px">
         <div style="text-align: center;">
-            <div class="sheet" style="background-color: #1e40af; color: white">
+            <div class="sheet" style="background-color: #3b82f6; color: white">
                 <p><strong>약관 동의</strong></p>
             </div>
         </div>
-        <div style="width: 50px; border: 1px solid #1e40af"></div>
+        <div style="width: 50px; border: 1px solid #3b82f6"></div>
         <div style="text-align: center">
-            <div class="sheet" style="background-color: #1e40af; color: white">
+            <div class="sheet" style="background-color: #3b82f6; color: white">
                 <p><strong>회원 가입</strong></p>
             </div>
         </div>
-        <div style="width: 50px; border: 1px solid #1e40af"></div>
+        <div style="width: 50px; border: 1px solid #3b82f6"></div>
         <div style="text-align: center">
-            <div class="sheet" style="background-color: #1e40af; color: white">
+            <div class="sheet" style="background-color: #3b82f6; color: white">
                 <p><strong>추가 작성</strong></p>
             </div>
         </div>

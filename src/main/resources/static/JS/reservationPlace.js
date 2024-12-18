@@ -35,12 +35,14 @@ function getLocation(){
           lon = position.coords.longitude; // 경도
 
       locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-          message = '<div class="customoverlay"><a><span class="title" style="font-size:20px;">여기에 계신가요?!</span></a></div>'; // 인포윈도우에 표시될 내용입니다
+          message =
+          '<div class="customoverlay">'+
+          '<a><span class="title" style="font-size:20px;">여기에 계신가요?!</span></a></div>'; // 인포윈도우에 표시될 내용입니다
 
       // 마커와 인포윈도우를 표시합니다
 
-      map.setCenter(locPosition);
       displayMarker(locPosition, message);
+      map.setCenter(locPosition);
 
       geocoder.coord2RegionCode(lon, lat, function (result, status) {
         if (status === kakao.maps.services.Status.OK) {
@@ -54,15 +56,20 @@ function getLocation(){
           console.error("coord2RegionCode 실패:", status);
         }
       });
-    });
-  } else {
+    },
+        function (error) {
+          console.error("Geolocation 에러:", error.message);
+          alert("위치 정보를 가져올 수 없습니다.");
+        });
+  }
+  else {
     // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-    let locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
+    let locPosition = new kakao.maps.LatLng(37.277232, 127.027966),
         message = 'geolocation을 사용할수 없어요..'
 
     displayMarker(locPosition, message);
+    map.setCenter(locPosition);
   }
-
 
   // 지도에 마커와 인포윈도우를 표시하는 함수입니다
   function displayMarker(locPosition, message) {
@@ -148,7 +155,7 @@ function placesSearchCB(data, status, pagination) {
 // 검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces(places) {
 
-  var listEl = document.getElementById('hospitalList'),
+  let listEl = document.getElementById('hospitalList'),
       menuEl = document.getElementById('menu_wrap'),
       fragment = document.createDocumentFragment(),
       bounds = new kakao.maps.LatLngBounds(),
@@ -271,14 +278,18 @@ function getListItem(index, places) {
     showInfo(name, address);
   }
 }
+
 let modalInfo=document.getElementById("modalInfo");
 let hospitalname=document.getElementById("hospitalName");
 let closeButton2=document.getElementById("closebutton2");
 //병원정보모달 닫기
 closeButton2.addEventListener("click",()=>{
-  modalInfo.style.display="none";
-  document.body.style.backgroundColor="white";
+    closeModal();
 })
+function closeModal() {
+  modalInfo.style.display = "none";
+  document.body.style.backgroundColor = "white";
+}
 //병원이름 클릭시 병원정보모달
 let clickHospitalInfo;
 let doctorData;
@@ -334,7 +345,7 @@ function showInfo(name, addr){
                   }
                   doctorRow += `</td>
                   <td rowspan="3" style="text-align: center">
-                      <input type="radio" name="selectDoctor" class="w-6 h-6" value="${doctor.user_doctor_code}" ${index === 0 ? "checked" : ""}/>
+                      <input type="radio" name="selectDoctor" class="w-6 h-6 mr-10" value="${doctor.user_doctor_code}" ${index === 0 ? "checked" : ""}/>
                   </td>
               </tr>
               <tr>

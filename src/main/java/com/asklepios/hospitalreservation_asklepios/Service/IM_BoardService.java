@@ -16,6 +16,7 @@ public class IM_BoardService implements IF_BoardService{
     @Override
     public void addBoard(BoardVO boardVO) {
         selectCategory(boardVO);
+        System.out.println(boardVO.toString());
         boardMapper.insertOne(boardVO);
     }
 

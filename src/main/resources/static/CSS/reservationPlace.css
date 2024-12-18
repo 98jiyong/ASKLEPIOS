@@ -133,10 +133,9 @@ body {
 }
 #modalInfo{
   position: fixed;
-  top: 150px;
-  left: 590px;
+  top: 250px;
+  left: 690px;
   display: none;
-  margin-left: 100px;
   width: 850px;
   height: 800px;
   /*border: 1px solid;*/

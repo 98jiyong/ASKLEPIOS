@@ -49,11 +49,11 @@
       success: function (reservationUserStatusVOList) {
         // console.log(reservationUserStatusVOList[0].hospital_name);
         reservationUserStatusVOList.sort((a, b) => {
-          const dateA = new Date(a.reservation_date + " " + a.reservation_time);
-          const dateB = new Date(b.reservation_date + " " + b.reservation_time);
+          let dateA = new Date(a.reservation_date + " " + a.reservation_time);
+          let dateB = new Date(b.reservation_date + " " + b.reservation_time);
           return dateA - dateB; // 오름차순
         });
-        const table = document.getElementById("reservationTable");
+        let table = document.getElementById("reservationTable");
         if (reservationUserStatusVOList.length === 0) {
           document.getElementById("userStatusTable").style.display = "none";
           document.getElementById("reservation").removeAttribute("display");

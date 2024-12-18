@@ -129,7 +129,7 @@ public class MyPageController {
             userService.modifyUserDoctorInfo(doctorVO);
             userService.modifyUserCommonInfo(userVO);
     //        System.out.println(userVO.getUser_authority());
-            return "myPage/myPageClient";
+            return "redirect:home";
         }else{
             String newFileName = profileImageUtil.storeFile(file);
             System.out.println(userVO.toString());
@@ -141,7 +141,7 @@ public class MyPageController {
             userService.modifyUserDoctorInfo(doctorVO);
             userService.modifyUserCommonInfo(userVO);
             //        System.out.println(userVO.getUser_authority());
-            return "myPage/myPageDoctor";
+            return "redirect:home";
         }
     }
 }

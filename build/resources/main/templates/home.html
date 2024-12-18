@@ -37,7 +37,7 @@
       font-size: 35px;
       color: white;
       position: relative;
-      top: -880px;
+      top: -1830px;
       left: 60px;
     }
     .introLogo {
@@ -46,22 +46,32 @@
       font-weight: bold;
       color: white;
       position: relative;
-      top: -770px;
+      top: -1720px;
       left: 60px;
       }
-    #introMap {
-      width: 400px;
+    #slideOne{
+      width: 500px;
       position: relative;
-      top: -95px;
-      left: 700px;
-      z-index: 1;
+      top: -75px;
+      left: 650px;
     }
-    #introReservation{
-      width: 460px;
+    #slideTwo{
+      width: 500px;
       position: relative;
-      top: -485px;
-      left: 670px;
-      z-index: 2;
+      top: -525px;
+      left: 650px;
+    }
+    #slideThree{
+      width: 500px;
+      position: relative;
+      top: -1010px;
+      left: 650px;
+    }
+    #slideFour{
+      width: 500px;
+      position: relative;
+      top: -1505px;
+      left: 650px;
     }
     #popularHospital{
       width: 1150px;
@@ -271,8 +281,12 @@
     <div id="intro" class=" animate-on-top">
       <div class="introTitle">예약이 힘드신가요?</div>
       <div class="introTitle">기다리는 시간이 지치시죠?</div>
-      <div id="introMap"><img src="Img/map.png" alt="" style="border-radius: 20px; box-shadow: 10px 0 5px 0 rgba(0, 0, 0, 0.2);"></div>
-      <div id="introReservation"><img src="Img/reservation.png" alt="" style="border-radius: 20px; box-shadow: 10px 0 5px 0 rgba(0, 0, 0, 0.2); "></div>
+      <div id="slideImg">
+        <div id="slideOne"><img src="Img/reservationPlace.png" alt="" style="border-radius: 20px; box-shadow: 10px 0 5px 0 rgba(0, 0, 0, 0.2);"></div>
+        <div id="slideTwo"><img src="Img/review.png" alt="" style="border-radius: 20px; box-shadow: 10px 0 5px 0 rgba(0, 0, 0, 0.2); "></div>
+        <div id="slideThree"><img src="Img/reservation.png" alt="" style="border-radius: 20px; box-shadow: 10px 0 5px 0 rgba(0, 0, 0, 0.2); "></div>
+        <div id="slideFour"><img src="Img/reservationForm.png" alt="" style="border-radius: 20px; box-shadow: 10px 0 5px 0 rgba(0, 0, 0, 0.2);"></div>
+      </div>
       <div class="introSubject"><span style="font-size:45px; font-weight: bold;" class="tenada">ASKLEPIOS</span> 에서 손쉽게 예약하고</div>
       <div class="introSubject">대기 없이 진료를 받아보세요 !</div>
       <div class="introLogo">ASKLEPIOS</div>
@@ -304,8 +318,8 @@
         <div class="reviewSubject">가장 만족스러운 병원을 선택해보세요.</div>
       </div>
       <div id="reviewImage" class="animate-on-right">
-        <img src="Img/review.png" alt="" style="border-radius: 20px; box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);width: 450px;position: relative;top: 40px;left: 60px;">
-        <img src="Img/circle.gif" alt="" style="position: relative;width: 150px;z-index: 3;top: -125px;left: 65px;transform: scale3d(1.5, 1.5, 1.5);">
+        <img src="Img/review.png" alt="" style="border-radius: 20px; box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);width: 450px;position: relative;top: 20px;left: 60px;">
+        <img src="Img/circle.gif" alt="" style="position: relative;width: 150px;z-index: 3;top: -210px;left: 50px;transform: scale3d(1.5, 1.5, 1.5);">
       </div>
     </div>
     <div id="membership" class="animate-on-bottom">
@@ -320,7 +334,7 @@
       </div>
     </div>
   </section>
-  <aside style="margin-right: 50px; margin-top: 20px;" id="aside2" th:insert="~{include/quickmenuinclude}"></aside>
+  <aside style="margin-right: 50px; margin-top: 10px;" id="aside2" th:insert="~{include/quickmenuinclude}"></aside>
 </div>
 <!--동준 => 광고 집어넣을거면 여기에 추가-->
 <!--<footer id="ad">-->
@@ -349,7 +363,60 @@
         alert("error");
       }
     })
+    let slides = ['#slideOne', '#slideTwo', '#slideThree', '#slideFour'];
+    let slideIndex = 0;
+
+    // 모든 이미지 opacity 설정 (안보이게) 근데 첫 이미지는 보여야 함
+    document.querySelector("#slideOne").style.opacity = 1;
+    document.querySelector("#slideTwo").style.opacity = 0;
+    document.querySelector("#slideThree").style.opacity = 0;
+    document.querySelector("#slideFour").style.opacity = 0;
+
+    // 점차 이미지 나타나게하기
+    function fadeIn(slideImg) {
+      let opacity = 0;
+      let fadeInInterval = setInterval(() => {
+        opacity += 0.01;
+        slideImg.style.opacity = opacity;
+        if (opacity >= 1) {
+          clearInterval(fadeInInterval);
+        }
+      }, 10); // 0.1초마다 opacity 증가
+    }
+
+    // 점차 이미지 사라지게하기
+    function fadeOut(slideImg) {
+      let opacity = 1;
+      let fadeOutInterval = setInterval(() => {
+        opacity -= 0.01;
+        slideImg.style.opacity = opacity;
+        if (opacity <= 0) {
+          clearInterval(fadeOutInterval);
+        }
+      }, 10);
+    }
+
+    function showSlide() {
+      let prevSlide = document.querySelector(slides[slideIndex]);
+      if (prevSlide){
+        fadeOut(prevSlide);
+      }
+
+      // 계속 돌리기 위해 나머지 구현
+      slideIndex = (slideIndex + 1) % slides.length;
+
+      let nextSlide = document.querySelector(slides[slideIndex]);
+      if (nextSlide){
+        fadeIn(nextSlide);
+      }
+
+    }
+
+    // 4초 간격으로 슬라이드 전환
+    setInterval(showSlide, 3000); // 2초 페이드 아웃 + 2초 페이드 인
+
   }
+
   document.addEventListener('DOMContentLoaded', () => {
     let observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
