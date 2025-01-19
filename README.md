@@ -49,7 +49,7 @@
 |[정지용<br>(팀원)](https://github.com/98jiyong)|<p align="center"><img src="https://avatars.githubusercontent.com/u/119985920?v=4" width="100"></p>|DB설계 및 ERD작성, 기능 별 페이지 작성<br>로그인, 아이디 찾기, 메일인증을 통한 임시 비밀번호 발급 기능 구현 <br>kakao map API를 활용한 병원 & 진료 예약 기능 구현<br>Daum API를 활용한 병원 등록 기능 구현<br>Ajax 비동기 통신을 활용한 실시간 예약 현황 조회 기능 구현 |
 |[임동준<br>(팀원)](https://github.com/NAGABARA)|<p align="center"><img src="https://avatars.githubusercontent.com/u/174768701?v=4" width="100"></p>|DB설계 및 ERD작성|
 
-
+[📌 목차로 이동](#-목차)
 <br><br>
 
 ## 📕 주요기능
@@ -442,27 +442,31 @@
     <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/8b47c956-cfe5-4357-880d-6ae71230c074" alt="수입검사관리 - 등록6">
   </ul>
 </details>
-
+[📌 목차로 이동](#-목차)
 <br><br>
 
 ## 🔧 아키텍처
 ####  * 서버 배포를 진행하지 않았음
 ![ASKLEPIOS-아키텍처](https://github.com/user-attachments/assets/0b231397-9dd7-4294-8ad1-f8ab88823976)
+[📌 목차로 이동](#-목차)
 <br><br>
 
 ## 🏗️ ERD
 ![ERD](https://github.com/user-attachments/assets/e66666d7-eba0-4379-90ce-0ee20c9d1959)
+[📌 목차로 이동](#-목차)
 <br><br>
 
 ## 📖 요구사항 정의서 및 개발일정
 - [[📑 요구사항 정의서]](https://docs.google.com/spreadsheets/d/1319HK6tojzy0Jqov5cYQ1aQAfhmJnO5vXLnDfRDZolg/edit?gid=1651580600#gid=1651580600)
 - [[📑 개발일정]](https://docs.google.com/spreadsheets/d/1319HK6tojzy0Jqov5cYQ1aQAfhmJnO5vXLnDfRDZolg/edit?gid=0#gid=0)
+- [📌 목차로 이동](#-목차)
 <br><br>
 
 ## 📽️ 시연영상
 [[📹 시연영상]](https://www.youtube.com/watch?v=W2Vq8N1xsIk&list=PLNdYfRO3wDimceWjFMnr3KoMn73idCSHj)
-
+[📌 목차로 이동](#-목차)
 <br><br>
 
 ## 🗃️ 발표자료
 [[📂 발표자료]](https://www.canva.com/design/DAGZZpxk6Wk/LY2Gb7eVNRx5tHq7PCic7Q/edit)
+[📌 목차로 이동](#-목차)
