@@ -54,7 +54,7 @@
 <br><br>
 
 ## 📕 주요기능
-원목 가구를 생산/제조하는 업체에서 사용하는 MES 시스템 프로그램을 제공한다.
+회원제를 통해 차별화된 서비스를 제공하고, 회원은 병원 예약 및 진료 예약이 가능하며, 의사는 자신의 병원을 등록할 수 있다.
 
 <details>
   <summary><b>1. 로그인/임시 비밀번호 발급[정지용]</b> (👈 Click)</summary>
@@ -452,7 +452,6 @@
 <br><br>
 
 ## 🏗️ ERD
-DB와 ERD <br>
 ![ERD](https://github.com/user-attachments/assets/e66666d7-eba0-4379-90ce-0ee20c9d1959)
 <br><br>
 
@@ -465,7 +464,7 @@ DB와 ERD <br>
 <br><br>
 
 ## 📽️ 작동 영상
-[📹 작동 영상](https://www.youtube.com/watch?v=W2Vq8N1xsIk&list=PLNdYfRO3wDimceWjFMnr3KoMn73idCSHj)
+[[📹 작동 영상]](https://www.youtube.com/watch?v=W2Vq8N1xsIk&list=PLNdYfRO3wDimceWjFMnr3KoMn73idCSHj)
 
 <br><br>
 
