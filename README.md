@@ -12,7 +12,7 @@
 3. [🔧 아키텍처](#-아키텍처)
 4. [🏗️ ERD](#-ERD)
 5. [📖 요구사항 정의서 및 개발일정](#-요구사항-정의서-및-개발일정)
-6. [📽️ 작동 영상](#-작동-영상)
+6. [📽️ 시연영상](#-시연영상)
 7. [🗃️ 발표자료](#-발표자료)
 
       <br><br>
@@ -459,8 +459,8 @@
 - [[📑 개발일정]](https://docs.google.com/spreadsheets/d/1319HK6tojzy0Jqov5cYQ1aQAfhmJnO5vXLnDfRDZolg/edit?gid=0#gid=0)
 <br><br>
 
-## 📽️ 작동 영상
-[[📹 작동 영상]](https://www.youtube.com/watch?v=W2Vq8N1xsIk&list=PLNdYfRO3wDimceWjFMnr3KoMn73idCSHj)
+## 📽️ 시연영상
+[[📹 시연영상]](https://www.youtube.com/watch?v=W2Vq8N1xsIk&list=PLNdYfRO3wDimceWjFMnr3KoMn73idCSHj)
 
 <br><br>
 
