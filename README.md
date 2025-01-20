@@ -53,18 +53,36 @@
 <br><br>
 
 ## 📕 주요기능
-회원제를 통해 차별화된 서비스를 제공하고, 회원은 병원 예약 및 진료 예약, 의사는 자신의 병원을 등록할 수 있다.
+회원제를 통해 차별화된 서비스를 제공하고, 회원은 병원 예약 및 진료 예약, 의사는 자신의 병원을 등록할 수 있음.
 
 <details>
-  <summary><b>1. 로그인/임시 비밀번호 발급[정지용]</b> (👈 Click)</summary>
+  <summary><b>1. 로그인 / 아이디 찾기 / 임시 비밀번호 발급[정지용]</b> (👈 Click)</summary>
   <br>
   <div markdown="1">
     <h3>로그인</h3>
+    <ol>
+      <li>회원제를 통한 ¹퀵메뉴 및 ²실시간 예약 순위 정보를 제공하여 차별화된 서비스를 구현.</li>
+      <img src="https://github.com/user-attachments/assets/1c67cf2b-a618-450d-a810-eb21dbb53cc4" width="400" alt="로그인1">
+      <li>Security를 활용하여 로그인.
+      <ul>
+      <li>모든 정보를 올바르게 입력해야만 로그인이 가능하며,</li>
+      <li>로그인 실패 시, Config의 오류 메시지를 받아서 View로 반환.</li>
+      </ul>
+      </li>
+      <img src="https://github.com/user-attachments/assets/463491af-6e48-453c-9a22-54d1251ebae9" width="400" alt="로그인2">
+      <li>로그인 성공 시, 퀵메뉴 및 실시간 예약순위를 확인할 수 있고, 회원별 기능 사용 가능.</li>
+      <img src="https://github.com/user-attachments/assets/059796e1-9c9e-4d18-b0d4-99c80df947cc" width="400" alt="로그인2">
+    </ol>
+    <br>
+    <h3>비밀번호 재설정</h3>
     <ul>
-      <li>Security를 활용하여 로그인한다.</li>
-      <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/f6fd7296-ad69-4b96-9804-8483eddedfde" alt="로그인1">
-      <li>로그인 실패 시, Config의 오류 메시지를 받아서 View로 반환한다.</li>
-      <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/3f8d1bc2-bba2-482c-bb1c-787e56066516" alt="로그인2">
+      <li>메일을 통해 일회용 인증코드를 전송하여 본인확인 후 비밀번호를 변경(재설정)할 수 있다.</li>
+      <li>비밀번호 재설정 화면은 다음과 같다.</li>
+      <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/e5b90d48-379d-429a-ad38-3faa2ea6507d" alt="비밀번호 재설정1">
+      <li>비밀번호 재설정 인증 이메일</li>
+      <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/746fb881-1959-4698-b0f7-04f35f20fe85" alt="비밀번호 재설정2">
+      <li>비밀번호 재설정 인증번호를 입력 후, 비밀번호를 변경(재설정)할 수 있다.</li>
+      <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/60d917a5-9d5b-457d-a9ff-caff9fd6c735" alt="비밀번호 재설정3">
     </ul>
     <br>
     <h3>비밀번호 재설정</h3>
@@ -81,7 +99,7 @@
 </details>
 
 <details>
-  <summary><b>2. 사원정보조회/거래처관리/계약관리 [이시연]</b> (👈 Click)</summary>
+  <summary><b>2. 병원 및 진료 예약하기 [정지용]</b> (👈 Click)</summary>
   <br>
   <div markdown="1">
     <h3>사원정보조회</h3>
@@ -105,7 +123,7 @@
 </details>
 
 <details>
-  <summary><b>3. 권한관리 [이시연]</b> (👈 Click)</summary>
+  <summary><b>3. 예약 현황 확인하기 [정지용]</b> (👈 Click)</summary>
   <br>
   <h3>권한관리 - 권한 변경</h3>
   <ul>
@@ -122,7 +140,7 @@
 </details>
 
 <details>
-  <summary><b>4. 자재/제품정보관리 [이현주]</b> (👈 Click)</summary>
+  <summary><b>4. 병원 등록하기 [정지용]</b> (👈 Click)</summary>
   <br>
   <h3>자재/제품정보관리 - 검색 인터페이스 & 조회</h3>
   <ul>
@@ -152,7 +170,7 @@
 </details>
 
 <details>
-  <summary><b>5. BOM 관리 [이현주]</b> (👈 Click)</summary>
+  <summary><b>5. 회원가입 [조준곤]</b> (👈 Click)</summary>
   <br>
   <h3>BOM 관리 - 세부목록 조회</h3>
   <ul>
@@ -176,7 +194,7 @@
 </details>
 
 <details>
-  <summary><b>6. 작업자 스케쥴 조회: 월별 스케줄러 [이현주]</b> (👈 Click)</summary>
+  <summary><b>6. 마이페이지 [조준곤]</b> (👈 Click)</summary>
   <br>
   <h3>작업자 스케쥴 조회</h3>
   <ul>
@@ -187,7 +205,7 @@
 </details>
 
 <details>
-  <summary><b>7. 제조지시/제조수행지시/공정정보관리 [조다혜]</b> (👈 Click)</summary>
+  <summary><b>7. 게시판 구현 [신태균]</b> (👈 Click)</summary>
   <br>
   <h3>제조지시/제조수행지시/공정정보관리 - 검색</h3>
   <ul>
@@ -235,7 +253,7 @@
 </details>
 
 <details>
-  <summary><b>8. 공정관리 [배지현]</b> (👈 Click)</summary>
+  <summary><b>8. 병원 검색 구현 [신태균]</b> (👈 Click)</summary>
   <br>
   <h3>공정관리 - 작업관리 - 검색 및 조회</h3>
   <ul>
@@ -337,7 +355,7 @@
 </details>
 
 <details>
-  <summary><b>9. 설비관리 [김다은]</b> (👈 Click)</summary>
+  <summary><b>9. 병원 리스트 다운로드(엑셀) [신태균]</b> (👈 Click)</summary>
   <br>
   <h3>설비관리 - 설비정보관리 - 등록</h3>
   <ul>
@@ -387,61 +405,6 @@
   </ul>
 </details>
 
-<details>
-  <summary><b>10. 품질관리 [정수하]</b> (👈 Click)</summary>
-  <br>
-  <h3>품질관리 - 수입검사관리 화면</h3>
-  <ul>
-    <li>수입검사관리 화면에서 할 수 있는 것은 다음과 같다.</li>
-    <ul>
-      <li>검색 및 조회</li>
-      <li>등록</li>
-      <li>수정</li>
-      <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/bf6cd88e-f150-4a48-9ed9-192ab83205e2" alt="수입검사관리 화면">
-    </ul>
-  </ul>
-  <br>
-  <h3>품질관리 - 수입검사관리 - 검색 및 조회</h3>
-  <ul>
-    <li>화면 상단의 '검색창'에서 datalist를 통해 검색용 데이터를 조회하면서 입력할 수 있다.</li>
-    <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/9e72451e-2276-40c6-bc4a-1ea3ebe0e8be" alt="수입검사관리 - 검색 및 조회1">
-    <li>'검색창'의 '불량유형1'을 선택하면, '불량유형1'에 따른 '불량유형2'의 option을 조회하고 선택할 수 있다.</li>
-    <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/0f4c16b8-2010-45bc-86c5-3a5595bdbabe" alt="수입검사관리 - 검색 및 조회2">
-    <li>검색 키워드 입력 후, [검색] 버튼을 누르면, 해당하는 내용을 조회할 수 있다.</li>
-    <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/d8e7dba3-f61f-461e-8926-a636bc38eccb" alt="수입검사관리 - 검색 및 조회3">
-  </ul>
-  <br>
-  <h3>품질관리 - 수입검사관리 - 등록</h3>
-  <ul>
-    <li>[자재불량등록] 버튼을 누르면, '수입검사 - 자재불량 및 입고등록' 모달창이 나타난다.</li>
-    <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/deb4497c-6d38-4f2f-8def-ce763b655f43" alt="수입검사관리 - 등록1">
-    <li>'수입검사관리 등록 모달창' 내의 로직은 다음과 같다.</li>
-    <ul>
-      <b>1. '계약번호' 입력 시, 관련 내용이 자동으로 채워진다. → Ajax 사용</b>
-      <ul>
-        <li>거래처명</li>
-        <li>단위</li>
-        <li>자재번호</li>
-        <li>자재명</li>
-        <li>자재용도</li>
-        <li>계약입고수량</li>
-        <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/fb7e366a-d75a-43ce-8c94-bf944c9bb1d6" alt="수입검사관리 - 등록2">
-      </ul>
-      <b>2. 나머지 정보를 입력하고 [추가] 버튼을 누르면, '자재불량목록'에서 추가된 내용을 확인할 수 있다.</b>
-      <ul>
-        <li>이 때, 동일한 검사 대상이더라도, 다양한 불량유형이 있을 수 있다.</li>
-        <li>위의 조건이라면, 자동으로 '양품수량'을 계산하여 표기하도록 했다.</li>
-        <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/9dda289a-45d9-4f31-ac68-1464b55a2269" alt="수입검사관리 - 등록3">
-        <li>'불량유형2', '비고'는 null 가능하지만, 다른 항목은 null이 불가능하다.</li>
-        <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/bc123911-2939-4558-8a8f-b52c3d41a1d9" alt="수입검사관리 - 등록4">
-      </ul>
-      <b>3. 원하는 만큼 추가한 후, [등록] 버튼을 누르면, 테이블에서 데이터를 수집한 후, ajax 통신으로 DB에 저장된다.</b>
-      <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/8a22d8f6-260c-432a-963b-7aab3d5e4880" alt="수입검사관리 - 등록5">
-    </ul>
-    <li><b>[최종 등록] 시, DB에 저장되는 로직과 코드는 다음과 같다.</b></li>
-    <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/8b47c956-cfe5-4357-880d-6ae71230c074" alt="수입검사관리 - 등록6">
-  </ul>
-</details>
 
 [📌 목차로 이동](#-목차)
 <br><br>
