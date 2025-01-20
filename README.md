@@ -62,38 +62,37 @@
     <h3>로그인</h3>
     <ol>
       <li>회원제를 통한 ¹퀵메뉴 및 ²실시간 예약 순위 정보를 제공하여 차별화된 서비스를 구현.</li>
-      <img src="https://github.com/user-attachments/assets/1c67cf2b-a618-450d-a810-eb21dbb53cc4" width="400" alt="로그인1">
+      <img src="https://github.com/user-attachments/assets/1c67cf2b-a618-450d-a810-eb21dbb53cc4" width="400" alt="로그인1"><br>
       <li>Security를 활용하여 로그인.
       <ul>
       <li>모든 정보를 올바르게 입력해야만 로그인이 가능하며,</li>
       <li>로그인 실패 시, Config의 오류 메시지를 받아서 View로 반환.</li>
       </ul>
       </li>
-      <img src="https://github.com/user-attachments/assets/463491af-6e48-453c-9a22-54d1251ebae9" width="400" alt="로그인2">
+      <img src="https://github.com/user-attachments/assets/463491af-6e48-453c-9a22-54d1251ebae9" width="400" alt="로그인2"><br>
       <li>로그인 성공 시, 퀵메뉴 및 실시간 예약순위를 확인할 수 있고, 회원별 기능 사용 가능.</li>
-      <img src="https://github.com/user-attachments/assets/059796e1-9c9e-4d18-b0d4-99c80df947cc" width="400" alt="로그인2">
+      <img src="https://github.com/user-attachments/assets/059796e1-9c9e-4d18-b0d4-99c80df947cc" width="400" alt="로그인3">
     </ol>
     <br>
-    <h3>비밀번호 재설정</h3>
+    <h3>아이디 찾기</h3>
     <ul>
-      <li>메일을 통해 일회용 인증코드를 전송하여 본인확인 후 비밀번호를 변경(재설정)할 수 있다.</li>
-      <li>비밀번호 재설정 화면은 다음과 같다.</li>
-      <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/e5b90d48-379d-429a-ad38-3faa2ea6507d" alt="비밀번호 재설정1">
-      <li>비밀번호 재설정 인증 이메일</li>
-      <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/746fb881-1959-4698-b0f7-04f35f20fe85" alt="비밀번호 재설정2">
-      <li>비밀번호 재설정 인증번호를 입력 후, 비밀번호를 변경(재설정)할 수 있다.</li>
-      <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/60d917a5-9d5b-457d-a9ff-caff9fd6c735" alt="비밀번호 재설정3">
+      <li>회원은 이름과 주민등록번호를 입력해 아이디를 찾을 수 있음.</li>
+      <li>필수정보를 입력하지 않으면 경고문이 나타나며, 아이디를 찾을 수 없음.</li>
+      <img src="https://github.com/user-attachments/assets/0889b60c-462a-4440-90f3-4d8e14a5d150" alt="아이디 찾기1"><br>
+      <li>아이디 찾기 실패 시, 입력한 정보가 일치하지 않다는 경고문이 나타남.</li>
+      <img src="https://github.com/user-attachments/assets/06cbbb4a-86dc-4b0c-b1ee-ef8d77714210" width="400" alt="아이디 찾기2"><br>
+      <li>아이디 찾기 성공 시, 마스킹 된 자신의 아이디를 확인할 수 있음.</li>
+      <img src="https://github.com/user-attachments/assets/beb7d563-a136-417e-bf86-5fbe07f91a68" width="400" alt="아이디 찾기3">
     </ul>
     <br>
-    <h3>비밀번호 재설정</h3>
+    <h3>임시 비밀번호 발급</h3>
     <ul>
-      <li>메일을 통해 일회용 인증코드를 전송하여 본인확인 후 비밀번호를 변경(재설정)할 수 있다.</li>
-      <li>비밀번호 재설정 화면은 다음과 같다.</li>
-      <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/e5b90d48-379d-429a-ad38-3faa2ea6507d" alt="비밀번호 재설정1">
-      <li>비밀번호 재설정 인증 이메일</li>
-      <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/746fb881-1959-4698-b0f7-04f35f20fe85" alt="비밀번호 재설정2">
-      <li>비밀번호 재설정 인증번호를 입력 후, 비밀번호를 변경(재설정)할 수 있다.</li>
-      <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/60d917a5-9d5b-457d-a9ff-caff9fd6c735" alt="비밀번호 재설정3">
+      <li>메일을 통해 일회용 인증코드를 전송하여 본인확인 후 임시 비밀번호를 발급 받을 수 있음.</li>
+      <img src="https://github.com/user-attachments/assets/38c7def0-34c7-4095-a05c-550ad51ddc11" alt="임시 비밀번호 발급1">
+      <li>회원가입시 입력한 아이디와 이메일이 일치해야 이메일 인증이 가능.</li>
+      <img src="https://github.com/user-attachments/assets/bde7edff-1a37-4656-9a61-8a405a23ddfc" width="400" alt="임시 비밀번호 발급2">
+      <li>인증코드를 통한 인증번호 확인 후 임시 비밀번호 발급 가능.</li>
+      <img src="https://github.com/user-attachments/assets/3cbf7e9c-e6eb-4176-92b3-c4cc50f88ed8" width="400" alt="임시 비밀번호 발급3">
     </ul>
   </div>
 </details>
