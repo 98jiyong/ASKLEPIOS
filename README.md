@@ -154,48 +154,63 @@
   <h3>예약현황 확인</h3>
   <ul>
     <li>회원은 자신이 예약한 내용을 예약 현황을 통해 확인할 수 있음.</li>
-    <img src="https://github.com/user-attachments/assets/99385c2f-ed6e-4043-af39-04ec53be4ddf" width="600" alt="권한관리1">
+    <img src="https://github.com/user-attachments/assets/99385c2f-ed6e-4043-af39-04ec53be4ddf" width="600" alt="예약현황 확인1">
   </ul>
   <br>
   <ul>
     <li>예약 현황을 클릭 시 현재 내가 예약한 진료의 상태를 확인할 수 있음(대기 / 거절 / 승인).</li>
-    <img src="https://github.com/user-attachments/assets/7b0e7d69-b2d4-4604-b4c0-3d481ea4b621" width="600" alt="권한관리1">
+    <img src="https://github.com/user-attachments/assets/7b0e7d69-b2d4-4604-b4c0-3d481ea4b621" width="600" alt="예약현황 확인2">
   </ul>
   <br>
   <ul>
     <li>담당 의사가 진료 상태를 변경하면 실시간으로 회원의 예약 현황에서도 상태가 변경됨.<br>
     => <b>담당 의사는 진료 시간에 맞춰 다음 환자의 예약 상태를 알맞게 변경 가능.</b></li>
-    <img src="https://github.com/user-attachments/assets/59805f57-9b68-43fe-91b8-3122348d21bd" width="600" alt="권한관리1">
+    <img src="https://github.com/user-attachments/assets/59805f57-9b68-43fe-91b8-3122348d21bd" width="600" alt="예약현황 확인3">
   </ul>
 </details>
 
 <details>
   <summary><b>4. 병원 등록하기 [정지용]</b> (👈 Click)</summary>
   <br>
-  <h3>자재/제품정보관리 - 검색 인터페이스 & 조회</h3>
+  <h3>병원 등록</h3>
   <ul>
-    <li>select box의 option에서 검색 주제를 선택한 후, 키워드를 입력하여 검색하면 해당하는 내용의 목록을 볼 수 있다.</li>
-    <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/508dfc17-c9b7-49bb-924e-9fd8603a7ba4" alt="자재/제품정보 검색">
+    <li>초기 화면</li>
+    <ul>
+      <li>의사는 병원 등록을 통해 병원을 등록할 수 있음.</li>
+    </ul>
+    <img src="https://github.com/user-attachments/assets/ef42a354-559c-4c9b-b2e8-645f870e47fb" width="500" alt="병원 등록하기1">
   </ul>
   <br>
-  <h3>자재/제품정보관리 - 등록</h3>
   <ul>
-    <li>[제품등록] 버튼을 누르면 제품정보 등록 모달창이 뜬다.</li>
-    <li>제품의 모든 정보를 입력 해야지만(예외: 제품번호), [등록] 버튼을 누르면 DB에 저장된다.</li>
-    <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/4fad14e3-8670-4da3-b953-a88bde335404" alt="자재/제품정보 등록">
+    <li>중복 확인</li>
+    <ul>
+      <li>기존에 이미 등록된 병원이라면, 경고 문구를 표시하고 등록이 불가.</li>
+    </ul>
+    <img src="https://github.com/user-attachments/assets/544b8eb7-03b4-421d-83e4-f97c35422224" width="500" alt="병원 등록하기2">
   </ul>
   <br>
-  <h3>자재/제품정보관리 - 수정</h3>
   <ul>
-    <li>[제품 목록]에서 원하는 행의 [수정] 버튼을 누르면 수정 모달창이 뜬다.</li>
-    <li>수정할 내용을 입력 후(예외: 제품번호), [수정] 버튼을 누르면 DB에 저장된다.</li>
-    <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/70ace592-ce92-4af7-89df-1b8d055bb2b8" alt="자재/제품정보 등록">
+    <li>중복 확인</li>
+    <ul>
+      <li>신규 병원이라면, 확인 문구를 표시하고 상세 주소칸이 활성화됨.</li>
+    </ul>
+    <img src="https://github.com/user-attachments/assets/2da9e553-2178-4b8c-a689-91ba2a50a9e5" width="500" alt="병원 등록하기3">
   </ul>
   <br>
-  <h3>자재/제품정보관리 - 등록 및 sweetAlert2</h3>
   <ul>
-    <li>외부 라이브러리를 사용하여 등록 시, 사용자에게 정확한 정보를 줄 수 있는 alert창이 뜬다.</li>
-    <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/af1b1db0-e303-469e-9a5f-7841adb92c9d" alt="등록 및 sweetAlert2">
+    <li>병원 등록</li>
+    <ul>
+      <li>병원에 대한 상세정보를 입력한 후 병원 등록.</li>
+    </ul>
+    <img src="https://github.com/user-attachments/assets/d9a06743-226c-49d2-a127-cbf3791d1e9a" width="500" alt="병원 등록하기4">
+  </ul>
+  <br>
+  <ul>
+    <li>등록된 병원 확인</li>
+    <ul>
+      <li>병원 검색을 통해 병원이 잘 등록됐는지 조회.</li>
+    </ul>
+    <img src="https://github.com/user-attachments/assets/44b94cff-5de6-4061-b831-099d816ba83e" width="500" alt="병원 등록하기5">
   </ul>
 </details>
 
