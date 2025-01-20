@@ -104,44 +104,44 @@
     <h3>병원 예약</h3>
     <ul>
       <li>초기화면</li>
-      <ol>
+      <ul>
         <li>초기화면은 리스트와 지도에 아무것도 표시되지 않음</li>
         <li>위치 정보 제공 동의 시 사용자 위치 중심으로 맵과 리스트에 병원을 제공</li>
-      </ol>
+      </ul>
       <img src="https://github.com/user-attachments/assets/1dd32c0f-0f16-4dd9-8cbf-d32564b75ea9" width="400" alt="예약1">
       <li>병원 클릭 시</li>
-      <ol>
+      <ul>
         <li>해당 병원이 플랫폼에 등록돼있으면 예약하기 버튼을 표시</li>
         <li>해당 병원에 마커 클릭시 도착지를 자동 입력하여 길찾기 서비스 제공</li>
         <li>사용자는 손쉽게 출발지를 입력해 길을 찾을 수 있음.</li>
-      </ol>
+      </ul>
       <img src="https://github.com/user-attachments/assets/adc218c4-9c2a-4026-ac0d-61344dbd3ad8" width="400" alt="예약2">
       <li>병원 검색 시</li>
-      <ol>
+      <ul>
         <li>지역 검색 시 해당 지역 중심으로 병원 정보를 제공</li>
         <li>키워드 검색을 통해 원하는 지역의 진료과목 또한 검색 가능</li>
-      </ol>
+      </ul>
       <img src="https://github.com/user-attachments/assets/8a64423c-281a-48d2-b041-6c4d8b539f3b" width="400" alt="예약3">
     </ul>
     <h3>병원 예약 및 진료 예약</h3>
     <ul>
       <li>예약하기 버튼 클릭 시</li>
-      <ol>
+      <ul>
         <li>예약하기 버튼 클릭 시 해당 병원에 대한 상세정보를 확인할 수 있음.</li>
         <li>해당 병원 정보를 확인한 후 원하는 의사를 선택해 예약 가능</li>
         <li>예약 시 선택한 병원, 담당 의사, 사용자 정보가 자동으로 입력됨.</li>
-      </ol>
+      </ul>
       <img src="https://github.com/user-attachments/assets/354e9ea3-5823-4d0d-9c4c-d86d7c389480" width="400" alt="예약4">
     </ul>
     <br>
       <h3>진료 예약</h3>
       <ul>
       <li>진료 예약 시</li>
-      <ol>
+      <ul>
         <li>날짜 선택 시 해당 날짜에 예약 가능한 시간대 확인 가능</li>
         <li>이미 예약된 시간은 예약이 불가능하도록 선택 불가능</li>
         <li>회원은 원하는 시간대 및 간단한 메모를 작성한 후 예약을 진행</li>
-      </ol>
+      </ul>
       <img src="https://github.com/user-attachments/assets/e0ecb3f5-5f4f-4efb-87c1-0b10e897d483" width="400" alt="예약5">
     </ul>
     <br>
