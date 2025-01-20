@@ -66,11 +66,11 @@
       <li>Security를 활용하여 로그인.
       <ul>
       <li>모든 정보를 올바르게 입력해야만 로그인이 가능하며,</li>
-      <li>로그인 실패 시, Config의 오류 메시지를 받아서 View로 반환.</li>
+      <li>실패 시 => Config의 오류 메시지를 받아서 View로 반환.</li>
       </ul>
       </li>
       <img src="https://github.com/user-attachments/assets/463491af-6e48-453c-9a22-54d1251ebae9" width="400" alt="로그인2"><br>
-      <li>로그인 성공 시, 퀵메뉴 및 실시간 예약순위를 확인할 수 있고, 회원별 기능 사용 가능.</li>
+      <li>성공 시 => 퀵메뉴 및 실시간 예약순위를 확인할 수 있고, 회원별 기능 사용 가능.</li>
       <img src="https://github.com/user-attachments/assets/059796e1-9c9e-4d18-b0d4-99c80df947cc" width="400" alt="로그인3">
     </ol>
     <br>
@@ -79,9 +79,9 @@
       <li>회원은 이름과 주민등록번호를 입력해 아이디를 찾을 수 있음.</li>
       <li>필수정보를 입력하지 않으면 경고문이 나타나며, 아이디를 찾을 수 없음.</li>
       <img src="https://github.com/user-attachments/assets/0889b60c-462a-4440-90f3-4d8e14a5d150" alt="아이디 찾기1"><br>
-      <li>아이디 찾기 실패 시, 입력한 정보가 일치하지 않다는 경고문이 나타남.</li>
+      <li>실패 시 => 입력한 정보가 일치하지 않다는 경고문이 나타남.</li>
       <img src="https://github.com/user-attachments/assets/06cbbb4a-86dc-4b0c-b1ee-ef8d77714210" width="400" alt="아이디 찾기2"><br>
-      <li>아이디 찾기 성공 시, 마스킹 된 자신의 아이디를 확인할 수 있음.</li>
+      <li>성공 시 => 마스킹 된 자신의 아이디를 확인할 수 있음.</li>
       <img src="https://github.com/user-attachments/assets/beb7d563-a136-417e-bf86-5fbe07f91a68" width="400" alt="아이디 찾기3">
     </ul>
     <br>
