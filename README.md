@@ -450,32 +450,31 @@
   </ul>
 </details>
 
-
 [📌 목차로 이동](#-목차)
 <br><br>
 
 ## 🔧 아키텍처
 ####  * 서버 배포를 진행하지 않았음
-![ASKLEPIOS-아키텍처](https://github.com/user-attachments/assets/0b231397-9dd7-4294-8ad1-f8ab88823976)<br>
+![ASKLEPIOS-아키텍처](https://github.com/user-attachments/assets/0b231397-9dd7-4294-8ad1-f8ab88823976)<br><br>
 [📌 목차로 이동](#-목차)
 <br><br>
 
 ## 🏗️ ERD
-![ERD](https://github.com/user-attachments/assets/e66666d7-eba0-4379-90ce-0ee20c9d1959)<br>
+![ERD](https://github.com/user-attachments/assets/e66666d7-eba0-4379-90ce-0ee20c9d1959)<br><br>
 [📌 목차로 이동](#-목차)
 <br><br>
 
 ## 📖 요구사항 정의서 및 개발일정
 - [[📑 요구사항 정의서]](https://docs.google.com/spreadsheets/d/1319HK6tojzy0Jqov5cYQ1aQAfhmJnO5vXLnDfRDZolg/edit?gid=1651580600#gid=1651580600)
-- [[📑 개발일정]](https://docs.google.com/spreadsheets/d/1319HK6tojzy0Jqov5cYQ1aQAfhmJnO5vXLnDfRDZolg/edit?gid=0#gid=0)<br>
+- [[📑 개발일정]](https://docs.google.com/spreadsheets/d/1319HK6tojzy0Jqov5cYQ1aQAfhmJnO5vXLnDfRDZolg/edit?gid=0#gid=0)<br><br>
 [📌 목차로 이동](#-목차)
 <br><br>
 
 ## 📽️ 시연영상
-[[📹 시연영상]](https://www.youtube.com/watch?v=W2Vq8N1xsIk&list=PLNdYfRO3wDimceWjFMnr3KoMn73idCSHj)<br>
+[[📹 시연영상]](https://www.youtube.com/watch?v=W2Vq8N1xsIk&list=PLNdYfRO3wDimceWjFMnr3KoMn73idCSHj)<br><br>
 [📌 목차로 이동](#-목차)
 <br><br>
 
 ## 🗃️ 발표자료
-[[📂 발표자료]](https://www.canva.com/design/DAGZZpxk6Wk/LY2Gb7eVNRx5tHq7PCic7Q/edit)<br>
+[[📂 발표자료]](https://www.canva.com/design/DAGZZpxk6Wk/LY2Gb7eVNRx5tHq7PCic7Q/edit)<br><br>
 [📌 목차로 이동](#-목차)
