@@ -62,7 +62,7 @@
     <h3>로그인</h3>
     <ol>
       <li>회원제를 통한 ¹퀵메뉴 및 ²실시간 예약 순위 정보를 제공하여 차별화된 서비스를 구현.</li>
-      <img src="https://github.com/user-attachments/assets/1c67cf2b-a618-450d-a810-eb21dbb53cc4" width="400" alt="로그인1"><br>
+      <img src="https://github.com/user-attachments/assets/1c67cf2b-a618-450d-a810-eb21dbb53cc4" width="600" alt="로그인1"><br>
       <li>Security를 활용하여 로그인.
       <ul>
       <li>모든 정보를 올바르게 입력해야만 로그인이 가능하며,</li>
@@ -71,7 +71,7 @@
       </li>
       <img src="https://github.com/user-attachments/assets/463491af-6e48-453c-9a22-54d1251ebae9" width="400" alt="로그인2"><br>
       <li>성공 시 => 퀵메뉴 및 실시간 예약순위를 확인할 수 있고, 회원별 기능 사용 가능.</li>
-      <img src="https://github.com/user-attachments/assets/059796e1-9c9e-4d18-b0d4-99c80df947cc" width="400" alt="로그인3">
+      <img src="https://github.com/user-attachments/assets/059796e1-9c9e-4d18-b0d4-99c80df947cc" width="600" alt="로그인3">
     </ol>
     <br>
     <h3>아이디 찾기</h3>
@@ -108,20 +108,20 @@
         <li>초기화면은 리스트와 지도에 아무것도 표시되지 않음</li>
         <li>위치 정보 제공 동의 시 사용자 위치 중심으로 맵과 리스트에 병원을 제공</li>
       </ul>
-      <img src="https://github.com/user-attachments/assets/1dd32c0f-0f16-4dd9-8cbf-d32564b75ea9" width="400" alt="예약1">
+      <img src="https://github.com/user-attachments/assets/1dd32c0f-0f16-4dd9-8cbf-d32564b75ea9" width="600" alt="예약1">
       <li>병원 클릭 시</li>
       <ul>
         <li>해당 병원이 플랫폼에 등록돼있으면 예약하기 버튼을 표시</li>
         <li>해당 병원에 마커 클릭시 도착지를 자동 입력하여 길찾기 서비스 제공</li>
         <li>사용자는 손쉽게 출발지를 입력해 길을 찾을 수 있음.</li>
       </ul>
-      <img src="https://github.com/user-attachments/assets/adc218c4-9c2a-4026-ac0d-61344dbd3ad8" width="400" alt="예약2">
+      <img src="https://github.com/user-attachments/assets/adc218c4-9c2a-4026-ac0d-61344dbd3ad8" width="600" alt="예약2">
       <li>병원 검색 시</li>
       <ul>
         <li>지역 검색 시 해당 지역 중심으로 병원 정보를 제공</li>
         <li>키워드 검색을 통해 원하는 지역의 진료과목 또한 검색 가능</li>
       </ul>
-      <img src="https://github.com/user-attachments/assets/8a64423c-281a-48d2-b041-6c4d8b539f3b" width="400" alt="예약3">
+      <img src="https://github.com/user-attachments/assets/8a64423c-281a-48d2-b041-6c4d8b539f3b" width="600" alt="예약3">
     </ul>
     <h3>병원 예약 및 진료 예약</h3>
     <ul>
@@ -131,7 +131,7 @@
         <li>해당 병원 정보를 확인한 후 원하는 의사를 선택해 예약 가능</li>
         <li>예약 시 선택한 병원, 담당 의사, 사용자 정보가 자동으로 입력됨.</li>
       </ul>
-      <img src="https://github.com/user-attachments/assets/354e9ea3-5823-4d0d-9c4c-d86d7c389480" width="400" alt="예약4">
+      <img src="https://github.com/user-attachments/assets/354e9ea3-5823-4d0d-9c4c-d86d7c389480" width="600" alt="예약4">
     </ul>
     <br>
       <h3>진료 예약</h3>
@@ -142,7 +142,7 @@
         <li>이미 예약된 시간은 예약이 불가능하도록 선택 불가능</li>
         <li>회원은 원하는 시간대 및 간단한 메모를 작성한 후 예약을 진행</li>
       </ul>
-      <img src="https://github.com/user-attachments/assets/e0ecb3f5-5f4f-4efb-87c1-0b10e897d483" width="400" alt="예약5">
+      <img src="https://github.com/user-attachments/assets/e0ecb3f5-5f4f-4efb-87c1-0b10e897d483" width="600" alt="예약5">
     </ul>
     <br>
   </div>
@@ -178,7 +178,7 @@
     <ul>
       <li>의사는 병원 등록을 통해 병원을 등록할 수 있음.</li>
     </ul>
-    <img src="https://github.com/user-attachments/assets/ef42a354-559c-4c9b-b2e8-645f870e47fb" width="500" alt="병원 등록하기1">
+    <img src="https://github.com/user-attachments/assets/ef42a354-559c-4c9b-b2e8-645f870e47fb" width="600" alt="병원 등록하기1">
   </ul>
   <br>
   <ul>
@@ -186,7 +186,7 @@
     <ul>
       <li>기존에 이미 등록된 병원이라면, 경고 문구를 표시하고 등록이 불가.</li>
     </ul>
-    <img src="https://github.com/user-attachments/assets/544b8eb7-03b4-421d-83e4-f97c35422224" width="500" alt="병원 등록하기2">
+    <img src="https://github.com/user-attachments/assets/544b8eb7-03b4-421d-83e4-f97c35422224" width="600" alt="병원 등록하기2">
   </ul>
   <br>
   <ul>
@@ -194,7 +194,7 @@
     <ul>
       <li>신규 병원이라면, 확인 문구를 표시하고 상세 주소칸이 활성화됨.</li>
     </ul>
-    <img src="https://github.com/user-attachments/assets/2da9e553-2178-4b8c-a689-91ba2a50a9e5" width="500" alt="병원 등록하기3">
+    <img src="https://github.com/user-attachments/assets/2da9e553-2178-4b8c-a689-91ba2a50a9e5" width="600" alt="병원 등록하기3">
   </ul>
   <br>
   <ul>
@@ -202,7 +202,7 @@
     <ul>
       <li>병원에 대한 상세정보를 입력한 후 병원 등록.</li>
     </ul>
-    <img src="https://github.com/user-attachments/assets/d9a06743-226c-49d2-a127-cbf3791d1e9a" width="500" alt="병원 등록하기4">
+    <img src="https://github.com/user-attachments/assets/d9a06743-226c-49d2-a127-cbf3791d1e9a" width="600" alt="병원 등록하기4">
   </ul>
   <br>
   <ul>
@@ -210,7 +210,7 @@
     <ul>
       <li>병원 검색을 통해 병원이 잘 등록됐는지 조회.</li>
     </ul>
-    <img src="https://github.com/user-attachments/assets/44b94cff-5de6-4061-b831-099d816ba83e" width="500" alt="병원 등록하기5">
+    <img src="https://github.com/user-attachments/assets/44b94cff-5de6-4061-b831-099d816ba83e" width="600" alt="병원 등록하기5">
   </ul>
 </details>
 
