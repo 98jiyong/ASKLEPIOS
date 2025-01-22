@@ -62,14 +62,14 @@
     <h3>로그인</h3>
     <ol>
       <li>회원제를 통한 ¹퀵메뉴 및 ²실시간 예약 순위 정보를 제공하여 차별화된 서비스를 구현.</li>
-      <img src="https://github.com/user-attachments/assets/1c67cf2b-a618-450d-a810-eb21dbb53cc4" width="600" alt="로그인1"><br>
+      <img src="https://github.com/user-attachments/assets/1c67cf2b-a618-450d-a810-eb21dbb53cc4" width="600" alt="로그인1"><br><br>
       <li>Security를 활용하여 로그인.
       <ul>
       <li>모든 정보를 올바르게 입력해야만 로그인이 가능하며,</li>
       <li>실패 시 => Config의 오류 메시지를 받아서 View로 반환.</li>
       </ul>
       </li>
-      <img src="https://github.com/user-attachments/assets/463491af-6e48-453c-9a22-54d1251ebae9" width="400" alt="로그인2"><br>
+      <img src="https://github.com/user-attachments/assets/463491af-6e48-453c-9a22-54d1251ebae9" width="400" alt="로그인2"><br><br>
       <li>성공 시 => 퀵메뉴 및 실시간 예약순위를 확인할 수 있고, 회원별 기능 사용 가능.</li>
       <img src="https://github.com/user-attachments/assets/059796e1-9c9e-4d18-b0d4-99c80df947cc" width="600" alt="로그인3">
     </ol>
@@ -78,9 +78,9 @@
     <ul>
       <li>회원은 이름과 주민등록번호를 입력해 아이디를 찾을 수 있음.</li>
       <li>필수정보를 입력하지 않으면 경고문이 나타나며, 아이디를 찾을 수 없음.</li>
-      <img src="https://github.com/user-attachments/assets/0889b60c-462a-4440-90f3-4d8e14a5d150" alt="아이디 찾기1"><br>
+      <img src="https://github.com/user-attachments/assets/0889b60c-462a-4440-90f3-4d8e14a5d150" alt="아이디 찾기1"><br><br>
       <li>실패 시 => 입력한 정보가 일치하지 않다는 경고문이 나타남.</li>
-      <img src="https://github.com/user-attachments/assets/06cbbb4a-86dc-4b0c-b1ee-ef8d77714210" width="400" alt="아이디 찾기2"><br>
+      <img src="https://github.com/user-attachments/assets/06cbbb4a-86dc-4b0c-b1ee-ef8d77714210" width="400" alt="아이디 찾기2"><br><br>
       <li>성공 시 => 마스킹 된 자신의 아이디를 확인할 수 있음.</li>
       <img src="https://github.com/user-attachments/assets/beb7d563-a136-417e-bf86-5fbe07f91a68" width="400" alt="아이디 찾기3">
     </ul>
@@ -88,9 +88,9 @@
     <h3>임시 비밀번호 발급</h3>
     <ul>
       <li>메일을 통해 일회용 인증코드를 전송하여 본인확인 후 임시 비밀번호를 발급 받을 수 있음.</li>
-      <img src="https://github.com/user-attachments/assets/38c7def0-34c7-4095-a05c-550ad51ddc11" alt="임시 비밀번호 발급1">
+      <img src="https://github.com/user-attachments/assets/38c7def0-34c7-4095-a05c-550ad51ddc11" alt="임시 비밀번호 발급1"><br><br>
       <li>회원가입시 입력한 아이디와 이메일이 일치해야 이메일 인증이 가능.</li>
-      <img src="https://github.com/user-attachments/assets/bde7edff-1a37-4656-9a61-8a405a23ddfc" width="400" alt="임시 비밀번호 발급2">
+      <img src="https://github.com/user-attachments/assets/bde7edff-1a37-4656-9a61-8a405a23ddfc" width="400" alt="임시 비밀번호 발급2"><br><br>
       <li>인증코드를 통한 인증번호 확인 후 임시 비밀번호 발급 가능.</li>
       <img src="https://github.com/user-attachments/assets/3cbf7e9c-e6eb-4176-92b3-c4cc50f88ed8" width="400" alt="임시 비밀번호 발급3">
     </ul>
@@ -108,20 +108,20 @@
         <li>초기화면은 리스트와 지도에 아무것도 표시되지 않음</li>
         <li>위치 정보 제공 동의 시 사용자 위치 중심으로 맵과 리스트에 병원을 제공</li>
       </ul>
-      <img src="https://github.com/user-attachments/assets/1dd32c0f-0f16-4dd9-8cbf-d32564b75ea9" width="600" alt="예약1">
+      <img src="https://github.com/user-attachments/assets/1dd32c0f-0f16-4dd9-8cbf-d32564b75ea9" width="600" alt="예약1"><br><br>
       <li>병원 클릭 시</li>
       <ul>
         <li>해당 병원이 플랫폼에 등록돼있으면 예약하기 버튼을 표시</li>
         <li>해당 병원에 마커 클릭시 도착지를 자동 입력하여 길찾기 서비스 제공</li>
         <li>사용자는 손쉽게 출발지를 입력해 길을 찾을 수 있음.</li>
       </ul>
-      <img src="https://github.com/user-attachments/assets/adc218c4-9c2a-4026-ac0d-61344dbd3ad8" width="600" alt="예약2">
+      <img src="https://github.com/user-attachments/assets/adc218c4-9c2a-4026-ac0d-61344dbd3ad8" width="600" alt="예약2"><br><br>
       <li>병원 검색 시</li>
       <ul>
         <li>지역 검색 시 해당 지역 중심으로 병원 정보를 제공</li>
         <li>키워드 검색을 통해 원하는 지역의 진료과목 또한 검색 가능</li>
       </ul>
-      <img src="https://github.com/user-attachments/assets/8a64423c-281a-48d2-b041-6c4d8b539f3b" width="600" alt="예약3">
+      <img src="https://github.com/user-attachments/assets/8a64423c-281a-48d2-b041-6c4d8b539f3b" width="600" alt="예약3"><br><br>
     </ul>
     <h3>병원 예약 및 진료 예약</h3>
     <ul>
@@ -131,7 +131,7 @@
         <li>해당 병원 정보를 확인한 후 원하는 의사를 선택해 예약 가능</li>
         <li>예약 시 선택한 병원, 담당 의사, 사용자 정보가 자동으로 입력됨.</li>
       </ul>
-      <img src="https://github.com/user-attachments/assets/354e9ea3-5823-4d0d-9c4c-d86d7c389480" width="600" alt="예약4">
+      <img src="https://github.com/user-attachments/assets/354e9ea3-5823-4d0d-9c4c-d86d7c389480" width="600" alt="예약4"><br><br>
     </ul>
     <br>
       <h3>진료 예약</h3>
@@ -217,25 +217,36 @@
 <details>
   <summary><b>5. 회원가입 [조준곤]</b> (👈 Click)</summary>
   <br>
-  <h3>BOM 관리 - 세부목록 조회</h3>
-  <ul>
-    <li>제품번호 클릭 시, 해당하는 자재리스트를 화면에서 바로 조회할 수 있다.</li>
-    <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/e5d0454b-2828-4f13-8cf2-923272e72988" alt="BOM 세부목록 조회">
-  </ul>
-  <br>
-  <h3>BOM 관리 - 세부목록 수정</h3>
-  <ul>
-    <li>원하는 행의 [수정] 버튼을 누른 후 값을 입력하고 [수정] 버튼을 누르면 DB에 저장된다.</li>
-    <li>취소시 저장된 수량값이 DB에 다시 저장된다.</li>
-    <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/d97aab8b-b26f-41bb-a83a-096e10483150" alt="BOM 수정">
-  </ul>
-  <br>
-  <h3>BOM 관리 - BOM 등록</h3>
-  <ul>
-    <li>'제품번호', '자재번호'를 선택하고 '단위', '수량'을 입력한 후, [추가] 버튼을 누르면 DB에 저장된다.</li>
-    <li>등록된 '제품번호'와 '자재번호'가 존재할 경우, [추가] 버튼 클릭시 오류 메세지가 출력된다.</li>
-    <img src="https://github.com/heyJSH/CNR_FURNITURE/assets/150403977/2fd179a2-0b65-4c76-a657-331d633e9faa" alt="BOM 등록">
-  </ul>
+  <h3>회원가입</h3>
+  <ol>
+    <li>약관 동의를 진행한 후 회원가입을 할 수 있음</li>
+    <ul>
+      <li>약관을 모두 동의하지 않고 회원가입을 진행하면 경고창이 뜸</li>
+      <li>모든 약관을 동의할 시, 상단에 전체 체크 버튼이 활성화됨</li>
+    </ul>
+    <img src="https://github.com/user-attachments/assets/e21ef9d4-1a1a-4337-b217-ffa9205f47b8" width="600" alt="회원가입1"><br><br>
+    <li>원하는 아이디 및 비밀번호를 입력하여 계정을 생성</li>
+    <ul>
+      <li>아이디 중복 확인을 통해 사용할 수 있는지 확인</li>
+      <li>비밀번호 재입력을 통한 비밀번호 확인.</li>
+    </ul>
+    <img src="https://github.com/user-attachments/assets/4ef28dc5-694f-45b4-a6c6-958352b1d083" width="600" alt="회원가입2"><br><br>
+    <li>이메일 인증을 통한 무결성과 보안을 보장.</li>
+    <img src="https://github.com/user-attachments/assets/4b74c3e9-bc2a-4962-9456-87e0860c9b8e" width="600" alt="회원가입3"><br><br>
+    <li>주소 및 프로필 사진을 첨부하여 회원가입 완료</li>
+    <ul>
+      <li>다음 주소검색 API를 사용해 주소를 입력</li>
+      <li>사진 첨부를 통해 프로필 사진 설정 가능</li>
+    </ul>
+    <img src="https://github.com/user-attachments/assets/20a15c01-e6f8-4131-b6ff-0adf5f8e433d" width="600" alt="회원가입4"><br><br>
+    <li>가입대상이 의사라면 추가작성을 통해 소속된 병원 및 경력 설정</li>
+    <ul>
+      <li>병원 검색을 통해 자신이 소속된 병원을 클릭해 병원코드 설정</li>
+      <li>상세정보에 표시될 자신의 경력 및 학력 작성</li>
+    </ul>
+    <img src="https://github.com/user-attachments/assets/cc51ace0-8740-4f37-b1a6-e6fad736a43e" width=
+    "600" alt="회원가입5">
+  </ol>
 </details>
 
 <details>
